@@ -7,13 +7,7 @@ import { FlatList, StyleSheet, View } from 'react-native'
 
 import { backgroundColor } from '../globalStyles'
 
-import {
-  AppHeaderLarge,
-  ModularView,
-  NotificationCredentialListItem,
-  NotificationProofListItem,
-  Text,
-} from 'components'
+import { Button, ModularView, NotificationCredentialListItem, NotificationProofListItem, Text } from 'components'
 import { HomeStackParams } from 'types/navigators'
 
 interface Props {
@@ -24,19 +18,18 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor,
     height: '100%',
+    alignItems: 'center',
   },
 })
 
-const Home: React.FC = () => {
+const Home: React.FC<Props> = ({ navigation }) => {
   const credentials = useCredentialByState(CredentialState.OfferReceived)
   const proofs = useProofByState(ProofState.RequestReceived)
   const { t } = useTranslation()
 
   return (
     <View style={styles.container}>
-      <AppHeaderLarge />
       <ModularView
-        // @ts-ignore
         title={t('Home.Notifications')}
         content={
           <FlatList
@@ -53,6 +46,13 @@ const Home: React.FC = () => {
           />
         }
       />
+      <Button
+        outlined
+        neutral
+        title={t('Home.ManageYourWallet')}
+        accessibilityLabel={t('Home.ManageYourWallet')}
+        onPress={() => navigation.navigate('Manage Your Wallet')}
+      ></Button>
     </View>
   )
 }
