@@ -6,10 +6,7 @@ import Settings from '../screens/Settings'
 
 import defaultStackOptions from './defaultStackOptions'
 
-type SettingsStackParams = {
-  Settings: undefined
-  Language: undefined
-}
+import { SettingsStackParams } from 'types/navigators'
 
 const Stack = createStackNavigator<SettingsStackParams>()
 

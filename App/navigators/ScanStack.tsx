@@ -6,9 +6,7 @@ import Scan from '../screens/Scan'
 
 import defaultStackOptions from './defaultStackOptions'
 
-export type ScanStackParams = {
-  Scan: undefined
-}
+import { ScanStackParams } from 'types/navigators'
 
 const Stack = createStackNavigator<ScanStackParams>()
 
