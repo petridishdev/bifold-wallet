@@ -6,14 +6,11 @@ import Settings from '../screens/Settings'
 
 import defaultStackOptions from './defaultStackOptions'
 
-type SettingsStackParams = {
-  Settings: undefined
-  Language: undefined
-}
+import { SettingsStackParams } from 'types/navigators'
 
-const Stack = createStackNavigator<SettingsStackParams>()
+const SettingStack: React.FC = () => {
+  const Stack = createStackNavigator<SettingsStackParams>()
 
-function SettingStack() {
   return (
     <Stack.Navigator screenOptions={{ ...defaultStackOptions, headerShown: false }}>
       <Stack.Screen name="Settings" component={Settings} />

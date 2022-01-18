@@ -1,6 +1,5 @@
 import type { RouteProp } from '@react-navigation/native'
 import type { StackNavigationProp } from '@react-navigation/stack'
-import type { HomeStackParams } from 'navigators/HomeStack'
 
 import { ConnectionRecord, CredentialRecord, CredentialState } from '@aries-framework/core'
 import { IndyCredentialMetadata } from '@aries-framework/core/build/types'
@@ -10,12 +9,13 @@ import { useTranslation } from 'react-i18next'
 import { StyleSheet, FlatList, Alert, View } from 'react-native'
 import Toast from 'react-native-toast-message'
 
-import { backgroundColor } from '../globalStyles'
+import { Colors } from '../Theme'
 import { parseSchema } from '../helpers'
 
 import { Button, ModularView, Label } from 'components'
+import { HomeStackParams } from 'types/navigators'
 
-interface Props {
+interface CredentialOfferProps {
   navigation: StackNavigationProp<HomeStackParams, 'Credential Offer'>
   route: RouteProp<HomeStackParams, 'Credential Offer'>
 }
@@ -27,7 +27,7 @@ interface IndexedIndyCredentialMetadata extends IndyCredentialMetadata {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor,
+    backgroundColor: Colors.background,
     height: '100%',
     flex: 1,
     flexDirection: 'column',
@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
 
 const INDY_CREDENTIAL_KEY = '_internal/indyCredential'
 
-const CredentialOffer: React.FC<Props> = ({ navigation, route }) => {
+const CredentialOffer: React.FC<CredentialOfferProps> = ({ navigation, route }) => {
   const { agent } = useAgent()
   const { t } = useTranslation()
   const [buttonsVisible, setButtonsVisible] = useState(true)

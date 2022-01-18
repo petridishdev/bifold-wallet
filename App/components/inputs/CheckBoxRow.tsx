@@ -3,6 +3,7 @@ import { View, StyleSheet, TouchableOpacity, Text } from 'react-native'
 import Icon from 'react-native-vector-icons/MaterialIcons'
 
 import { Colors, TextTheme } from '../../Theme'
+import Text from '../texts/Text'
 
 interface Props {
   title: string

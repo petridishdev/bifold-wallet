@@ -46,7 +46,8 @@ const translation = {
   },
   "Home": {
     "Notifications": "Notifications",
-    "NoNewUpdates": "No New Updates"
+    "NoNewUpdates": "No New Updates",
+    "ManageYourWallet": "Manage Your Wallet"
   },
   "Scan":{
     "SuccessfullyAcceptedConnection":"Successfully Accepted Connection",

@@ -1,12 +1,19 @@
-import { useNavigation } from '@react-navigation/core'
+import { StackNavigationProp } from '@react-navigation/stack'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { StyleSheet, TouchableOpacity, View } from 'react-native'
 import Icon from 'react-native-vector-icons/MaterialIcons'
 
-import { mainColor, shadow } from '../globalStyles'
+import { Colors } from '../Theme'
 
 import { SafeAreaScrollView, Text } from 'components'
+import { SettingsStackParams } from 'types/navigators'
+
+type NewType = StackNavigationProp<SettingsStackParams, 'Settings'>
+
+interface Props {
+  navigation: NewType
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -19,7 +26,7 @@ const styles = StyleSheet.create({
   },
   rowGroup: {
     borderRadius: 8,
-    backgroundColor: shadow,
+    backgroundColor: Colors.shadow,
   },
   row: {
     paddingVertical: 12,
@@ -30,9 +37,8 @@ const styles = StyleSheet.create({
   },
 })
 
-const Settings: React.FC = () => {
+const Settings: React.FC<Props> = ({ navigation }) => {
   const { t } = useTranslation()
-  const navigation = useNavigation()
 
   return (
     <SafeAreaScrollView>
@@ -42,7 +48,7 @@ const Settings: React.FC = () => {
         <View style={styles.rowGroup}>
           <TouchableOpacity style={styles.row} onPress={() => navigation.navigate('Language')}>
             <Text>{t('Settings.Language')}</Text>
-            <Icon name={'chevron-right'} size={25} color={mainColor} />
+            <Icon name={'chevron-right'} size={25} color={Colors.primary} />
           </TouchableOpacity>
         </View>
 

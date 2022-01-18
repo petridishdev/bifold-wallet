@@ -1,42 +1,54 @@
 import React from 'react'
 import { StyleSheet, TouchableOpacity } from 'react-native'
 
-import { borderRadius, mainColor, shadow, textColor } from '../../globalStyles'
+import { borderRadius, Colors } from '../../Theme'
+import { red, textColor, transparent } from '../../globalStyles'
 import Text from '../texts/Text'
 
 interface Props {
   title: string
   accessibilityLabel?: string
   onPress?: () => void
-  disabled?: boolean
   neutral?: true
   negative?: true
+  outlined?: true
+  disabled?: boolean
 }
 
 const styles = StyleSheet.create({
   button: {
     width: '90%',
     borderRadius,
-    backgroundColor: mainColor,
+    borderColor: Colors.primary,
+    backgroundColor: Colors.primary,
     alignItems: 'center',
     padding: 10,
     marginVertical: 10,
   },
   disabled: {
-    backgroundColor: shadow,
+    borderColor: Colors.shadow,
+    backgroundColor: Colors.shadow,
   },
   neutral: {
-    backgroundColor: textColor,
+    borderColor: Colors.shadow,
+    backgroundColor: Colors.text,
   },
   negative: {
-    backgroundColor: '#de3333',
+    borderColor: red,
+    backgroundColor: red,
+  },
+  outlined: {
+    backgroundColor: transparent,
+    padding: 8,
+    borderWidth: 2,
   },
   text: {
     fontSize: 16,
+    color: textColor,
   },
 })
 
-const Button: React.FC<Props> = ({ title, accessibilityLabel, onPress, disabled, neutral, negative }) => {
+const Button: React.FC<Props> = ({ title, accessibilityLabel, onPress, disabled, neutral, negative, outlined }) => {
   const accessible = accessibilityLabel && accessibilityLabel !== '' ? true : false
 
   return (
@@ -44,10 +56,16 @@ const Button: React.FC<Props> = ({ title, accessibilityLabel, onPress, disabled,
       onPress={onPress}
       accessible={accessible}
       accessibilityLabel={accessibilityLabel}
-      style={[styles.button, disabled && styles.disabled, neutral && styles.neutral, negative && styles.negative]}
+      style={[
+        styles.button,
+        neutral && styles.neutral,
+        negative && styles.negative,
+        disabled && styles.disabled,
+        outlined && styles.outlined,
+      ]}
       disabled={disabled}
     >
-      <Text style={[styles.text, neutral && { color: shadow }]}>{title}</Text>
+      <Text style={[styles.text, !(outlined || disabled) && neutral && { color: Colors.shadow }]}>{title}</Text>
     </TouchableOpacity>
   )
 }

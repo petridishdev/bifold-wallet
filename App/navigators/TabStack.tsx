@@ -4,31 +4,24 @@ import { useTranslation } from 'react-i18next'
 import { View } from 'react-native'
 import Icon from 'react-native-vector-icons/MaterialIcons'
 
-import { mainColor } from '../globalStyles'
+import { Colors } from '../Theme'
 
 import ContactStack from './ContactStack'
 import CredentialStack from './CredentialStack'
 import HomeStack from './HomeStack'
 import SettingStack from './SettingStack'
 
-export type TabStackParams = {
-  HomeTab: undefined
-  ContactsTab: undefined
-  ScanTab: undefined
-  CredentialsTab: undefined
-  SettingsTab: undefined
-}
+import { TabStackParams } from 'types/navigators'
 
-const Tab = createBottomTabNavigator<TabStackParams>()
-
-function TabStack() {
+const TabStack: React.FC = () => {
   const { t } = useTranslation()
+  const Tab = createBottomTabNavigator<TabStackParams>()
 
   return (
     <Tab.Navigator
       screenOptions={{
-        tabBarStyle: { backgroundColor: mainColor, elevation: 0, shadowOpacity: 0, borderTopWidth: 0 },
-        tabBarActiveTintColor: 'white',
+        tabBarStyle: { backgroundColor: Colors.primary, elevation: 0, shadowOpacity: 0, borderTopWidth: 0 },
+        tabBarActiveTintColor: Colors.white,
         tabBarInactiveTintColor: 'rgba(255,255,255,0.3)',
       }}
     >

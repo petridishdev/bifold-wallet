@@ -5,3 +5,4 @@ export const shadow = '#1c1c1e'
 export const borderRadius = 5
 export const green = '#2d6e35'
 export const red = '#de3333'
+export const transparent = 'rgba(0, 0, 0, 0)'

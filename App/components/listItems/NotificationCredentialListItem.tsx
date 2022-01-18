@@ -2,13 +2,16 @@ import type { CredentialRecord } from '@aries-framework/core'
 
 import { useConnectionById } from '@aries-framework/react-hooks'
 import { useNavigation } from '@react-navigation/core'
+import { StackNavigationProp } from '@react-navigation/stack'
 import React from 'react'
 import { TouchableOpacity, StyleSheet, View } from 'react-native'
 import Icon from 'react-native-vector-icons/MaterialIcons'
 
-import { textColor, backgroundColor, borderRadius } from '../../globalStyles'
+import { Colors, borderRadius } from '../../Theme'
 import { parseSchema } from '../../helpers'
 import Text from '../texts/Text'
+
+import { HomeStackParams } from 'types/navigators'
 
 interface Props {
   notification: CredentialRecord
@@ -23,7 +26,7 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     paddingLeft: 10,
     borderRadius,
-    backgroundColor,
+    backgroundColor: Colors.background,
   },
   title: {
     fontWeight: 'bold',
@@ -31,7 +34,7 @@ const styles = StyleSheet.create({
 })
 
 const NotificationCredentialListItem: React.FC<Props> = ({ notification }) => {
-  const navigation = useNavigation()
+  const navigation = useNavigation<StackNavigationProp<HomeStackParams>>()
 
   const { metadata, connectionId, id } = notification
 
@@ -46,7 +49,7 @@ const NotificationCredentialListItem: React.FC<Props> = ({ notification }) => {
         <Text style={styles.title}>{parseSchema(metadata?.schemaId)}</Text>
         <Text>{connection?.alias || connection?.invitation?.label}</Text>
       </View>
-      <Icon name="chevron-right" color={textColor} size={30} />
+      <Icon name="chevron-right" color={Colors.text} size={30} />
     </TouchableOpacity>
   )
 }

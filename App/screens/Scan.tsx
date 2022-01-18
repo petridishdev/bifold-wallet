@@ -10,14 +10,14 @@ import { View } from 'react-native'
 import Toast from 'react-native-toast-message'
 
 import { QRScanner } from 'components'
+import { TabStackParams } from 'types/navigators'
 // eslint-disable-next-line import/no-cycle
-import { TabStackParams } from 'navigators/TabStack'
 
-interface Props {
+interface ScanProps {
   navigation: BottomTabNavigationProp<TabStackParams, 'ScanTab'>
 }
 
-const Scan: React.FC<Props> = ({ navigation }) => {
+const Scan: React.FC<ScanProps> = ({ navigation }) => {
   const { agent } = useAgent()
   const { t } = useTranslation()
 
