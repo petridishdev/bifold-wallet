@@ -8,9 +8,9 @@ import defaultStackOptions from './defaultStackOptions'
 
 import { SettingsStackParams } from 'types/navigators'
 
-const Stack = createStackNavigator<SettingsStackParams>()
+const SettingStack: React.FC = () => {
+  const Stack = createStackNavigator<SettingsStackParams>()
 
-function SettingStack() {
   return (
     <Stack.Navigator screenOptions={{ ...defaultStackOptions, headerShown: false }}>
       <Stack.Screen name="Settings" component={Settings} />

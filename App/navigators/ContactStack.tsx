@@ -8,9 +8,9 @@ import defaultStackOptions from './defaultStackOptions'
 
 import { ContactStackParams } from 'types/navigators'
 
-const Stack = createStackNavigator<ContactStackParams>()
+const ContactStack: React.FC = () => {
+  const Stack = createStackNavigator<ContactStackParams>()
 
-function ContactStack() {
   return (
     <Stack.Navigator screenOptions={{ ...defaultStackOptions, headerShown: false }}>
       <Stack.Screen name="Contacts" component={ListContacts} />

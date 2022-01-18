@@ -5,7 +5,7 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { FlatList, StyleSheet, View } from 'react-native'
 
-import { backgroundColor } from '../globalStyles'
+import { Colors } from '../Theme'
 
 import { Button, ModularView, NotificationCredentialListItem, NotificationProofListItem, Text } from 'components'
 import { HomeStackParams } from 'types/navigators'
@@ -16,7 +16,7 @@ interface Props {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor,
+    backgroundColor: Colors.background,
     height: '100%',
     alignItems: 'center',
   },

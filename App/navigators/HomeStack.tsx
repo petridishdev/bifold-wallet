@@ -10,9 +10,9 @@ import defaultStackOptions from './defaultStackOptions'
 
 import { HomeStackParams } from 'types/navigators'
 
-const Stack = createStackNavigator<HomeStackParams>()
+const HomeStack: React.FC = () => {
+  const Stack = createStackNavigator<HomeStackParams>()
 
-function HomeStack() {
   return (
     <Stack.Navigator screenOptions={{ ...defaultStackOptions, headerShown: false }}>
       <Stack.Screen name="Home" component={Home} />
