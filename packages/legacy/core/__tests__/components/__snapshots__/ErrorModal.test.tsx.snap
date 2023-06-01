@@ -112,6 +112,7 @@ exports[`ErrorModal Component Dismiss on demand 1`] = `
         </Text>
         <View
           accessibilityLabel="Global.Okay"
+          accessibilityRole="button"
           accessibilityState={
             Object {
               "disabled": false,
@@ -156,6 +157,8 @@ exports[`ErrorModal Component Dismiss on demand 1`] = `
                     "fontWeight": "bold",
                     "textAlign": "center",
                   },
+                  false,
+                  false,
                   false,
                 ]
               }
@@ -282,6 +285,7 @@ exports[`ErrorModal Component Renders correctly 1`] = `
         </Text>
         <View
           accessibilityLabel="Global.Okay"
+          accessibilityRole="button"
           accessibilityState={
             Object {
               "disabled": false,
@@ -326,6 +330,8 @@ exports[`ErrorModal Component Renders correctly 1`] = `
                     "fontWeight": "bold",
                     "textAlign": "center",
                   },
+                  false,
+                  false,
                   false,
                 ]
               }

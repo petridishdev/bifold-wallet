@@ -172,6 +172,7 @@ exports[`UseBiometry Screen Renders correctly when biometry available 1`] = `
   >
     <View
       accessibilityLabel="Continue"
+      accessibilityRole="button"
       accessibilityState={
         Object {
           "disabled": false,
@@ -214,6 +215,8 @@ exports[`UseBiometry Screen Renders correctly when biometry available 1`] = `
                 "fontWeight": "bold",
                 "textAlign": "center",
               },
+              false,
+              false,
               false,
             ]
           }
@@ -548,6 +551,7 @@ exports[`UseBiometry Screen Renders correctly when biometry available 1`] = `
                   >
                     <View
                       accessibilityLabel="PINCreate.Show"
+                      accessibilityRole="button"
                       accessible={true}
                       focusable={true}
                       hitSlop={
@@ -608,6 +612,7 @@ exports[`UseBiometry Screen Renders correctly when biometry available 1`] = `
                 >
                   <View
                     accessibilityLabel="PINEnter.Unlock"
+                    accessibilityRole="button"
                     accessibilityState={
                       Object {
                         "disabled": false,
@@ -650,6 +655,8 @@ exports[`UseBiometry Screen Renders correctly when biometry available 1`] = `
                               "fontWeight": "bold",
                               "textAlign": "center",
                             },
+                            false,
+                            false,
                             false,
                           ]
                         }
@@ -824,6 +831,7 @@ exports[`UseBiometry Screen Renders correctly when biometry not available 1`] = 
   >
     <View
       accessibilityLabel="Continue"
+      accessibilityRole="button"
       accessibilityState={
         Object {
           "disabled": false,
@@ -868,6 +876,8 @@ exports[`UseBiometry Screen Renders correctly when biometry not available 1`] = 
                 "fontWeight": "bold",
                 "textAlign": "center",
               },
+              false,
+              false,
               false,
             ]
           }
@@ -1202,6 +1212,7 @@ exports[`UseBiometry Screen Renders correctly when biometry not available 1`] = 
                   >
                     <View
                       accessibilityLabel="PINCreate.Show"
+                      accessibilityRole="button"
                       accessible={true}
                       collapsable={false}
                       focusable={true}
@@ -1264,6 +1275,7 @@ exports[`UseBiometry Screen Renders correctly when biometry not available 1`] = 
                 >
                   <View
                     accessibilityLabel="PINEnter.Unlock"
+                    accessibilityRole="button"
                     accessibilityState={
                       Object {
                         "disabled": false,
@@ -1308,6 +1320,8 @@ exports[`UseBiometry Screen Renders correctly when biometry not available 1`] = 
                               "fontWeight": "bold",
                               "textAlign": "center",
                             },
+                            false,
+                            false,
                             false,
                           ]
                         }
@@ -1499,6 +1513,7 @@ exports[`UseBiometry Screen Toggles use biometrics ok 1`] = `
   >
     <View
       accessibilityLabel="Continue"
+      accessibilityRole="button"
       accessibilityState={
         Object {
           "disabled": true,
@@ -1581,6 +1596,8 @@ exports[`UseBiometry Screen Toggles use biometrics ok 1`] = `
                 "fontWeight": "bold",
                 "textAlign": "center",
               },
+              false,
+              false,
             ]
           }
         >
@@ -1914,6 +1931,7 @@ exports[`UseBiometry Screen Toggles use biometrics ok 1`] = `
                   >
                     <View
                       accessibilityLabel="PINCreate.Show"
+                      accessibilityRole="button"
                       accessible={true}
                       focusable={true}
                       hitSlop={
@@ -1974,6 +1992,7 @@ exports[`UseBiometry Screen Toggles use biometrics ok 1`] = `
                 >
                   <View
                     accessibilityLabel="PINEnter.Unlock"
+                    accessibilityRole="button"
                     accessibilityState={
                       Object {
                         "disabled": false,
@@ -2016,6 +2035,8 @@ exports[`UseBiometry Screen Toggles use biometrics ok 1`] = `
                               "fontWeight": "bold",
                               "textAlign": "center",
                             },
+                            false,
+                            false,
                             false,
                           ]
                         }
