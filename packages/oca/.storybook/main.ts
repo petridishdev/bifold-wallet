@@ -1,6 +1,8 @@
 import type { StorybookConfig } from '@storybook/react-webpack5'
 
-import { join, dirname } from 'path'
+import NodePployfillPlugin from 'node-polyfill-webpack-plugin'
+
+import { join, dirname, resolve } from 'path'
 
 /**
  * This function is used to resolve the absolute path of a package.
@@ -22,7 +24,13 @@ const config: StorybookConfig = {
   ],
   framework: {
     name: getAbsolutePath('@storybook/react-webpack5'),
-    options: {},
+    options: {
+      rootDir: resolve(__dirname, '..'),
+    },
+  },
+  webpackFinal: async (config, { configType }) => {
+    config.plugins?.push(new NodePployfillPlugin());
+    return config;
   },
 }
 export default config
