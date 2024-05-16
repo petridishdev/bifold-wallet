@@ -18,6 +18,7 @@ const config: StorybookConfig = {
     getAbsolutePath('@storybook/addon-essentials'),
     getAbsolutePath('@chromatic-com/storybook'),
     getAbsolutePath('@storybook/addon-interactions'),
+    getAbsolutePath('@storybook/addon-react-native-web'),
   ],
   framework: {
     name: getAbsolutePath('@storybook/react-webpack5'),
