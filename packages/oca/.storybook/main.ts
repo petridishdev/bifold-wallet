@@ -18,17 +18,16 @@ const config: StorybookConfig = {
     getAbsolutePath('@storybook/addon-onboarding'),
     getAbsolutePath('@storybook/addon-links'),
     getAbsolutePath('@storybook/addon-essentials'),
-    getAbsolutePath('@chromatic-com/storybook'),
     getAbsolutePath('@storybook/addon-interactions'),
     getAbsolutePath('@storybook/addon-react-native-web'),
   ],
   framework: {
     name: getAbsolutePath('@storybook/react-webpack5'),
-    options: {
-      rootDir: resolve(__dirname, '..'),
-    },
+    options: {},
   },
   webpackFinal: async (config, { configType }) => {
+    config.resolve?.modules?.push(resolve(__dirname, '..', 'node_modules'));
+
     config.plugins?.push(new NodePployfillPlugin());
     return config;
   },
