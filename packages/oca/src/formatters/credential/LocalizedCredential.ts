@@ -7,9 +7,10 @@ import DisplayAttribute from './DisplayAttribute'
 export default class LocalizedCredential {
   #bundle!: OverlayBundle
 
+  attributes!: DisplayAttribute[]
   issuer: string
   name: string
-  attributes!: DisplayAttribute[]
+  watermark?: string
 
   constructor(bundle: OverlayBundle, record: CredentialExchangeRecord, language: string) {
     if (!language) {
@@ -20,6 +21,7 @@ export default class LocalizedCredential {
 
     this.issuer = bundle.metadata.issuer?.[language]
     this.name = bundle.metadata.name?.[language]
+    this.watermark = bundle.metadata?.watermark?.[language]
 
     // If no record attributes are present then grab default attributes from the bundle
     const credentialAttributes = record.credentialAttributes?.length
@@ -44,7 +46,23 @@ export default class LocalizedCredential {
     return this.getAttribute(name)
   }
 
-  getAttribute(attributeName?: string): DisplayAttribute | undefined {
+  get logo(): string | undefined {
+    return this.#bundle.branding?.logo
+  }
+
+  get primaryBackgroundColor(): string | undefined {
+    return this.#bundle.branding?.primaryBackgroundColor
+  }
+
+  get secondaryBackgroundColor(): string | undefined {
+    return this.#bundle.branding?.secondaryBackgroundColor
+  }
+
+  get backgroundImageSlice(): string | undefined {
+    return this.#bundle.branding?.backgroundImageSlice
+  }
+
+  private getAttribute(attributeName?: string): DisplayAttribute | undefined {
     if (!attributeName) {
       return undefined
     }
