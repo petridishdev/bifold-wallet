@@ -3,7 +3,7 @@
  * @param hex color string in hexidecimal format
  * @returns { number | undefined } between 0 and 255
  */
-const luminanceForHexColor = (hex: string): number | undefined => {
+const luminance = (hex: string): number | undefined => {
   if (!/^#([A-Fa-f0-9]{6})$/.test(hex)) {
     return
   }
@@ -16,4 +16,4 @@ const luminanceForHexColor = (hex: string): number | undefined => {
   return Math.round(y)
 }
 
-export default luminanceForHexColor
+export default luminance
