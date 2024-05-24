@@ -15,7 +15,7 @@ const Watermark: React.FC<WatermarkProps> = ({ watermark = '', textStyle, style 
       width,
       height,
       position: 'absolute',
-      top: -0.5 * (height as number),
+      top: -0.33 * (height as number),
       left: -0.05 * (width as number),
     },
     text: {
