@@ -6,3 +6,7 @@ export const toImageSource = (source: unknown): ImageSourcePropType => {
   }
   return source as ImageSourcePropType
 }
+
+export const isDataUrl = (value: string | number | null) => {
+  return typeof value === 'string' && value.startsWith('data:image/')
+}
