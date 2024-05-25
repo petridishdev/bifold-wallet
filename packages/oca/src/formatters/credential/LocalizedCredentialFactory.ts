@@ -4,7 +4,7 @@ import { OverlayBundle } from '../../types'
 
 import LocalizedCredential from './LocalizedCredential'
 
-export default class CredentialFormatter {
+export default class FormattedCredentialFactory {
   #credentials!: Record<string, LocalizedCredential>
 
   constructor(bundle: OverlayBundle, record: CredentialExchangeRecord) {

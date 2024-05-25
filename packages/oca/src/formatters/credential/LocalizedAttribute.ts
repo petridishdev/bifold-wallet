@@ -2,7 +2,7 @@ import { CredentialPreviewAttribute, CredentialPreviewAttributeOptions } from '@
 
 import { IOverlayBundleAttribute as OverlayBundleAttributeOptions } from '../../interfaces/overlay'
 
-export default class DisplayAttribute extends CredentialPreviewAttribute {
+export default class LocalizedAttribute extends CredentialPreviewAttribute {
   characterEncoding: string | undefined
   standard: string | undefined
   format: string | undefined

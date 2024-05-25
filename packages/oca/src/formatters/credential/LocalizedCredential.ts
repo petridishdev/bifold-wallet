@@ -2,12 +2,12 @@ import { CredentialExchangeRecord, CredentialPreviewAttribute } from '@credo-ts/
 
 import { OverlayBundle } from '../../types'
 
-import DisplayAttribute from './DisplayAttribute'
+import LocalizedAttribute from './LocalizedAttribute'
 
-export default class LocalizedCredential {
+export default class FormattedCredential {
   #bundle!: OverlayBundle
 
-  attributes!: DisplayAttribute[]
+  attributes!: LocalizedAttribute[]
   issuer: string
   name: string
   watermark?: string
@@ -33,15 +33,15 @@ export default class LocalizedCredential {
     this.attributes =
       credentialAttributes
         ?.filter((attribute) => bundle.getAttribute(attribute.name))
-        .map((attribute) => new DisplayAttribute(attribute, { name: attribute.name, type: '' }, language)) ?? []
+        .map((attribute) => new LocalizedAttribute(attribute, { name: attribute.name, type: '' }, language)) ?? []
   }
 
-  get primaryAttribute(): DisplayAttribute | undefined {
+  get primaryAttribute(): LocalizedAttribute | undefined {
     const name = this.#bundle.branding?.primaryAttribute
     return this.getAttribute(name)
   }
 
-  get secondaryAttribute(): DisplayAttribute | undefined {
+  get secondaryAttribute(): LocalizedAttribute | undefined {
     const name = this.#bundle.branding?.secondaryAttribute
     return this.getAttribute(name)
   }
@@ -62,7 +62,7 @@ export default class LocalizedCredential {
     return this.#bundle.branding?.backgroundImageSlice
   }
 
-  private getAttribute(attributeName?: string): DisplayAttribute | undefined {
+  private getAttribute(attributeName?: string): LocalizedAttribute | undefined {
     if (!attributeName) {
       return undefined
     }
