@@ -1,12 +1,12 @@
 import { Meta, StoryObj } from '@storybook/react'
 import { Text, useWindowDimensions } from 'react-native'
 
-import { LocalizedCredentialContext } from '../../../../ui/contexts/localizedCredential'
-import Primary from '../../../../ui/components/card/body/Primary'
-import { LocalizedCredential } from '../../../../formatters'
+import { LocalizedCredential } from '@oca/formatters'
+import { LocalizedCredentialContext } from '@ui/contexts/localizedCredential'
+import Primary from '@ui/components/card/body/Primary'
 
 const meta = {
-  title: 'Credential/Components/Layout/Primary Body',
+  title: 'Card/Layout/Primary Body',
   component: () => {
     const { width } = useWindowDimensions()
     return (

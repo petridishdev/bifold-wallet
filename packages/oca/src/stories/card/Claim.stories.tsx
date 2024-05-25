@@ -1,10 +1,10 @@
 import { Meta, StoryObj } from '@storybook/react'
 
-import Claim from '../../../ui/components/card/claim/Claim'
-import { DisplayAttribute } from '../../../formatters'
+import { DisplayAttribute } from '@oca/formatters'
+import Claim from '@ui/components/card/claim/Claim'
 
 const meta = {
-  title: 'Credential/Components/Claim',
+  title: 'Card/Claim',
   component: () => {
     return (
       <Claim

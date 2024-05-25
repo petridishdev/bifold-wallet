@@ -1,12 +1,12 @@
 import { Meta, StoryObj } from '@storybook/react'
 import React from 'react'
 
-import { LocalizedCredentialContext } from '../../ui/contexts/localizedCredential'
-import Credential from '../../ui/components/credential/Credential'
-import { LocalizedCredential, DisplayAttribute } from '../../formatters'
+import { LocalizedCredential, DisplayAttribute } from '@oca/formatters'
+import { LocalizedCredentialContext } from '@ui/contexts/localizedCredential'
+import Credential from '@ui/components/credential/Credential'
 
 const meta = {
-  title: 'Credential/Credential',
+  title: 'Credential',
   component: () => {
     return (
       <LocalizedCredentialContext.Provider

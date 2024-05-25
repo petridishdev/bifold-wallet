@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
-import Status, { StatusLevelEnum } from '../../../ui/components/card/Status'
+import Status, { StatusLevelEnum } from '@ui/components/card/Status'
 
 const meta = {
-  title: 'Credential/Components/Status',
+  title: 'Card/Status',
   component: Status,
   parameters: {
     layout: 'centered',
