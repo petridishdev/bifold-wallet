@@ -18,13 +18,13 @@ interface Spectrum {
  * @returns The contrasting color. Defaults to black and white.
  */
 export const contrastColor = (
-  color: string = '',
+  color?: string | null,
   shadeDark?: string,
   shadeLight?: string,
   spectrum?: Spectrum
 ): string => {
   const midpoint = 255 / 2
-  if ((luminance(color) ?? 255) >= midpoint) {
+  if ((luminance(color ?? '') ?? 255) >= midpoint) {
     return shadeDark ?? spectrum?.darkGrey ?? spectrum?.black ?? '#000000'
   }
   return shadeLight ?? spectrum?.lightGrey ?? spectrum?.white ?? '#FFFFFF'
