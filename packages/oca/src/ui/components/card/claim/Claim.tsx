@@ -1,11 +1,10 @@
-import { View } from 'react-native'
-
-import { DisplayAttribute } from '@oca/formatters'
+import { LocalizedAttribute } from '@oca/formatters'
 import Label from '@ui/components/card/claim/Label'
 import Value from '@ui/components/card/claim/Value'
+import { View } from 'react-native'
 
 export interface ClaimProps extends React.PropsWithChildren {
-  attribute: DisplayAttribute
+  attribute: LocalizedAttribute
 }
 
 const Claim: React.FC<ClaimProps> = ({ attribute }) => {

@@ -1,6 +1,5 @@
+import { LocalizedAttribute } from '@oca/formatters'
 import { Meta, StoryObj } from '@storybook/react'
-
-import { DisplayAttribute } from '@oca/formatters'
 import Claim from '@ui/components/card/claim/Claim'
 
 const meta = {
@@ -12,7 +11,7 @@ const meta = {
           {
             label: 'Name',
             value: 'John Doe',
-          } as DisplayAttribute
+          } as LocalizedAttribute
         }
       />
     )

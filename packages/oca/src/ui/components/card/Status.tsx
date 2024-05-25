@@ -1,7 +1,6 @@
+import { useCredentialTheme } from '@ui/contexts/credentialTheme'
 import { View, StyleSheet, StyleProp, ViewStyle } from 'react-native'
 import Icon from 'react-native-vector-icons/MaterialIcons'
-
-import { useCredentialTheme } from '@ui/contexts/credentialTheme'
 
 export enum StatusLevelEnum {
   WARNING = 'warning',

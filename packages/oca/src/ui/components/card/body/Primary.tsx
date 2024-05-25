@@ -1,6 +1,5 @@
-import { View, StyleSheet, StyleProp, ViewStyle } from 'react-native'
-
 import { useLocalizedCredential } from '@ui/contexts/localizedCredential'
+import { View, StyleSheet, StyleProp, ViewStyle } from 'react-native'
 
 export interface PrimaryProps extends React.PropsWithChildren {
   style?: StyleProp<ViewStyle>

@@ -1,5 +1,5 @@
-import LocalizedCredentialFactory from './LocalizedCredentialFactory'
 import LocalizedAttribute from './LocalizedAttribute'
 import LocalizedCredential from './LocalizedCredential'
+import LocalizedCredentialFactory from './LocalizedCredentialFactory'
 
-export { LocalizedCredentialFactory, LocalizedAttribute, LocalizedCredential }
+export { LocalizedAttribute, LocalizedCredential, LocalizedCredentialFactory }

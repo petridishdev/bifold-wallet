@@ -1,8 +1,7 @@
-import { View, Image, Text, StyleSheet } from 'react-native'
-
 import { contrastColor, isDataUrl } from '@oca/utils'
 import { useCredentialTheme } from '@ui/contexts/credentialTheme'
 import { useLocalizedCredential } from '@ui/contexts/localizedCredential'
+import { View, Image, Text, StyleSheet } from 'react-native'
 
 const borderRadius = 10
 

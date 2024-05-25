@@ -1,5 +1,5 @@
-import CredentialFormatter from './credential/LocalizedCredentialFactory'
-import DisplayAttribute from './credential/LocalizedAttribute'
+import LocalizedAttribute from './credential/LocalizedAttribute'
 import LocalizedCredential from './credential/LocalizedCredential'
+import LocalizedCredentialFactory from './credential/LocalizedCredentialFactory'
 
-export { CredentialFormatter, DisplayAttribute, LocalizedCredential }
+export { LocalizedAttribute, LocalizedCredential, LocalizedCredentialFactory }

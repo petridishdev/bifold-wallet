@@ -1,9 +1,8 @@
+import { LocalizedAttribute, LocalizedCredential } from '@oca/formatters'
 import { Meta, StoryObj } from '@storybook/react'
-import React from 'react'
-
-import { LocalizedCredential, DisplayAttribute } from '@oca/formatters'
-import { LocalizedCredentialContext } from '@ui/contexts/localizedCredential'
 import Credential from '@ui/components/credential/Credential'
+import { LocalizedCredentialContext } from '@ui/contexts/localizedCredential'
+import React from 'react'
 
 const meta = {
   title: 'Credential',
@@ -25,13 +24,13 @@ const meta = {
               label: 'Name',
               value: 'John Doe',
               type: 'string',
-            } as Partial<DisplayAttribute>,
+            } as Partial<LocalizedAttribute>,
             secondaryAttribute: {
               name: 'email',
               label: 'Email',
               value: 'asdf@asdf.com',
               type: 'string',
-            } as Partial<DisplayAttribute>,
+            } as Partial<LocalizedAttribute>,
           } as LocalizedCredential
         }
       >
