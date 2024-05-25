@@ -1,14 +1,15 @@
 import { useCredentialTheme } from '@oca/ui/contexts/credentialTheme'
 import { useLocalizedCredential } from '@oca/ui/contexts/localizedCredential'
-import { FlatList, useWindowDimensions, View } from 'react-native'
-import { createStyleSheet } from '@ui/components/card/utils'
-import Logo from '@ui/components/card/Logo'
-import Primary from '@ui/components/card/body/Primary'
-import Secondary from '@ui/components/card/body/Secondary'
-import Watermark from '../card/Watermark'
 import { contrastColor } from '@oca/utils'
 import Issuer from '@ui/components/card/Issuer'
+import Logo from '@ui/components/card/Logo'
 import Name from '@ui/components/card/Name'
+import Primary from '@ui/components/card/body/Primary'
+import Secondary from '@ui/components/card/body/Secondary'
+import { createStyleSheet } from '@ui/components/card/utils'
+import { FlatList, useWindowDimensions, View } from 'react-native'
+
+import Watermark from '../card/Watermark'
 import Claim from '../card/claim/Claim'
 
 const Request: React.FC = () => {
@@ -22,11 +23,11 @@ const Request: React.FC = () => {
     ...styles,
     primary: {
       ...styles.primary,
-      backgroundColor: '#FFFFFF'
+      backgroundColor: '#FFFFFF',
     } as typeof styles.primary,
     secondary: {
       ...styles.secondary,
-      backgroundColor: localizedCredential?.primaryBackgroundColor
+      backgroundColor: localizedCredential?.primaryBackgroundColor,
     } as typeof styles.secondary,
     watermarkText: {
       ...styles.watermarkText,
@@ -44,19 +45,14 @@ const Request: React.FC = () => {
       <Secondary style={styles.secondary} />
       <Primary style={styles.primary}>
         <View style={styles.primaryChild}>
-          <Issuer
-            issuer={localizedCredential?.issuer}
-            textStyle={styles.issuerText}
-          />
-          <Name
-            name={localizedCredential?.name}
-            textStyle={styles.nameText}
-          />
+          <Issuer issuer={localizedCredential?.issuer} textStyle={styles.issuerText} />
+          <Name name={localizedCredential?.name} textStyle={styles.nameText} />
           <FlatList
             data={localizedCredential?.attributes ?? []}
             renderItem={({ item: attribute }) => {
               return <Claim attribute={attribute} />
-            }} />
+            }}
+          />
         </View>
       </Primary>
       {localizedCredential?.watermark && (

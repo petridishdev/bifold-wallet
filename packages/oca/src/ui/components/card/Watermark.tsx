@@ -7,8 +7,8 @@ interface WatermarkProps extends React.PropsWithChildren {
 }
 
 const Watermark: React.FC<WatermarkProps> = ({ watermark = '', textStyle, style }) => {
-  const { fontSize } = textStyle as TextStyle ?? {}
-  const { width, height } = style as ViewStyle ?? {}
+  const { fontSize } = (textStyle as TextStyle) ?? {}
+  const { width, height } = (style as ViewStyle) ?? {}
 
   const styles = StyleSheet.create({
     container: {

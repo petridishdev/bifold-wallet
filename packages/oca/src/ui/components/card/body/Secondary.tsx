@@ -8,7 +8,7 @@ export interface SecondaryProps extends React.PropsWithChildren {
 
 export const Secondary: React.FC<SecondaryProps> = ({ style }) => {
   const localizedCredential = useLocalizedCredential()
-  const { width, height, backgroundColor } = style as ViewStyle ?? {}
+  const { width, height, backgroundColor } = (style as ViewStyle) ?? {}
   const borderRadius = 10
 
   const styles = StyleSheet.create({
@@ -17,8 +17,13 @@ export const Secondary: React.FC<SecondaryProps> = ({ style }) => {
       minHeight: height,
       borderTopLeftRadius: borderRadius,
       borderBottomLeftRadius: borderRadius,
-      backgroundColor: backgroundColor ?? localizedCredential?.secondaryBackgroundColor ?? localizedCredential?.primaryBackgroundColor,
-      zIndex: +!!(backgroundColor ?? localizedCredential?.backgroundImageSlice ?? localizedCredential?.secondaryBackgroundColor),
+      backgroundColor:
+        backgroundColor ?? localizedCredential?.secondaryBackgroundColor ?? localizedCredential?.primaryBackgroundColor,
+      zIndex: +!!(
+        backgroundColor ??
+        localizedCredential?.backgroundImageSlice ??
+        localizedCredential?.secondaryBackgroundColor
+      ),
     },
     image: {
       flex: 1,
@@ -31,14 +36,16 @@ export const Secondary: React.FC<SecondaryProps> = ({ style }) => {
       style={[styles.container]}
     >
       {/* Specified background color prop overrides the image slice */}
-      {!backgroundColor && <ImageBackground
-        source={toImageSource(localizedCredential?.backgroundImageSlice)}
-        style={styles.image}
-        imageStyle={{
-          borderTopLeftRadius: borderRadius,
-          borderBottomLeftRadius: borderRadius,
-        }}
-      />}
+      {!backgroundColor && (
+        <ImageBackground
+          source={toImageSource(localizedCredential?.backgroundImageSlice)}
+          style={styles.image}
+          imageStyle={{
+            borderTopLeftRadius: borderRadius,
+            borderBottomLeftRadius: borderRadius,
+          }}
+        />
+      )}
     </View>
   )
 }

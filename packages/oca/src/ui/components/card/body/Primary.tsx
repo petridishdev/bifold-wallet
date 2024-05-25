@@ -7,7 +7,7 @@ export interface PrimaryProps extends React.PropsWithChildren {
 
 const Primary: React.FC<PrimaryProps> = ({ style, children }) => {
   const localizedCredential = useLocalizedCredential()
-  const { width, height, backgroundColor } = style as ViewStyle ?? {}
+  const { width, height, backgroundColor } = (style as ViewStyle) ?? {}
   const borderRadius = 10
 
   const styles = StyleSheet.create({

@@ -1,5 +1,7 @@
 import { contrastColor } from '@oca/utils'
+import Issuer from '@ui/components/card/Issuer'
 import Logo from '@ui/components/card/Logo'
+import Name from '@ui/components/card/Name'
 import Status, { StatusLevelEnum } from '@ui/components/card/Status'
 import Watermark from '@ui/components/card/Watermark'
 import Primary from '@ui/components/card/body/Primary'
@@ -9,8 +11,6 @@ import { createStyleSheet } from '@ui/components/card/utils'
 import { useCredentialTheme } from '@ui/contexts/credentialTheme'
 import { useLocalizedCredential } from '@ui/contexts/localizedCredential'
 import { View, useWindowDimensions } from 'react-native'
-import Issuer from '@ui/components/card/Issuer'
-import Name from '@ui/components/card/Name'
 
 const Credential: React.FC = () => {
   const { color } = useCredentialTheme()
@@ -26,7 +26,7 @@ const Credential: React.FC = () => {
         localizedCredential?.primaryBackgroundColor,
         color.grayscale.darkGrey,
         color.grayscale.white
-      )
+      ),
     },
     nameText: {
       ...styles.nameText,
@@ -34,7 +34,7 @@ const Credential: React.FC = () => {
         localizedCredential?.primaryBackgroundColor,
         color.grayscale.darkGrey,
         color.grayscale.white
-      )
+      ),
     },
     claimText: {
       ...styles.claimText,
@@ -60,25 +60,13 @@ const Credential: React.FC = () => {
       <Secondary style={styles.secondary} />
       <Primary style={styles.primary}>
         <View style={styles.primaryChild}>
-          <Issuer
-            issuer={localizedCredential?.issuer}
-            textStyle={styles.issuerText}
-          />
-          <Name
-            name={localizedCredential?.name}
-            textStyle={styles.nameText}
-          />
+          <Issuer issuer={localizedCredential?.issuer} textStyle={styles.issuerText} />
+          <Name name={localizedCredential?.name} textStyle={styles.nameText} />
           {localizedCredential?.primaryAttribute && (
-            <Claim
-              attribute={localizedCredential?.primaryAttribute}
-              textStyle={styles.claimText}
-            />
+            <Claim attribute={localizedCredential?.primaryAttribute} textStyle={styles.claimText} />
           )}
           {localizedCredential?.secondaryAttribute && (
-            <Claim
-              attribute={localizedCredential?.secondaryAttribute}
-              textStyle={styles.claimText}
-            />
+            <Claim attribute={localizedCredential?.secondaryAttribute} textStyle={styles.claimText} />
           )}
         </View>
       </Primary>
@@ -89,10 +77,7 @@ const Credential: React.FC = () => {
           textStyle={styles.watermarkText}
         />
       )}
-      <Status
-        level={StatusLevelEnum.ERROR}
-        style={styles.status}
-      />
+      <Status level={StatusLevelEnum.ERROR} style={styles.status} />
     </View>
   )
 }

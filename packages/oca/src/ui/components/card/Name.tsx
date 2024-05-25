@@ -27,4 +27,3 @@ const Name: React.FC<NameProps> = ({ name, textStyle }) => {
 }
 
 export default Name
-
