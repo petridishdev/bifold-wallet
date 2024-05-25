@@ -1,7 +1,7 @@
 import { View, ImageBackground, StyleSheet, StyleProp, ViewStyle } from 'react-native'
 
-import { useLocalizedCredential } from '../../../components/contexts/localizedCredential'
-import { toImageSource } from '../../../utils/image'
+import { useLocalizedCredential } from '../../../contexts/localizedCredential'
+import { toImageSource } from '../../../../utils/image'
 
 export interface SecondaryProps extends React.PropsWithChildren {
   style?: StyleProp<ViewStyle>

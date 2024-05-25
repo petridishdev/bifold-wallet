@@ -1,6 +1,6 @@
 import { Meta, StoryObj } from '@storybook/react'
 
-import Claim from '../../../components/credential/claim/Claim'
+import Claim from '../../../ui/components/card/claim/Claim'
 import { DisplayAttribute } from '../../../formatters'
 
 const meta = {

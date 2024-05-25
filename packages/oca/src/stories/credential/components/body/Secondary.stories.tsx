@@ -1,8 +1,8 @@
 import { Meta, StoryObj } from '@storybook/react'
 import { useWindowDimensions } from 'react-native'
 
-import { LocalizedCredentialContext } from '../../../../components/contexts/localizedCredential'
-import Secondary from '../../../../components/credential/body/Secondary'
+import { LocalizedCredentialContext } from '../../../../ui/contexts/localizedCredential'
+import Secondary from '../../../../ui/components/card/body/Secondary'
 import { LocalizedCredential } from '../../../../formatters'
 
 const meta: Meta = {

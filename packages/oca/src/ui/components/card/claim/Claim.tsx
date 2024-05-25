@@ -1,6 +1,6 @@
 import { View } from 'react-native'
 
-import { DisplayAttribute } from '../../../formatters'
+import { DisplayAttribute } from '../../../../formatters'
 
 import Label from './Label'
 import Value from './Value'

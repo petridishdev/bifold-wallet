@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
-import Status, { StatusLevelEnum } from '../../../components/credential/Status'
+import Status, { StatusLevelEnum } from '../../../ui/components/card/Status'
 
 const meta = {
   title: 'Credential/Components/Status',

@@ -1,6 +1,6 @@
 import { createContext, useContext } from 'react'
 
-import { LocalizedCredential } from '../../formatters/'
+import { LocalizedCredential } from '../../formatters'
 
 export const LocalizedCredentialContext = createContext<LocalizedCredential | undefined>(undefined)
 
