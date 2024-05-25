@@ -1,8 +1,8 @@
 import { View, Image, Text, StyleSheet } from 'react-native'
 
-import { useCredentialTheme } from '../../../contexts/credentialTheme'
-import { useLocalizedCredential } from '../../../contexts/localizedCredential'
-import { contrastColor, isDataUrl } from '../../../../utils'
+import { contrastColor, isDataUrl } from '@oca/utils'
+import { useCredentialTheme } from '@ui/contexts/credentialTheme'
+import { useLocalizedCredential } from '@ui/contexts/localizedCredential'
 
 const borderRadius = 10
 

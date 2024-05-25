@@ -1,6 +1,6 @@
 import { createContext, useContext } from 'react'
 
-import { IColorTheme, ICredentialTheme, ITextTheme } from '../types/CredentialTheme.interface'
+import { IColorTheme, ICredentialTheme, ITextTheme } from '@ui/types/CredentialTheme.interface'
 
 const color: IColorTheme = {
   semantic: {

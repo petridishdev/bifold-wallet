@@ -1,15 +1,14 @@
 import { StyleSheet, Text, View, useWindowDimensions } from 'react-native'
 
-import { contrastColor } from '../../../utils'
-import { useCredentialTheme } from '../../contexts/credentialTheme'
-import { useLocalizedCredential } from '../../contexts/localizedCredential'
-
-import Logo from '../card/Logo'
-import Status, { StatusLevelEnum } from '../card/Status'
-import Watermark from '../card/Watermark'
-import Primary from '../card/body/Primary'
-import Secondary from '../card/body/Secondary'
-import Claim from '../card/claim/Claim'
+import { contrastColor } from '@oca/utils'
+import Logo from '@ui/components/card/Logo'
+import Status, { StatusLevelEnum } from '@ui/components/card/Status'
+import Watermark from '@ui/components/card/Watermark'
+import Primary from '@ui/components/card/body/Primary'
+import Secondary from '@ui/components/card/body/Secondary'
+import Claim from '@ui/components/card/claim/Claim'
+import { useCredentialTheme } from '@ui/contexts/credentialTheme'
+import { useLocalizedCredential } from '@ui/contexts/localizedCredential'
 
 const Credential: React.FC = () => {
   const { color, text } = useCredentialTheme()

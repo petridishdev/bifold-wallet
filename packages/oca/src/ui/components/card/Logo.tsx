@@ -1,7 +1,7 @@
 import { View, Image, Text, StyleSheet, StyleProp, ViewStyle } from 'react-native'
 
-import { toImageSource } from '../../../utils/image'
-import { useCredentialTheme } from '../../contexts/credentialTheme'
+import { toImageSource } from '@oca/utils'
+import { useCredentialTheme } from '@ui/contexts/credentialTheme'
 
 export interface LogoProps extends React.PropsWithChildren {
   source?: unknown

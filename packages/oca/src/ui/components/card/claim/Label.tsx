@@ -1,9 +1,9 @@
 import startCase from 'lodash.startcase'
 import { Text, StyleSheet } from 'react-native'
 
-import { useCredentialTheme } from '../../../contexts/credentialTheme'
-import { useLocalizedCredential } from '../../../contexts/localizedCredential'
-import { contrastColor } from '../../../../utils'
+import { contrastColor } from '@oca/utils'
+import { useCredentialTheme } from '@ui/contexts/credentialTheme'
+import { useLocalizedCredential } from '@ui/contexts/localizedCredential'
 
 interface LabelProps extends React.PropsWithChildren {
   label: string

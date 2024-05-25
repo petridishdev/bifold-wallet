@@ -1,9 +1,8 @@
 import { View } from 'react-native'
 
-import { DisplayAttribute } from '../../../../formatters'
-
-import Label from './Label'
-import Value from './Value'
+import { DisplayAttribute } from '@oca/formatters'
+import Label from '@ui/components/card/claim/Label'
+import Value from '@ui/components/card/claim/Value'
 
 export interface ClaimProps extends React.PropsWithChildren {
   attribute: DisplayAttribute
