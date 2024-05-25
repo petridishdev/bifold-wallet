@@ -26,10 +26,10 @@ const config: StorybookConfig = {
     options: {},
   },
   webpackFinal: async (config, { configType }) => {
-    config.resolve?.modules?.push(resolve(__dirname, '..', 'node_modules'));
+    config.resolve?.modules?.push(resolve(__dirname, '..', 'node_modules'))
 
-    config.plugins?.push(new NodePployfillPlugin());
-    return config;
+    config.plugins?.push(new NodePployfillPlugin())
+    return config
   },
 }
 export default config

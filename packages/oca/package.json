@@ -43,7 +43,6 @@
     "@storybook/addon-react-native-web": "^0.0.23",
     "@storybook/addon-webpack5-compiler-swc": "^1.0.2",
     "@storybook/blocks": "^8.1.1",
-    "@storybook/react": "^8.1.1",
     "@storybook/react-webpack5": "^8.1.1",
     "@storybook/test": "^8.1.1",
     "@testing-library/jest-native": "5.4.3",
@@ -67,6 +66,7 @@
   "dependencies": {
     "@credo-ts/anoncreds": "0.5.2",
     "@credo-ts/core": "0.5.2",
+    "@storybook/react": "^8.1.1",
     "axios": "^1.4.0",
     "lodash.startcase": "^4.4.0",
     "react": "^18.3.1",

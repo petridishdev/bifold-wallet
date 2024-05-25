@@ -1,4 +1,4 @@
-import { ImageSourcePropType } from "react-native"
+import { ImageSourcePropType } from 'react-native'
 
 export const toImageSource = (source: unknown): ImageSourcePropType => {
   if (typeof source === 'string') {

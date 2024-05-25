@@ -1,43 +1,44 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react'
 
-import Logo from '../../../components/credential/Logo';
+import Logo from '../../../components/credential/Logo'
 
 const meta = {
-    title: 'Credential/Components/Logo',
-    component: Logo,
-    parameters: {
-        layout: 'centered',
-        controls: {
-            exclude: ['style'],
-        }
+  title: 'Credential/Components/Logo',
+  component: Logo,
+  parameters: {
+    layout: 'centered',
+    controls: {
+      exclude: ['style'],
     },
-    argTypes: {
-        source: {
-            control: 'text',
-        },
-        label: {
-            control: 'text',
-        },
-        elevation: {
-            control: 'number',
-        }
+  },
+  argTypes: {
+    source: {
+      control: 'text',
     },
-    args: {
-        style: {
-            width: 150,
-            height: 150,
-        }
-    }
-} satisfies Meta<typeof Logo>;
+    label: {
+      control: 'text',
+    },
+    elevation: {
+      control: 'number',
+    },
+  },
+  args: {
+    style: {
+      width: 150,
+      height: 150,
+    },
+  },
+} satisfies Meta<typeof Logo>
 
-export default meta;
+export default meta
 
-type Story = StoryObj<typeof meta>;
+type Story = StoryObj<typeof meta>
 
-export const Default = {} satisfies Story;
+export const Default = {} satisfies Story
 
 export const Source = {
-    args: {
-        source: 'https://raw.githubusercontent.com/bcgov/aries-oca-bundles/main/OCABundles/schema/bcgov-digital-trust/LCRB/selling-it-right/bc-logo.jpg'
-    }
-} satisfies Story;
+  args: {
+    source:
+      'https://raw.githubusercontent.com/bcgov/aries-oca-bundles/main/OCABundles/schema/bcgov-digital-trust/LCRB/selling-it-right/bc-logo.jpg',
+  },
+} satisfies Story

@@ -1,42 +1,42 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react'
 
-import Status, { StatusLevelEnum } from '../../../components/credential/Status';
+import Status, { StatusLevelEnum } from '../../../components/credential/Status'
 
 const meta = {
-    title: 'Credential/Components/Status',
-    component: Status,
-    parameters: {
-        layout: 'centered',
-        controls: {
-            exclude: ['style'],
-        }
+  title: 'Credential/Components/Status',
+  component: Status,
+  parameters: {
+    layout: 'centered',
+    controls: {
+      exclude: ['style'],
     },
-    argTypes: {
-        level: {
-            control: 'select',
-            options: [StatusLevelEnum.WARNING, StatusLevelEnum.ERROR],
-        },
+  },
+  argTypes: {
+    level: {
+      control: 'select',
+      options: [StatusLevelEnum.WARNING, StatusLevelEnum.ERROR],
     },
-    args: {
-        style: {
-            width: 150,
-            height: 150,
-        }
-    }
-} satisfies Meta<typeof Status>;
+  },
+  args: {
+    style: {
+      width: 150,
+      height: 150,
+    },
+  },
+} satisfies Meta<typeof Status>
 
-export default meta;
+export default meta
 
-type Story = StoryObj<typeof meta>;
+type Story = StoryObj<typeof meta>
 
 export const Warning = {
-    args: {
-        level: StatusLevelEnum.WARNING,
-    },
-} satisfies Story;
+  args: {
+    level: StatusLevelEnum.WARNING,
+  },
+} satisfies Story
 
 export const Error = {
-    args: {
-        level: StatusLevelEnum.ERROR,
-    },
-} satisfies Story;
+  args: {
+    level: StatusLevelEnum.ERROR,
+  },
+} satisfies Story

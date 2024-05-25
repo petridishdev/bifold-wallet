@@ -17,7 +17,12 @@ interface Spectrum {
  * @param spectrum The color spectrum to use if the shades are not provided.
  * @returns The contrasting color. Defaults to black and white.
  */
-export const contrastColor = (color: string = '', shadeDark?: string, shadeLight?: string, spectrum?: Spectrum): string => {
+export const contrastColor = (
+  color: string = '',
+  shadeDark?: string,
+  shadeLight?: string,
+  spectrum?: Spectrum
+): string => {
   const midpoint = 255 / 2
   if ((luminance(color) ?? 255) >= midpoint) {
     return shadeDark ?? spectrum?.darkGrey ?? spectrum?.black ?? '#000000'

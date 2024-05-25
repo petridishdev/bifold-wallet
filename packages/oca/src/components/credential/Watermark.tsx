@@ -1,4 +1,4 @@
-import { View, StyleSheet, Text, TextStyle, StyleProp, ViewStyle } from "react-native";
+import { View, StyleSheet, Text, TextStyle, StyleProp, ViewStyle } from 'react-native'
 
 interface WatermarkProps extends React.PropsWithChildren {
   watermark: string
@@ -7,8 +7,8 @@ interface WatermarkProps extends React.PropsWithChildren {
 }
 
 const Watermark: React.FC<WatermarkProps> = ({ watermark = '', textStyle, style }) => {
-  const { fontSize } = textStyle as TextStyle;
-  const { width, height } = style as ViewStyle;
+  const { fontSize } = textStyle as TextStyle
+  const { width, height } = style as ViewStyle
 
   const styles = StyleSheet.create({
     container: {
@@ -24,22 +24,16 @@ const Watermark: React.FC<WatermarkProps> = ({ watermark = '', textStyle, style 
       overflow: 'visible',
     },
   })
-  
 
-  const rows = [...Array(Math.ceil((height as number) / (fontSize as number) + 1)).keys()];
+  const rows = [...Array(Math.ceil((height as number) / (fontSize as number) + 1)).keys()]
   const text = `${watermark} `.repeat(
     Math.ceil((width as number) / (Math.cos(30) * (((fontSize as number) / 2) * (watermark.length + 1))))
-  );
+  )
 
   return (
     <View style={styles.container}>
-      {rows.map(i => (
-        <Text
-          accessible={false}
-          key={i}
-          numberOfLines={1}
-          style={[styles.text, { fontSize }, textStyle]}
-        >
+      {rows.map((i) => (
+        <Text accessible={false} key={i} numberOfLines={1} style={[styles.text, { fontSize }, textStyle]}>
           {text}
         </Text>
       ))}
@@ -47,4 +41,4 @@ const Watermark: React.FC<WatermarkProps> = ({ watermark = '', textStyle, style 
   )
 }
 
-export default Watermark;
+export default Watermark

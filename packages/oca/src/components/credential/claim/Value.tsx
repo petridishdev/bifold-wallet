@@ -1,19 +1,18 @@
-import { View, Image, Text, StyleSheet } from 'react-native';
+import { View, Image, Text, StyleSheet } from 'react-native'
 
-import { useCredentialTheme } from '../../../components/contexts/credentialTheme';
-import { useLocalizedCredential } from '../../../components/contexts/localizedCredential';
-
-import { contrastColor, isDataUrl } from '../../../utils';
+import { useCredentialTheme } from '../../../components/contexts/credentialTheme'
+import { useLocalizedCredential } from '../../../components/contexts/localizedCredential'
+import { contrastColor, isDataUrl } from '../../../utils'
 
 const borderRadius = 10
 
 interface ValueProps extends React.PropsWithChildren {
-  value: string;
+  value: string
 }
 
 const Value: React.FC<ValueProps> = ({ value }) => {
-  const { text } = useCredentialTheme();
-  const localizedCredential = useLocalizedCredential();
+  const { text } = useCredentialTheme()
+  const localizedCredential = useLocalizedCredential()
 
   const styles = StyleSheet.create({
     container: {
@@ -39,15 +38,15 @@ const Value: React.FC<ValueProps> = ({ value }) => {
             styles.container,
             {
               lineHeight: 24,
-            }
+            },
           ]}
-        // testID={testIdWithKey('AttributeValue')}
+          // testID={testIdWithKey('AttributeValue')}
         >
           {value}
         </Text>
       )}
     </View>
   )
-};
+}
 
-export default Value;
+export default Value

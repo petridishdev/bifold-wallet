@@ -1,27 +1,26 @@
-import { View, Image, Text, StyleSheet, StyleProp, ViewStyle } from 'react-native';
+import { View, Image, Text, StyleSheet, StyleProp, ViewStyle } from 'react-native'
 
-import { useCredentialTheme } from '../contexts/credentialTheme';
-
-import { toImageSource } from '../../utils/image';
+import { toImageSource } from '../../utils/image'
+import { useCredentialTheme } from '../contexts/credentialTheme'
 
 export interface LogoProps extends React.PropsWithChildren {
-  source?: any
-  label?: string;
-  elevation?: number;
-  style?: StyleProp<ViewStyle>;
+  source?: unknown
+  label?: string
+  elevation?: number
+  style?: StyleProp<ViewStyle>
 }
 
 const Logo: React.FC<LogoProps> = ({ source, label = 'Credential', elevation = 0, style }) => {
-  const { text } = useCredentialTheme();
+  const { text } = useCredentialTheme()
 
-  const { width, height, position, top, left } = style as ViewStyle;
-  const borderRadius = 10;
+  const { width, height, position, top, left } = style as ViewStyle
+  const borderRadius = 10
 
   const styles = StyleSheet.create({
     container: {
       width,
       height,
-      position, 
+      position,
       top,
       left,
       borderRadius,
@@ -34,7 +33,7 @@ const Logo: React.FC<LogoProps> = ({ source, label = 'Credential', elevation = 0
         height: 1,
       },
       shadowOpacity: 0.3,
-      zIndex: 2
+      zIndex: 2,
     },
     image: {
       width,
@@ -45,27 +44,19 @@ const Logo: React.FC<LogoProps> = ({ source, label = 'Credential', elevation = 0
     text: {
       fontSize: 0.5 * (width as number),
       alignSelf: 'center',
-      color: '#000'
-    }
-  });
+      color: '#000',
+    },
+  })
 
-  return (<View style={[styles.container, { elevation }]}>
-    {source ? (
-      <Image
-        source={toImageSource(source)}
-        style={styles.image}
-      />
-    ) : (
-      <Text
-        style={[
-          text.bold,
-          styles.text,
-        ]}
-      >
-        {label.charAt(0).toUpperCase()}
-      </Text>
-    )}
-  </View>);
+  return (
+    <View style={[styles.container, { elevation }]}>
+      {source ? (
+        <Image source={toImageSource(source)} style={styles.image} />
+      ) : (
+        <Text style={[text.bold, styles.text]}>{label.charAt(0).toUpperCase()}</Text>
+      )}
+    </View>
+  )
 }
 
-export default Logo;
+export default Logo
