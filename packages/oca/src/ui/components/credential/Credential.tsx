@@ -84,7 +84,7 @@ const Credential: React.FC = () => {
               },
             ]}
           >
-            Issuer: Example Issuer
+            {localizedCredential?.issuer}
           </Text>
           <Text
             // testID={testIdWithKey('CredentialName')}
@@ -100,7 +100,7 @@ const Credential: React.FC = () => {
               },
             ]}
           >
-            Name: Example Name
+            {localizedCredential?.name}
           </Text>
           {localizedCredential?.primaryAttribute && <Claim attribute={localizedCredential?.primaryAttribute}></Claim>}
           {localizedCredential?.secondaryAttribute && (

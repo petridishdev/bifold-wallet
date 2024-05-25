@@ -12,6 +12,8 @@ const meta = {
       <LocalizedCredentialContext.Provider
         value={
           {
+            issuer: 'Government of British Columbia',
+            name: 'Selling It Right',
             logo: 'https://raw.githubusercontent.com/bcgov/aries-oca-bundles/main/OCABundles/schema/bcgov-digital-trust/LCRB/selling-it-right/bc-logo.jpg',
             backgroundImageSlice:
               'https://www.responsibleservicebc.gov.bc.ca/files/static/bc_wallet_vc_lcrb_image_slice_sell_right.jpg',

@@ -10,11 +10,10 @@ export interface ClaimProps extends React.PropsWithChildren {
 
 const Claim: React.FC<ClaimProps> = ({ attribute }) => {
   return (
-    attribute?.label &&
-    attribute?.value && (
+    (attribute?.label || attribute?.value) && (
       <View>
-        <Label label={attribute.label} />
-        <Value value={attribute.value} />
+        {attribute?.label && <Label label={attribute.label} />}
+        {attribute?.value && <Value value={attribute.value} />}
       </View>
     )
   )
