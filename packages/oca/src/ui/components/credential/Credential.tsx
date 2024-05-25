@@ -1,5 +1,3 @@
-import { StyleSheet, Text, View, useWindowDimensions } from 'react-native'
-
 import { contrastColor } from '@oca/utils'
 import Logo from '@ui/components/card/Logo'
 import Status, { StatusLevelEnum } from '@ui/components/card/Status'
@@ -7,27 +5,31 @@ import Watermark from '@ui/components/card/Watermark'
 import Primary from '@ui/components/card/body/Primary'
 import Secondary from '@ui/components/card/body/Secondary'
 import Claim from '@ui/components/card/claim/Claim'
+import {
+  calculatePadding,
+  calculateLogoWidth,
+  calculateLogoHeight,
+  calculatePrimaryWidth,
+  calculatePrimaryHeight,
+  calculateSecondaryWidth,
+  calculateSecondaryHeight,
+} from '@ui/components/card/utils'
 import { useCredentialTheme } from '@ui/contexts/credentialTheme'
 import { useLocalizedCredential } from '@ui/contexts/localizedCredential'
+import { StyleSheet, Text, View, useWindowDimensions } from 'react-native'
 
 const Credential: React.FC = () => {
   const { color, text } = useCredentialTheme()
   const localizedCredential = useLocalizedCredential()
   const { width: windowWidth } = useWindowDimensions()
 
-  const paddingRatio = 0.05
-  const primaryRatio = 0.88
-  const secondaryRatio = 0.12
-  const logoRatio = 0.12
-  const heightRatio = 0.33
-
-  const padding = paddingRatio * windowWidth
-  const logoWidth = logoRatio * windowWidth
-  const logoHeight = logoRatio * windowWidth
-  const primaryWidth = primaryRatio * windowWidth
-  const primaryHeight = heightRatio * windowWidth
-  const secondaryWidth = secondaryRatio * windowWidth
-  const secondaryHeight = heightRatio * windowWidth
+  const padding = calculatePadding(windowWidth)
+  const logoWidth = calculateLogoWidth(windowWidth)
+  const logoHeight = calculateLogoHeight(windowWidth)
+  const primaryWidth = calculatePrimaryWidth(windowWidth)
+  const primaryHeight = calculatePrimaryHeight(windowWidth)
+  const secondaryWidth = calculateSecondaryWidth(windowWidth)
+  const secondaryHeight = calculateSecondaryHeight(windowWidth)
 
   const styles = StyleSheet.create({
     container: {
