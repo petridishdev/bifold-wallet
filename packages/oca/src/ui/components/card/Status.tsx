@@ -15,7 +15,7 @@ export interface StatusProps extends React.PropsWithChildren {
 const Status: React.FC<StatusProps> = ({ level = undefined, style }) => {
   const { color } = useCredentialTheme()
 
-  const { width, height, position, top, right } = style as ViewStyle
+  const { width, height, position, top, right } = style as ViewStyle ?? {}
   const borderRadius = 10
 
   const styles = StyleSheet.create({

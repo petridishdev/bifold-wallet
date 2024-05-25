@@ -64,21 +64,16 @@ export const createStyleSheet = (windowWidth: number) => {
         paddingLeft: 2 * padding,
         paddingRight: padding + logoWidth,
       },
-      issuerText: {
-        color: ''
-      },
-      nameText: {
-        color: ''
-      },
+      issuerText: {},
+      nameText: {},
+      claimText: {},
       watermark: {
         width: windowWidth,
         height: windowWidth,
       },
       watermarkText: {
         fontSize: 0.05 * (windowWidth as number),
-        opacity: 0.16,
-        color: ''
-      },
+        opacity: 0.16},
       status: {
         width: logoWidth,
         height: logoHeight,

@@ -12,7 +12,7 @@ export interface LogoProps extends React.PropsWithChildren {
 const Logo: React.FC<LogoProps> = ({ source, label = 'Credential', elevation = 0, style }) => {
   const { text } = useCredentialTheme()
 
-  const { width, height, position, top, left } = style as ViewStyle
+  const { width, height, position, top, left } = style as ViewStyle ?? {}
   const borderRadius = 10
 
   const styles = StyleSheet.create({

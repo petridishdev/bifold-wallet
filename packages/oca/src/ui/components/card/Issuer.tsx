@@ -8,7 +8,7 @@ issuer?: string
 
 const Issuer: React.FC<IssuerProps> = ({ issuer, textStyle }) => {
   const { text } = useCredentialTheme()
-  const { color } = textStyle as TextStyle
+  const { color } = textStyle as TextStyle ?? {}
 
   return (
     <Text

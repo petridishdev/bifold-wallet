@@ -36,6 +36,10 @@ const Credential: React.FC = () => {
         color.grayscale.white
       )
     },
+    claimText: {
+      ...styles.claimText,
+      color: contrastColor(localizedCredential?.primaryBackgroundColor),
+    },
     watermarkText: {
       ...styles.watermarkText,
       color: contrastColor(
@@ -43,7 +47,7 @@ const Credential: React.FC = () => {
         color.grayscale.darkGrey,
         color.grayscale.lightGrey
       ),
-    }
+    } as typeof styles.watermarkText,
   }
 
   return (
@@ -65,10 +69,16 @@ const Credential: React.FC = () => {
             textStyle={styles.nameText}
           />
           {localizedCredential?.primaryAttribute && (
-            <Claim attribute={localizedCredential?.primaryAttribute}></Claim>
+            <Claim
+              attribute={localizedCredential?.primaryAttribute}
+              textStyle={styles.claimText}
+            />
           )}
           {localizedCredential?.secondaryAttribute && (
-            <Claim attribute={localizedCredential?.secondaryAttribute}></Claim>
+            <Claim
+              attribute={localizedCredential?.secondaryAttribute}
+              textStyle={styles.claimText}
+            />
           )}
         </View>
       </Primary>

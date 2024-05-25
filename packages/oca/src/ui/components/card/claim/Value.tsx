@@ -1,21 +1,21 @@
-import { contrastColor, isDataUrl } from '@oca/utils'
+import { isDataUrl } from '@oca/utils'
 import { useCredentialTheme } from '@ui/contexts/credentialTheme'
-import { useLocalizedCredential } from '@ui/contexts/localizedCredential'
-import { View, Image, Text, StyleSheet } from 'react-native'
+import { View, Image, Text, StyleSheet, StyleProp, TextStyle } from 'react-native'
 
 const borderRadius = 10
 
 interface ValueProps extends React.PropsWithChildren {
-  value: string
+  value: string,
+  textStyle?: StyleProp<TextStyle>
 }
 
-const Value: React.FC<ValueProps> = ({ value }) => {
+const Value: React.FC<ValueProps> = ({ value, textStyle }) => {
+  const { color } = textStyle as TextStyle ?? {}
   const { text } = useCredentialTheme()
-  const localizedCredential = useLocalizedCredential()
 
   const styles = StyleSheet.create({
     container: {
-      color: contrastColor(localizedCredential?.primaryBackgroundColor),
+      color,
       flexShrink: 1,
     },
     image: {
