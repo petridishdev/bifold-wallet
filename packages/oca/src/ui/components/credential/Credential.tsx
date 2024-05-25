@@ -16,7 +16,9 @@ import {
 } from '@ui/components/card/utils'
 import { useCredentialTheme } from '@ui/contexts/credentialTheme'
 import { useLocalizedCredential } from '@ui/contexts/localizedCredential'
-import { StyleSheet, Text, View, useWindowDimensions } from 'react-native'
+import { StyleSheet, View, useWindowDimensions } from 'react-native'
+import Issuer from '@ui/components/card/Issuer'
+import Name from '@ui/components/card/Name'
 
 const Credential: React.FC = () => {
   const { color, text } = useCredentialTheme()
@@ -37,6 +39,60 @@ const Credential: React.FC = () => {
       borderRadius: 10,
       overflow: 'hidden',
     },
+    logo: {
+      width: logoWidth,
+      height: logoHeight,
+      position: 'absolute',
+      top: padding,
+      left: padding,
+    },
+    secondary: {
+      width: secondaryWidth,
+      height: secondaryHeight,
+    },
+    primary: {
+      width: primaryWidth,
+      height: primaryHeight,
+    },
+    primaryChild: {
+      padding: padding,
+      paddingLeft: 2 * padding,
+      paddingRight: padding + logoWidth,
+    },
+    issuerText: {
+      color: contrastColor(
+        localizedCredential?.primaryBackgroundColor,
+        color.grayscale.darkGrey,
+        color.grayscale.white
+      ),
+    },
+    nameText: {
+      color: contrastColor(
+        localizedCredential?.primaryBackgroundColor,
+        color.grayscale.darkGrey,
+        color.grayscale.white
+      )
+    },
+    watermark: {
+      width: windowWidth,
+      height: windowWidth,
+    },
+    watermarkText: {
+      fontSize: 0.05 * (windowWidth as number),
+      opacity: 0.16,
+      color: contrastColor(
+        localizedCredential?.primaryBackgroundColor,
+        color.grayscale.darkGrey,
+        color.grayscale.lightGrey
+      ),
+    },
+    status: {
+      width: logoWidth,
+      height: logoHeight,
+      position: 'absolute',
+      top: 0,
+      right: 0,
+    },
   })
 
   return (
@@ -44,67 +100,22 @@ const Credential: React.FC = () => {
       <Logo
         source={localizedCredential?.logo}
         label={localizedCredential?.name ?? localizedCredential?.issuer}
-        style={{
-          width: logoWidth,
-          height: logoHeight,
-          position: 'absolute',
-          top: padding,
-          left: padding,
-        }}
+        style={styles.logo}
       />
-      <Secondary
-        style={{
-          width: secondaryWidth,
-          height: secondaryHeight,
-        }}
-      />
-      <Primary
-        style={{
-          width: primaryWidth,
-          height: primaryHeight,
-        }}
-      >
-        <View
-          style={{
-            padding: padding,
-            paddingLeft: 2 * padding,
-            paddingRight: padding + logoWidth,
-          }}
-        >
-          <Text
-            // testID={testIdWithKey('CredentialIssuer')}
-            style={[
-              text.labelBold,
-              {
-                lineHeight: 19,
-                opacity: 0.8,
-                color: contrastColor(
-                  localizedCredential?.primaryBackgroundColor,
-                  color.grayscale.darkGrey,
-                  color.grayscale.white
-                ),
-              },
-            ]}
-          >
-            {localizedCredential?.issuer}
-          </Text>
-          <Text
-            // testID={testIdWithKey('CredentialName')}
-            style={[
-              text.bold,
-              {
-                lineHeight: 24,
-                color: contrastColor(
-                  localizedCredential?.primaryBackgroundColor,
-                  color.grayscale.darkGrey,
-                  color.grayscale.white
-                ),
-              },
-            ]}
-          >
-            {localizedCredential?.name}
-          </Text>
-          {localizedCredential?.primaryAttribute && <Claim attribute={localizedCredential?.primaryAttribute}></Claim>}
+      <Secondary style={styles.secondary} />
+      <Primary style={styles.primary}>
+        <View style={styles.primaryChild}>
+          <Issuer
+            issuer={localizedCredential?.issuer}
+            textStyle={styles.issuerText}
+          />
+          <Name
+            name={localizedCredential?.name}
+            textStyle={styles.nameText}
+          />
+          {localizedCredential?.primaryAttribute && (
+            <Claim attribute={localizedCredential?.primaryAttribute}></Claim>
+          )}
           {localizedCredential?.secondaryAttribute && (
             <Claim attribute={localizedCredential?.secondaryAttribute}></Claim>
           )}
@@ -113,30 +124,13 @@ const Credential: React.FC = () => {
       {localizedCredential?.watermark && (
         <Watermark
           watermark={localizedCredential?.watermark}
-          style={{
-            width: windowWidth,
-            height: windowWidth,
-          }}
-          textStyle={{
-            fontSize: 0.05 * (windowWidth as number),
-            opacity: 0.16,
-            color: contrastColor(
-              localizedCredential?.primaryBackgroundColor,
-              color.grayscale.darkGrey,
-              color.grayscale.lightGrey
-            ),
-          }}
+          style={styles.watermark}
+          textStyle={styles.watermarkText}
         />
       )}
       <Status
         level={StatusLevelEnum.ERROR}
-        style={{
-          width: logoWidth,
-          height: logoHeight,
-          position: 'absolute',
-          top: 0,
-          right: 0,
-        }}
+        style={styles.status}
       />
     </View>
   )
