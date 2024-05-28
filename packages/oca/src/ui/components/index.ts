@@ -1,3 +1,3 @@
-import CredentialCard from "@ui/components/credential/CredentialCard";
+import CredentialCard from '@ui/components/credential/CredentialCard'
 
 export { CredentialCard }
