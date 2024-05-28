@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native'
+
 import { PADDING_RATIO, LOGO_RATIO, PRIMARY_RATIO, HEIGHT_RATIO, SECONDARY_RATIO } from './constants'
 
 export const calculatePadding = (width: number): number => {

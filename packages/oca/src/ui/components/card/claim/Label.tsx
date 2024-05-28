@@ -1,6 +1,7 @@
-import { useCredentialTheme } from '@ui/contexts/credentialTheme'
 import startCase from 'lodash.startcase'
 import { Text, StyleSheet, StyleProp, TextStyle } from 'react-native'
+
+import { useCredentialTheme } from '@ui/contexts/credentialTheme'
 
 interface LabelProps extends React.PropsWithChildren {
   label: string

@@ -1,9 +1,9 @@
-import { RemoteOCABundleResolver } from '../src/legacy/resolver/remote-oca'
-import fs from 'fs'
-import { ocaCacheDataFileName, defaultBundleIndexFileName } from '../src/constants'
 import axios from 'axios'
-import MiniLogger from '../src/utils/logger'
+import fs from 'fs'
 import { readFile, writeFile, exists, mkdir, unlink } from 'react-native-fs'
+
+import { ocaCacheDataFileName, defaultBundleIndexFileName } from '../src/constants'
+import { RemoteOCABundleResolver } from '../src/legacy/resolver/remote-oca'
 
 const bundleFileName = 'bundle.json'
 const ocaPath = `${__dirname}/fixtures/${ocaCacheDataFileName}`
@@ -71,7 +71,6 @@ describe('RemoteOCABundleResolver', () => {
 
   beforeEach(() => {
     resolver = new RemoteOCABundleResolver('http://example.com')
-    // resolver.log = new MiniLogger()
 
     jest.clearAllMocks()
     // @ts-ignore

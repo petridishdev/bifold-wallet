@@ -1,6 +1,7 @@
 import { Meta, StoryObj } from '@storybook/react'
-import Primary from '@ui/components/card/body/Primary'
 import { Text, useWindowDimensions } from 'react-native'
+
+import Primary from '@ui/components/card/body/Primary'
 
 const meta = {
   title: 'Card/Layout/Primary Body',

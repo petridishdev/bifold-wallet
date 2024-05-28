@@ -1,5 +1,6 @@
-import { useCredentialTheme } from '@oca/ui/contexts/credentialTheme'
 import { StyleProp, Text, TextStyle } from 'react-native'
+
+import { useCredentialTheme } from '@oca/ui/contexts/credentialTheme'
 
 interface NameProps extends React.PropsWithChildren {
   name?: string

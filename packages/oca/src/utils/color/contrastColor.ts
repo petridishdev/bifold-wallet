@@ -21,7 +21,7 @@ export const contrastColor = (
   color: string = '',
   shadeDark?: string,
   shadeLight?: string,
-  spectrum?: Spectrum
+  spectrum?: Spectrum,
 ): string => {
   const midpoint = 255 / 2
   if ((luminance(color) ?? 255) >= midpoint) {

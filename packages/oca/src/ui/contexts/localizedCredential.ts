@@ -1,5 +1,6 @@
-import { LocalizedCredential } from '@oca/formatters'
 import { createContext, useContext } from 'react'
+
+import { LocalizedCredential } from '@oca/formatters'
 
 export const LocalizedCredentialContext = createContext<LocalizedCredential | undefined>(undefined)
 

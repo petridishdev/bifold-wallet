@@ -1,5 +1,6 @@
-import { LocalizedAttribute } from '@oca/formatters'
 import { Meta, StoryObj } from '@storybook/react'
+
+import { LocalizedAttribute } from '@oca/formatters'
 import Claim from '@ui/components/card/claim/Claim'
 
 const meta = {

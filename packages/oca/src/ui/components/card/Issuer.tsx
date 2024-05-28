@@ -1,5 +1,6 @@
-import { useCredentialTheme } from '@oca/ui/contexts/credentialTheme'
 import { Text, TextStyle } from 'react-native'
+
+import { useCredentialTheme } from '@oca/ui/contexts/credentialTheme'
 
 interface IssuerProps extends React.PropsWithChildren {
   issuer?: string

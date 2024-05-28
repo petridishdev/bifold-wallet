@@ -1,4 +1,5 @@
 import { StyleProp, TextStyle, View } from 'react-native'
+
 import { LocalizedAttribute } from '@oca/formatters'
 import Label from '@ui/components/card/claim/Label'
 import Value from '@ui/components/card/claim/Value'

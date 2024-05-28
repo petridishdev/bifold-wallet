@@ -1,5 +1,10 @@
+import { View, useWindowDimensions } from 'react-native'
+
+import { LocalizedCredential } from '@oca/formatters'
 import { contrastColor, toImageSource } from '@oca/utils'
+import Issuer from '@ui/components/card/Issuer'
 import Logo from '@ui/components/card/Logo'
+import Name from '@ui/components/card/Name'
 import Status, { StatusLevelEnum } from '@ui/components/card/Status'
 import Watermark from '@ui/components/card/Watermark'
 import Primary from '@ui/components/card/body/Primary'
@@ -7,10 +12,6 @@ import Secondary from '@ui/components/card/body/Secondary'
 import Claim from '@ui/components/card/claim/Claim'
 import { createStyleSheet } from '@ui/components/card/utils'
 import { useCredentialTheme } from '@ui/contexts/credentialTheme'
-import { View, useWindowDimensions } from 'react-native'
-import Issuer from '@ui/components/card/Issuer'
-import Name from '@ui/components/card/Name'
-import { LocalizedCredential } from '@oca/formatters'
 
 interface CardProps extends React.PropsWithChildren {
   connectionId?: string

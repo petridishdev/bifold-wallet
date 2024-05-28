@@ -156,7 +156,7 @@ export class OCABundle implements OCABundleType {
       const overlay = this.bundle.overlays.find(
         (item) =>
           ((item as unknown as LanguageOverlay).language === undefined && item.type === type.toString()) ||
-          (item.type === type.toString() && (item as unknown as LanguageOverlay).language === language)
+          (item.type === type.toString() && (item as unknown as LanguageOverlay).language === language),
       ) as T | undefined
       if (overlay) {
         return overlay
@@ -174,7 +174,7 @@ export class DefaultOCABundleResolver implements OCABundleResolverType {
 
   public constructor(
     bundlesData: Record<string, IOverlayBundleData | string> = {},
-    options?: OCABundleResolverOptions
+    options?: OCABundleResolverOptions,
   ) {
     for (const cid in bundlesData) {
       try {
@@ -225,7 +225,7 @@ export class DefaultOCABundleResolver implements OCABundleResolverType {
       type: OverlayType.Meta10,
       name: startCase(
         params.meta?.credName ??
-          parseCredDefFromId(params.identifiers?.credentialDefinitionId, params.identifiers?.schemaId)
+          parseCredDefFromId(params.identifiers?.credentialDefinitionId, params.identifiers?.schemaId),
       ),
       issuer: params.meta?.alias || params.meta?.credConnectionId || 'Unknown Contact',
       language: params.language ?? this.options?.language,
@@ -269,7 +269,7 @@ export class DefaultOCABundleResolver implements OCABundleResolverType {
     })
 
     return Promise.resolve(
-      new OCABundle(bundle, { ...this.options, language: params.language ?? this.options.language })
+      new OCABundle(bundle, { ...this.options, language: params.language ?? this.options.language }),
     )
   }
 
@@ -295,7 +295,7 @@ export class DefaultOCABundleResolver implements OCABundleResolverType {
           bundle = this.bundles[bundle]
         }
         return Promise.resolve(
-          new OCABundle(bundle as OverlayBundle, { ...this.options, language: language ?? this.options.language })
+          new OCABundle(bundle as OverlayBundle, { ...this.options, language: language ?? this.options.language }),
         )
       }
     }
