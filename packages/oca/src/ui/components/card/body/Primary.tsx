@@ -1,4 +1,3 @@
-import { useLocalizedCredential } from '@ui/contexts/localizedCredential'
 import { View, StyleSheet, StyleProp, ViewStyle } from 'react-native'
 
 export interface PrimaryProps extends React.PropsWithChildren {
@@ -6,17 +5,16 @@ export interface PrimaryProps extends React.PropsWithChildren {
 }
 
 const Primary: React.FC<PrimaryProps> = ({ style, children }) => {
-  const localizedCredential = useLocalizedCredential()
-  const { width, height } = style as ViewStyle
+  const { width, height, backgroundColor } = style as ViewStyle
   const borderRadius = 10
 
   const styles = StyleSheet.create({
     container: {
-      width: width,
+      width,
       minHeight: height,
       borderTopRightRadius: borderRadius,
       borderBottomRightRadius: borderRadius,
-      backgroundColor: localizedCredential?.primaryBackgroundColor,
+      backgroundColor,
       flex: 1,
     },
   })

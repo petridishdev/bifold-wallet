@@ -1,24 +1,22 @@
-import { toImageSource } from '@oca/utils'
-import { useLocalizedCredential } from '@ui/contexts/localizedCredential'
-import { View, ImageBackground, StyleSheet, StyleProp, ViewStyle } from 'react-native'
+import { View, ImageBackground, StyleSheet, StyleProp, ViewStyle, ImageSourcePropType } from 'react-native'
 
 export interface SecondaryProps extends React.PropsWithChildren {
+  source?: ImageSourcePropType
   style?: StyleProp<ViewStyle>
 }
 
-export const Secondary: React.FC<SecondaryProps> = ({ style }) => {
-  const localizedCredential = useLocalizedCredential()
-  const { width, height } = style as ViewStyle
+export const Secondary: React.FC<SecondaryProps> = ({ source, style }) => {
+  const { width, height, backgroundColor, zIndex } = style as ViewStyle
   const borderRadius = 10
 
   const styles = StyleSheet.create({
     container: {
-      width: width as number,
-      minHeight: height as number,
+      width,
+      minHeight: height,
       borderTopLeftRadius: borderRadius,
       borderBottomLeftRadius: borderRadius,
-      backgroundColor: localizedCredential?.secondaryBackgroundColor ?? localizedCredential?.primaryBackgroundColor,
-      zIndex: +!!(localizedCredential?.backgroundImageSlice ?? localizedCredential?.secondaryBackgroundColor),
+      backgroundColor,
+      zIndex,
     },
     image: {
       flex: 1,
@@ -31,7 +29,7 @@ export const Secondary: React.FC<SecondaryProps> = ({ style }) => {
       style={[styles.container]}
     >
       <ImageBackground
-        source={toImageSource(localizedCredential?.backgroundImageSlice)}
+        source={source}
         style={styles.image}
         imageStyle={{
           borderTopLeftRadius: borderRadius,

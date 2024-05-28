@@ -1,24 +1,12 @@
-import { LocalizedCredential } from '@oca/formatters'
 import { Meta, StoryObj } from '@storybook/react'
 import Secondary from '@ui/components/card/body/Secondary'
-import { LocalizedCredentialContext } from '@ui/contexts/localizedCredential'
 import { useWindowDimensions } from 'react-native'
 
 const meta: Meta = {
   title: 'Card/Layout/Secondary Body',
   component: () => {
     const { width } = useWindowDimensions()
-    return (
-      <LocalizedCredentialContext.Provider
-        value={
-          {
-            secondaryBackgroundColor: 'rgba(0, 0, 0, 0.24)',
-          } as LocalizedCredential
-        }
-      >
-        <Secondary style={{ width: 0.12 * width, height: 0.33 * width }} />
-      </LocalizedCredentialContext.Provider>
-    )
+    return <Secondary style={{ width: 0.12 * width, height: 0.33 * width, backgroundColor: 'rgba(0, 0, 0, 0.24)' }} />
   },
   parameters: {
     layout: 'padded',
