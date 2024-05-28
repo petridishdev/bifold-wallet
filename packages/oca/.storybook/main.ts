@@ -33,7 +33,6 @@ const config: StorybookConfig = {
       '@ui': resolve(__dirname, '..', 'src/ui'),
       '@utils': resolve(__dirname, '..', 'src/utils'),
     }
-
     config.resolve?.modules?.push(resolve(__dirname, '..', 'node_modules'))
     config.plugins?.push(new NodePployfillPlugin())
     return config

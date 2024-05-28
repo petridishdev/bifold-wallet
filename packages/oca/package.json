@@ -34,6 +34,7 @@
   },
   "homepage": "https://github.com/hyperledger/aries-mobile-agent-react-native#readme",
   "devDependencies": {
+    "@babel/plugin-transform-export-namespace-from": "^7.24.6",
     "@babel/preset-react": "^7.24.1",
     "@react-native/babel-preset": "^0.74.83",
     "@storybook/addon-essentials": "^8.1.1",
