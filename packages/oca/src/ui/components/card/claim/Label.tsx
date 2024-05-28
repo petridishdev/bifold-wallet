@@ -3,12 +3,12 @@ import startCase from 'lodash.startcase'
 import { Text, StyleSheet, StyleProp, TextStyle } from 'react-native'
 
 interface LabelProps extends React.PropsWithChildren {
-  label: string,
+  label: string
   textStyle?: StyleProp<TextStyle>
 }
 
 const Label: React.FC<LabelProps> = ({ label, textStyle }) => {
-  const { color } = textStyle as TextStyle ?? {}
+  const { color } = (textStyle as TextStyle) ?? {}
   const { text } = useCredentialTheme()
 
   const styles = StyleSheet.create({

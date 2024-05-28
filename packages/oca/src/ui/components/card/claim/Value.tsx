@@ -5,12 +5,12 @@ import { View, Image, Text, StyleSheet, StyleProp, TextStyle } from 'react-nativ
 const borderRadius = 10
 
 interface ValueProps extends React.PropsWithChildren {
-  value: string,
+  value: string
   textStyle?: StyleProp<TextStyle>
 }
 
 const Value: React.FC<ValueProps> = ({ value, textStyle }) => {
-  const { color } = textStyle as TextStyle ?? {}
+  const { color } = (textStyle as TextStyle) ?? {}
   const { text } = useCredentialTheme()
 
   const styles = StyleSheet.create({
