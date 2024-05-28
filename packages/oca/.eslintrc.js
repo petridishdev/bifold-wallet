@@ -5,12 +5,7 @@ module.exports = {
     es2021: true,
     node: true,
   },
-  extends: [
-    'eslint:recommended',
-    'plugin:@typescript-eslint/recommended',
-    'plugin:storybook/recommended',
-    '../../.eslintrc.js',
-  ],
+  extends: ['eslint:recommended', 'plugin:@typescript-eslint/recommended', 'plugin:storybook/recommended'],
   overrides: [],
   parser: '@typescript-eslint/parser',
   parserOptions: {
