@@ -2,11 +2,11 @@ import { View, useWindowDimensions } from 'react-native'
 
 import { LocalizedCredential } from '@oca/formatters'
 import { contrastColor, toImageSource } from '@oca/utils'
-import Issuer from '@ui/components/card/Issuer'
-import Logo from '@ui/components/card/Logo'
-import Name from '@ui/components/card/Name'
+import Issuer from '@oca/ui/components/common/Issuer'
+import Logo from '@oca/ui/components/common/Logo'
+import Name from '@oca/ui/components/common/Name'
 import Status, { StatusLevelEnum } from '@ui/components/card/Status'
-import Watermark from '@ui/components/card/Watermark'
+import Watermark from '@oca/ui/components/common/Watermark'
 import Primary from '@ui/components/card/body/Primary'
 import Secondary from '@ui/components/card/body/Secondary'
 import Claim from '@ui/components/card/claim/Claim'
@@ -27,6 +27,11 @@ const Card: React.FC<CardProps> = ({ connectionId, credentialId, status, credent
   let styles = createStyleSheet(windowWidth)
   styles = {
     ...styles,
+    container: {
+      flexDirection: 'row',
+      borderRadius: 10,
+      ...styles.container,
+    } as typeof styles.container,
     primary: {
       ...styles.primary,
       backgroundColor: credential?.primaryBackgroundColor,
@@ -39,15 +44,16 @@ const Card: React.FC<CardProps> = ({ connectionId, credentialId, status, credent
     issuerText: {
       ...styles.issuerText,
       color: contrastColor(credential?.primaryBackgroundColor, color.grayscale.darkGrey, color.grayscale.white),
-    },
+    } as typeof styles.issuerText,
     nameText: {
       ...styles.nameText,
       color: contrastColor(credential?.primaryBackgroundColor, color.grayscale.darkGrey, color.grayscale.white),
-    },
+      fontWeight: 'bold',
+    } as typeof styles.nameText,
     claimText: {
       ...styles.claimText,
       color: contrastColor(credential?.primaryBackgroundColor),
-    },
+    } as typeof styles.claimText,
     watermarkText: {
       ...styles.watermarkText,
       color: contrastColor(credential?.primaryBackgroundColor, color.grayscale.darkGrey, color.grayscale.lightGrey),
