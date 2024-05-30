@@ -9,16 +9,17 @@ interface NameProps extends React.PropsWithChildren {
 
 const Name: React.FC<NameProps> = ({ name, textStyle }) => {
   const { text } = useCredentialTheme()
-  const { color } = textStyle as TextStyle
+  const { color, fontWeight } = (textStyle as TextStyle) ?? {}
 
   return (
     <Text
       // testID={testIdWithKey('CredentialName')}
       style={[
-        text.bold,
+        text.normal,
         {
           lineHeight: 24,
           color,
+          fontWeight,
         },
       ]}
     >
