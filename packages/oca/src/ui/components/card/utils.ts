@@ -1,5 +1,7 @@
 import { StyleSheet } from 'react-native'
 
+import { createBaseStyleSheet } from '@ui/components/common/utils'
+
 import { PADDING_RATIO, LOGO_RATIO, PRIMARY_RATIO, HEIGHT_RATIO, SECONDARY_RATIO } from './constants'
 
 export const calculatePadding = (width: number): number => {
@@ -31,6 +33,8 @@ export const calculateSecondaryHeight = (width: number): number => {
 }
 
 export const createStyleSheet = (windowWidth: number) => {
+  const baseStyles = createBaseStyleSheet(windowWidth)
+
   const padding = calculatePadding(windowWidth)
   const logoWidth = calculateLogoWidth(windowWidth)
   const logoHeight = calculateLogoHeight(windowWidth)
@@ -40,15 +44,11 @@ export const createStyleSheet = (windowWidth: number) => {
   const secondaryHeight = calculateSecondaryHeight(windowWidth)
 
   const styles = StyleSheet.create({
-    container: {
-      flexDirection: 'row',
-      borderRadius: 10,
-      overflow: 'hidden',
-    },
+    ...baseStyles,
     logo: {
+      ...baseStyles.logo,
       width: logoWidth,
       height: logoHeight,
-      position: 'absolute',
       top: padding,
       left: padding,
     },
@@ -65,23 +65,10 @@ export const createStyleSheet = (windowWidth: number) => {
       paddingLeft: 2 * padding,
       paddingRight: padding + logoWidth,
     },
-    issuerText: {},
-    nameText: {},
-    claimText: {},
-    watermark: {
-      width: windowWidth,
-      height: windowWidth,
-    },
-    watermarkText: {
-      fontSize: 0.05 * (windowWidth as number),
-      opacity: 0.16,
-    },
     status: {
+      ...baseStyles.status,
       width: logoWidth,
       height: logoHeight,
-      position: 'absolute',
-      top: 0,
-      right: 0,
     },
   })
 
