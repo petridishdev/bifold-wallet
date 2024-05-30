@@ -1,9 +1,8 @@
 import { Meta, StoryObj } from '@storybook/react'
-import React from 'react'
 
 import { LocalizedAttribute, LocalizedCredential } from '@oca/formatters'
-import Credential from '@ui/components/credential/CredentialCard'
 import { LocalizedCredentialContext } from '@ui/contexts/localizedCredential'
+import { CredentialCard } from '@oca/ui'
 
 const meta = {
   title: 'Credential/Card',
@@ -35,7 +34,7 @@ const meta = {
           } as LocalizedCredential
         }
       >
-        <Credential />
+        <CredentialCard />
       </LocalizedCredentialContext.Provider>
     )
   },
