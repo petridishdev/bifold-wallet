@@ -1,15 +1,15 @@
-import { Text, TextStyle } from 'react-native'
+import { StyleProp, Text, TextStyle, ViewProps } from 'react-native'
 
 import { useCredentialTheme } from '@oca/ui/contexts/credentialTheme'
 
 interface IssuerProps extends React.PropsWithChildren {
   issuer?: string
-  textStyle?: TextStyle
+  textStyle?: StyleProp<TextStyle>
 }
 
 const Issuer: React.FC<IssuerProps> = ({ issuer, textStyle }) => {
   const { text } = useCredentialTheme()
-  const { color } = (textStyle as TextStyle) ?? {}
+  const { color, paddingLeft } = (textStyle as TextStyle) ?? {}
 
   return (
     <Text
@@ -17,6 +17,7 @@ const Issuer: React.FC<IssuerProps> = ({ issuer, textStyle }) => {
       style={[
         text.labelBold,
         {
+          paddingLeft,
           lineHeight: 19,
           opacity: 0.8,
           color,

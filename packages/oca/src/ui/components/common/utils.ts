@@ -8,9 +8,6 @@ export const createBaseStyleSheet = (windowWidth: number) => {
     logo: {
       position: 'absolute',
     },
-    issuerText: {},
-    nameText: {},
-    claimText: {},
     watermark: {
       width: windowWidth,
       height: windowWidth,

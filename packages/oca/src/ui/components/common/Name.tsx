@@ -9,7 +9,7 @@ interface NameProps extends React.PropsWithChildren {
 
 const Name: React.FC<NameProps> = ({ name, textStyle }) => {
   const { text } = useCredentialTheme()
-  const { color, fontWeight } = (textStyle as TextStyle) ?? {}
+  const { color, fontWeight, paddingTop } = (textStyle as TextStyle) ?? {}
 
   return (
     <Text
@@ -17,6 +17,7 @@ const Name: React.FC<NameProps> = ({ name, textStyle }) => {
       style={[
         text.normal,
         {
+          paddingTop,
           lineHeight: 24,
           color,
           fontWeight,
