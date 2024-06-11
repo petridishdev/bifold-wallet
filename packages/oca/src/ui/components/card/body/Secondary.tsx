@@ -6,7 +6,7 @@ export interface SecondaryProps extends React.PropsWithChildren {
 }
 
 export const Secondary: React.FC<SecondaryProps> = ({ source, style }) => {
-  const { width, height, backgroundColor, zIndex } = style as ViewStyle
+  const { width, height, backgroundColor, zIndex } = (style as ViewStyle) ?? {}
   const borderRadius = 10
 
   const styles = StyleSheet.create({
@@ -26,7 +26,7 @@ export const Secondary: React.FC<SecondaryProps> = ({ source, style }) => {
   return (
     <View
       // testID={testIdWithKey('CredentialCardSecondaryBody')}
-      style={[styles.container]}
+      style={styles.container}
     >
       <ImageBackground
         source={source}

@@ -65,6 +65,9 @@ export const createStyleSheet = (windowWidth: number) => {
       paddingLeft: 2 * padding,
       paddingRight: padding + logoWidth,
     },
+    issuerText: {},
+    nameText: {},
+    claimText: {},
     status: {
       ...baseStyles.status,
       width: logoWidth,
