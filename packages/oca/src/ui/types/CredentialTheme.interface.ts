@@ -19,10 +19,17 @@ interface IGrayscaleColors {
   white: string
 }
 
+export interface IBrandColors {
+  link: string
+  text: string
+  background: string
+}
+
 export interface IColorTheme {
-  semantic: ISemanticColors
-  notification: INotificationColors
+  brand: IBrandColors
   grayscale: IGrayscaleColors
+  notification: INotificationColors
+  semantic: ISemanticColors
 }
 
 export interface ITextTheme {
