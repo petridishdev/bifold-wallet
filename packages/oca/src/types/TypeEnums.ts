@@ -6,6 +6,10 @@ export enum CaptureBaseAttributeType {
   DateInt = 'DateInt',
 }
 
+export enum OverlayStandard {
+  ISO1989 = 'urn:iso:std:iso:1989',
+}
+
 export enum OverlayType {
   CaptureBase10 = 'spec/capture_base/1.0',
   Meta10 = 'spec/overlays/meta/1.0',

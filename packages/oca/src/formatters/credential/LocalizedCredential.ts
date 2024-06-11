@@ -4,7 +4,7 @@ import { OverlayBundle } from '../../types'
 
 import LocalizedAttribute from './LocalizedAttribute'
 
-export default class FormattedCredential {
+export default class LocalizedCredential {
   #bundle!: OverlayBundle
 
   attributes!: LocalizedAttribute[]
@@ -23,17 +23,14 @@ export default class FormattedCredential {
     this.name = bundle.metadata.name?.[language]
     this.watermark = bundle.metadata?.watermark?.[language]
 
-    // If no record attributes are present then grab default attributes from the bundle
-    const credentialAttributes = record.credentialAttributes?.length
-      ? record.credentialAttributes
-      : bundle.attributes.map((attribute) => {
-          return new CredentialPreviewAttribute({ ...attribute, value: '' })
-        })
-
-    this.attributes =
-      credentialAttributes
-        ?.filter((attribute) => bundle.getAttribute(attribute.name))
-        .map((attribute) => new LocalizedAttribute(attribute, { name: attribute.name, type: '' }, language)) ?? []
+    this.attributes = (record.credentialAttributes ?? []).map(
+      (attribute) =>
+        new LocalizedAttribute(
+          attribute,
+          bundle.getAttribute(attribute.name) ?? { name: attribute.name, type: '' },
+          language,
+        ),
+    )
   }
 
   get primaryAttribute(): LocalizedAttribute | undefined {
@@ -56,6 +53,10 @@ export default class FormattedCredential {
 
   get secondaryBackgroundColor(): string | undefined {
     return this.#bundle.branding?.secondaryBackgroundColor
+  }
+
+  get backgroundImage(): string | undefined {
+    return this.#bundle.branding?.backgroundImage
   }
 
   get backgroundImageSlice(): string | undefined {

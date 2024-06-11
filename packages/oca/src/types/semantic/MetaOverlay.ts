@@ -6,12 +6,12 @@ export default class MetaOverlay extends BaseOverlay {
   #credential_support_url?: string
   #issuer_description?: string
   #issuer_url?: string
-  #watermark?: string
 
   language: string
   name?: string
   description?: string
   issuer?: string
+  watermark?: string
 
   constructor(overlay: IMetaOverlayData) {
     super(overlay)
@@ -23,7 +23,7 @@ export default class MetaOverlay extends BaseOverlay {
     this.issuer = overlay.issuer
     this.#issuer_description = overlay.issuer_description
     this.#issuer_url = overlay.issuer_url
-    this.#watermark = overlay.watermark
+    this.watermark = overlay.watermark
   }
 
   get credentialHelpText(): string | undefined {
@@ -40,9 +40,5 @@ export default class MetaOverlay extends BaseOverlay {
 
   get issuerUrl(): string | undefined {
     return this.#issuer_url
-  }
-
-  get watermark(): string | undefined {
-    return this.#watermark
   }
 }

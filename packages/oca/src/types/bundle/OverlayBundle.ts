@@ -74,6 +74,7 @@ class OverlayBundle {
       issuer: Record<string, string>
       issuerDescription: Record<string, string>
       issuerUrl: Record<string, string>
+      watermark: Record<string, string>
     } = {
       name: {},
       description: {},
@@ -82,11 +83,20 @@ class OverlayBundle {
       issuer: {},
       issuerDescription: {},
       issuerUrl: {},
+      watermark: {},
     }
     for (const overlay of this.#overlaysForType<MetaOverlay>('spec/overlays/meta/1.0')) {
       const language = overlay.language ?? 'en'
-      const { name, description, credentialHelpText, credentialSupportUrl, issuer, issuerDescription, issuerUrl } =
-        overlay
+      const {
+        name,
+        description,
+        credentialHelpText,
+        credentialSupportUrl,
+        issuer,
+        issuerDescription,
+        issuerUrl,
+        watermark,
+      } = overlay
 
       if (name) {
         metadata.name[language] = name
@@ -108,6 +118,9 @@ class OverlayBundle {
       }
       if (issuerUrl) {
         metadata.issuerUrl[language] = issuerUrl
+      }
+      if (watermark) {
+        metadata.watermark[language] = watermark
       }
     }
     return metadata
