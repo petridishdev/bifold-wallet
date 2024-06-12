@@ -28,8 +28,8 @@ export default class LocalizedCredential {
         new LocalizedAttribute(
           attribute,
           bundle.getAttribute(attribute.name) ?? { name: attribute.name, type: '' },
-          language,
-        ),
+          language
+        )
     )
   }
 

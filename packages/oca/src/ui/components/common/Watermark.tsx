@@ -27,7 +27,7 @@ const Watermark: React.FC<WatermarkProps> = ({ watermark = '', textStyle, style 
 
   const rows = [...Array(Math.ceil((height as number) / (fontSize as number) + 1)).keys()]
   const text = `${watermark} `.repeat(
-    Math.ceil((width as number) / (Math.cos(30) * (((fontSize as number) / 2) * (watermark.length + 1)))),
+    Math.ceil((width as number) / (Math.cos(30) * (((fontSize as number) / 2) * (watermark.length + 1))))
   )
 
   return (

@@ -17,7 +17,7 @@ export default class LocalizedAttribute extends CredentialPreviewAttribute {
   constructor(
     options: CredentialPreviewAttributeOptions,
     overlayOptions: OverlayBundleAttributeOptions,
-    language: string,
+    language: string
   ) {
     super(options)
 

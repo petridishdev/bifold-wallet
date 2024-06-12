@@ -18,7 +18,7 @@ const OverlayTypeMap: Map<string, typeof BaseOverlay | typeof BrandingOverlay | 
     'spec/overlays/meta/1.0': MetaOverlay,
     'aries/overlays/branding/1.0': BrandingOverlay,
     'aries/overlays/branding/0.1': LegacyBrandingOverlay,
-  }),
+  })
 )
 
 export default OverlayTypeMap

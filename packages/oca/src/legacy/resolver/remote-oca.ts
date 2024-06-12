@@ -507,7 +507,7 @@ export class RemoteOCABundleResolver extends DefaultOCABundleResolver {
     // If more than one candidate identifier exists in the index file then
     // order matters here.
     const candidates = [schemaId, credentialDefinitionId, templateId].filter(
-      (value) => value !== undefined && value !== null && value !== '',
+      (value) => value !== undefined && value !== null && value !== ''
     )
 
     if (candidates.length === 0) {
@@ -543,7 +543,7 @@ export class RemoteOCABundleResolver extends DefaultOCABundleResolver {
         new OCABundle(this.bundles[identifier] as OverlayBundle, {
           ...this.options,
           language: language ?? this.options.language,
-        }),
+        })
       )
     }
 
@@ -557,12 +557,12 @@ export class RemoteOCABundleResolver extends DefaultOCABundleResolver {
       const bundleData: IOverlayBundleData[] = await this.loadOCABundle(bundlePath)
       const overlayBundle = new OverlayBundle(params.identifiers.credentialDefinitionId ?? '', bundleData[0])
       const overlay = overlayBundle.overlays.find(
-        (overlay) => overlay.type === BrandingOverlayType.Branding01 || overlay.type === BrandingOverlayType.Branding10,
+        (overlay) => overlay.type === BrandingOverlayType.Branding01 || overlay.type === BrandingOverlayType.Branding10
       )
 
       if (!overlay) {
         overlayBundle.overlays.push(
-          ...this.getFallbackBrandingOverlays(overlayBundle.credentialDefinitionId, overlayBundle.captureBase.digest),
+          ...this.getFallbackBrandingOverlays(overlayBundle.credentialDefinitionId, overlayBundle.captureBase.digest)
         )
       }
 

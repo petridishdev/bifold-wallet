@@ -37,7 +37,7 @@ class OverlayBundle {
           const OverlayClass = (OverlayTypeMap.get(overlay.type) ||
             LegacyBrandingOverlay) as typeof LegacyBrandingOverlay
           return new OverlayClass(credentialDefinitionId, overlay as ILegacyBrandingOverlayData)
-        }),
+        })
     )
     this.overlays.push(
       ...bundle.overlays
@@ -45,13 +45,13 @@ class OverlayBundle {
         .map((overlay) => {
           const OverlayClass = (OverlayTypeMap.get(overlay.type) || BrandingOverlay) as typeof BrandingOverlay
           return new OverlayClass(credentialDefinitionId, overlay as IBrandingOverlayData)
-        }),
+        })
     )
     this.languages = this.#processLanguages()
     this.metadata = this.#processMetadata()
     this.attributes = this.#processOverlayAttributes()
     this.flaggedAttributes = this.attributes.filter((attribute) =>
-      this.captureBase.flaggedAttributes.includes(attribute.name),
+      this.captureBase.flaggedAttributes.includes(attribute.name)
     )
   }
 

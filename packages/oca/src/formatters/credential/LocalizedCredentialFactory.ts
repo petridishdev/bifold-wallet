@@ -8,13 +8,10 @@ export default class FormattedCredentialFactory {
   #credentials!: Record<string, LocalizedCredential>
 
   constructor(bundle: OverlayBundle, record: CredentialExchangeRecord) {
-    this.#credentials = bundle.languages.reduce(
-      (credentials, language) => {
-        credentials[language] = new LocalizedCredential(bundle, record, language)
-        return credentials
-      },
-      {} as Record<string, LocalizedCredential>,
-    )
+    this.#credentials = bundle.languages.reduce((credentials, language) => {
+      credentials[language] = new LocalizedCredential(bundle, record, language)
+      return credentials
+    }, {} as Record<string, LocalizedCredential>)
   }
 
   localizedCredential(language: string): LocalizedCredential | undefined {
