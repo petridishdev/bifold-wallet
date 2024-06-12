@@ -10,7 +10,7 @@ const ocaPath = `${__dirname}/fixtures/${ocaCacheDataFileName}`
 const ocaAsString = fs.readFileSync(ocaPath, 'utf8')
 const indexPath = `${__dirname}/fixtures/${defaultBundleIndexFileName}`
 const indexAsString = fs.readFileSync(indexPath, 'utf8')
-const bundlePath = `${__dirname}/fixtures/bundles/${bundleFileName}`
+const bundlePath = `${__dirname}/../src/data/${bundleFileName}`
 const bundleAsString = fs.readFileSync(bundlePath, 'utf8')
 
 const initialEtag = '3379dc5c38ac34ab'

@@ -29,7 +29,6 @@ const config: StorybookConfig = {
     config.resolve = config.resolve || {}
     config.resolve.alias = {
       ...config.resolve?.alias,
-      '@tests': resolve(__dirname, '..', '__tests__'),
       '@oca': resolve(__dirname, '..', 'src'),
       '@ui': resolve(__dirname, '..', 'src/ui'),
       '@utils': resolve(__dirname, '..', 'src/utils'),

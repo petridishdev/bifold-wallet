@@ -1,12 +1,12 @@
 import { Meta, StoryObj } from '@storybook/react'
+import { CredentialExchangeRecord, CredentialPreviewAttribute, CredentialRole, CredentialState } from '@credo-ts/core'
 
 import { LocalizedCredential } from '@oca/formatters'
-import { LocalizedCredentialContext } from '@ui/contexts/localizedCredential'
-import CredentialDetail from '@oca/ui/components/credential/CredentialDetail'
-
-import data from '@tests/fixtures/bundles/student-card-bundle.json'
 import { OverlayBundle } from '@oca/types'
-import { CredentialExchangeRecord, CredentialPreviewAttribute, CredentialRole, CredentialState } from '@credo-ts/core'
+import { LocalizedCredentialContext } from '@ui/contexts/localizedCredential'
+import CredentialDetail from '@ui/components/detail/Detail'
+
+import data from '@oca/data/student-card-bundle.json'
 
 const meta = {
   title: 'Credential/Detail',
