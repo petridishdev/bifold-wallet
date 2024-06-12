@@ -5,12 +5,12 @@ import { readFile, writeFile, exists, mkdir, unlink } from 'react-native-fs'
 import { ocaCacheDataFileName, defaultBundleIndexFileName } from '../src/constants'
 import { RemoteOCABundleResolver } from '../src/legacy/resolver/remote-oca'
 
-const bundleFileName = 'bundle.json'
+const bundleFileName = 'student-card-bundle.json'
 const ocaPath = `${__dirname}/fixtures/${ocaCacheDataFileName}`
 const ocaAsString = fs.readFileSync(ocaPath, 'utf8')
 const indexPath = `${__dirname}/fixtures/${defaultBundleIndexFileName}`
 const indexAsString = fs.readFileSync(indexPath, 'utf8')
-const bundlePath = `${__dirname}/fixtures/${bundleFileName}`
+const bundlePath = `${__dirname}/fixtures/bundles/${bundleFileName}`
 const bundleAsString = fs.readFileSync(bundlePath, 'utf8')
 
 const initialEtag = '3379dc5c38ac34ab'

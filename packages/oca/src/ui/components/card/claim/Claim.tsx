@@ -13,8 +13,8 @@ const Claim: React.FC<ClaimProps> = ({ attribute, textStyle }) => {
   return (
     (attribute?.label || attribute?.value) && (
       <View>
-        {attribute?.label && <Label label={attribute.label} textStyle={textStyle} />}
-        {attribute?.value && <Value value={attribute.value} textStyle={textStyle} />}
+        {attribute?.formattedLabel && <Label label={attribute.formattedLabel} textStyle={textStyle} />}
+        {attribute?.formattedValue && <Value value={attribute.formattedValue} textStyle={textStyle} />}
       </View>
     )
   )

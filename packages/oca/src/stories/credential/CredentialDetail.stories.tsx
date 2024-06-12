@@ -1,15 +1,15 @@
 import { Meta, StoryObj } from '@storybook/react'
 
-import { LocalizedAttribute, LocalizedCredential } from '@oca/formatters'
+import { LocalizedCredential } from '@oca/formatters'
 import { LocalizedCredentialContext } from '@ui/contexts/localizedCredential'
-import { CredentialCard } from '@oca/ui'
-import { CredentialExchangeRecord, CredentialRole, CredentialState, CredentialPreviewAttribute } from '@credo-ts/core'
+import CredentialDetail from '@oca/ui/components/credential/CredentialDetail'
 
 import data from '@tests/fixtures/bundles/student-card-bundle.json'
 import { OverlayBundle } from '@oca/types'
+import { CredentialExchangeRecord, CredentialPreviewAttribute, CredentialRole, CredentialState } from '@credo-ts/core'
 
 const meta = {
-  title: 'Credential/Card',
+  title: 'Credential/Detail',
   component: () => {
     const bundle = new OverlayBundle('', data[0])
 
@@ -36,7 +36,6 @@ const meta = {
       },
     ]
 
-
     const record = new CredentialExchangeRecord({
       protocolVersion: '2.0',
       role: CredentialRole.Holder,
@@ -49,7 +48,7 @@ const meta = {
 
     return (
       <LocalizedCredentialContext.Provider value={credential}>
-        <CredentialCard />
+        <CredentialDetail />
       </LocalizedCredentialContext.Provider>
     )
   },

@@ -122,7 +122,7 @@
         "capture_base": "E75sopl65qnoZRwjQQ0FjWGemLlOXcXtanhScZ2CloJY",
         "digest": "EBQbQEV6qSEGDzGLj1CqT4e6yzESjPimF-Swmyltw5jU",
         "expiry_date_attribute": "expiry_date",
-        "primary_attribute": "",
+        "primary_attribute": "expiry_date",
         "secondary_attribute": "",
         "type": "aries/overlays/branding/1.0"
       }
