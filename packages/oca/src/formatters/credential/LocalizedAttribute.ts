@@ -2,7 +2,7 @@ import { CredentialPreviewAttribute, CredentialPreviewAttributeOptions } from '@
 
 import { IOverlayBundleAttribute as OverlayBundleAttributeOptions } from '../../interfaces/overlay'
 import startCase from 'lodash.startcase'
-import { CaptureBaseAttributeType, OverlayTypeMap } from '@oca/types'
+import { CaptureBaseAttributeType } from '@oca/types'
 import moment from 'moment'
 import { OverlayStandard } from '@oca/types/TypeEnums'
 

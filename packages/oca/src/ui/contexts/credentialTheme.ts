@@ -13,7 +13,7 @@ enum GrayscaleColors {
 
 enum NotificationColors {
   WARN = '#313132',
-  ERROR = '#313132',
+  // ERROR = '#313132',
 }
 
 enum SemanticColors {
@@ -37,7 +37,7 @@ const color: IColorTheme = {
   },
   notification: {
     warn: NotificationColors.WARN,
-    error: NotificationColors.ERROR,
+    error: NotificationColors.WARN,
   },
   semantic: {
     warn: SemanticColors.WARN,

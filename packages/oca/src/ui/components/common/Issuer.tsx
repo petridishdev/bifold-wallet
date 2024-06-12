@@ -1,4 +1,4 @@
-import { StyleProp, Text, TextStyle, ViewProps } from 'react-native'
+import { StyleProp, Text, TextStyle } from 'react-native'
 
 import { useCredentialTheme } from '@oca/ui/contexts/credentialTheme'
 
