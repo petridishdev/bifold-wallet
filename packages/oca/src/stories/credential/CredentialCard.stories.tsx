@@ -1,6 +1,6 @@
 import { Meta, StoryObj } from '@storybook/react'
 
-import { LocalizedAttribute, LocalizedCredential } from '@oca/formatters'
+import { LocalizedCredential } from '@oca/formatters'
 import { LocalizedCredentialContext } from '@ui/contexts/localizedCredential'
 import { CredentialCard } from '@oca/ui'
 import { CredentialExchangeRecord, CredentialRole, CredentialState, CredentialPreviewAttribute } from '@credo-ts/core'
@@ -35,7 +35,6 @@ const meta = {
         value: '2023-01-01T00:00:00Z',
       },
     ]
-
 
     const record = new CredentialExchangeRecord({
       protocolVersion: '2.0',
