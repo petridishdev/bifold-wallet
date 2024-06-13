@@ -5,7 +5,7 @@ import Body from '@ui/components/detail/body/Body'
 import { I18nextProvider } from 'react-i18next'
 import i18n from '@oca/ui/i18n'
 
-interface DetailProps {
+interface DetailProps extends React.PropsWithChildren {
   connectionId?: string
   credentialId?: string
   credential?: LocalizedCredential

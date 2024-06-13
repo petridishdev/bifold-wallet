@@ -1,5 +1,5 @@
-import { useLocalizedCredential } from '@ui/contexts/localizedCredential'
 import Detail from '@oca/ui/components/detail/Detail'
+import { useLocalizedCredential } from '@ui/contexts/localizedCredential'
 
 const CredentialDetail: React.FC = () => {
   const localizedCredential = useLocalizedCredential()

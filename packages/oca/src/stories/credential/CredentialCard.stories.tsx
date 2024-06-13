@@ -55,10 +55,10 @@ const meta = {
   parameters: {
     layout: 'padded',
   },
-} satisfies Meta<typeof Credential>
+} satisfies Meta<typeof CredentialCard>
 
 export default meta
 
-type Story = StoryObj<typeof Credential>
+type Story = StoryObj<typeof meta>
 
 export const Basic = {} satisfies Story

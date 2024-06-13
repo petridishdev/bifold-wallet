@@ -28,14 +28,14 @@ export const Secondary: React.FC<SecondaryProps> = ({ source, style }) => {
       // testID={testIdWithKey('CredentialCardSecondaryBody')}
       style={styles.container}
     >
-      <ImageBackground
+      {source && <ImageBackground
         source={source}
         style={styles.image}
         imageStyle={{
           borderTopLeftRadius: borderRadius,
           borderBottomLeftRadius: borderRadius,
         }}
-      />
+      />}
     </View>
   )
 }

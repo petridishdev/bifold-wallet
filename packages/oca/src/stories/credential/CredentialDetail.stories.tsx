@@ -4,7 +4,7 @@ import { CredentialExchangeRecord, CredentialPreviewAttribute, CredentialRole, C
 import { LocalizedCredential } from '@oca/formatters'
 import { OverlayBundle } from '@oca/types'
 import { LocalizedCredentialContext } from '@ui/contexts/localizedCredential'
-import CredentialDetail from '@ui/components/detail/Detail'
+import CredentialDetail from '@ui/components/credential/CredentialDetail'
 
 import data from '@oca/data/student-card-bundle.json'
 
@@ -55,10 +55,10 @@ const meta = {
   parameters: {
     layout: 'padded',
   },
-} satisfies Meta<typeof Credential>
+} satisfies Meta<typeof CredentialDetail>
 
 export default meta
 
-type Story = StoryObj<typeof Credential>
+type Story = StoryObj<typeof meta>
 
 export const Basic = {} satisfies Story

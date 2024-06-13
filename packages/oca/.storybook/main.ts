@@ -25,13 +25,12 @@ const config: StorybookConfig = {
     name: getAbsolutePath('@storybook/react-webpack5'),
     options: {},
   },
-  webpackFinal: async (config, { configType }) => {
+  webpackFinal: async (config) => {
     config.resolve = config.resolve || {}
     config.resolve.alias = {
       ...config.resolve?.alias,
       '@oca': resolve(__dirname, '..', 'src'),
       '@ui': resolve(__dirname, '..', 'src/ui'),
-      '@utils': resolve(__dirname, '..', 'src/utils'),
     }
     config.resolve?.modules?.push(resolve(__dirname, '..', 'node_modules'))
     config.plugins?.push(new NodePployfillPlugin())

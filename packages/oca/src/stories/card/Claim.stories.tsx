@@ -12,6 +12,8 @@ const meta = {
           {
             label: 'Name',
             value: 'John Doe',
+            formattedLabel: 'Name',
+            formattedValue: 'John Doe',
           } as LocalizedAttribute
         }
       />
@@ -20,10 +22,10 @@ const meta = {
   parameters: {
     layout: 'padded',
   },
-} satisfies Meta
+} satisfies Meta<typeof Claim>
 
 export default meta
 
-type Story = StoryObj
+type Story = StoryObj<typeof meta>
 
 export const Default = {} satisfies Story

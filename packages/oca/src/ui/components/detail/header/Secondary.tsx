@@ -24,7 +24,7 @@ const Secondary: React.FC<SecondaryProps> = ({ source, style }) => {
       style={styles.container}
       // testID={testIdWithKey('CredentialDetailsSecondaryHeader')}
     >
-      <ImageBackground source={source} style={styles.image} imageStyle={{ resizeMode: 'cover' }} />
+      {source && <ImageBackground source={source} style={styles.image} imageStyle={{ resizeMode: 'cover' }} />}
     </View>
   )
 }
