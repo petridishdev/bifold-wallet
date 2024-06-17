@@ -67,7 +67,11 @@ const Card: React.FC<CardProps> = ({ connectionId, credentialId, status, credent
         label={credential?.name ?? credential?.issuer ?? credentialId ?? connectionId}
         style={styles.logo}
       />
-      <Secondary source={toImageSource(credential?.backgroundImageSlice)} style={styles.secondary} />
+      <Secondary
+        source={toImageSource(credential?.backgroundImageSlice)}
+        style={styles.secondary}
+        tint={!(credential?.backgroundImageSlice || credential?.secondaryBackgroundColor)}
+      />
       <Primary style={styles.primary}>
         <View style={styles.primaryChild}>
           <Issuer issuer={credential?.issuer ?? connectionId} textStyle={styles.issuerText} />

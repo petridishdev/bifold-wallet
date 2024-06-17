@@ -53,7 +53,11 @@ const Detail: React.FC<DetailProps> = ({ connectionId, credentialId, credential 
         label={credential?.name ?? credential?.issuer ?? credentialId ?? connectionId}
         style={styles.logo}
       />
-      <Secondary source={toImageSource(credential?.backgroundImage)} style={styles.secondary} />
+      <Secondary
+        source={toImageSource(credential?.backgroundImage)}
+        style={styles.secondary}
+        tint={!(credential?.backgroundImage || credential?.secondaryBackgroundColor)}
+      />
       <Primary style={styles.primary}>
         <View style={styles.primaryChild}>
           {/* We keep a default single empty space so the styling remains consistent whether an 

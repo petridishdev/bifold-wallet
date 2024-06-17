@@ -16,6 +16,6 @@ export enum OverlayType {
   Label10 = 'spec/overlays/label/1.0',
   Format10 = 'spec/overlays/format/1.0',
   CharacterEncoding10 = 'spec/overlays/character_encoding/1.0',
-  Branding01 = 'aries/overlays/branding/0.1',
+  Branding01 = 'aries/overlays/branding/0.1', // DEPRECATED
   Branding10 = 'aries/overlays/branding/1.0',
 }

@@ -66,6 +66,7 @@ const Body: React.FC<BodyProps> = ({ attributes }) => {
 
   return (
     <FlatList
+      scrollEnabled={false}
       data={attributes}
       ListHeaderComponent={() => (
         <ShowAll
