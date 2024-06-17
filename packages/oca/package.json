@@ -6,7 +6,6 @@
   "types": "build/index.d.ts",
   "source": "src/index.ts",
   "files": [
-    "src",
     "build"
   ],
   "license": "Apache-2.0",
@@ -78,7 +77,7 @@
     "i18next": "^23.11.5",
     "lodash.startcase": "^4.4.0",
     "moment": "^2.30.1",
-    "react": "^18.3.1",
+    "react": "^18.2.0",
     "react-dom": "^18.3.1",
     "react-i18next": "^14.1.2",
     "react-native-fs": "^2.16.6",
