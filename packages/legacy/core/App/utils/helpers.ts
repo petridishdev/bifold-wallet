@@ -29,7 +29,7 @@ import { Buffer } from 'buffer'
 import moment from 'moment'
 import { parseUrl } from 'query-string'
 import { ReactNode } from 'react'
-import { TFunction } from 'react-i18next'
+import { TFunction } from 'i18next'
 import { DeviceEventEmitter } from 'react-native'
 
 import { EventTypes, domain } from '../constants'
@@ -738,7 +738,7 @@ export const retrieveCredentialsForProof = async (
   agent: BifoldAgent,
   proof: ProofExchangeRecord,
   fullCredentials: CredentialExchangeRecord[],
-  t: TFunction<'translation', undefined>,
+  t: TFunction<'transslation', undefined>,
   groupByReferent?: boolean
 ) => {
   try {
