@@ -75,7 +75,7 @@ const CredentialCard10: React.FC<CredentialCard10Props> = ({ credential, style =
   const [overlay, setOverlay] = useState<CredentialOverlay<LegacyBrandingOverlay>>({})
   const [isRevoked, setIsRevoked] = useState<boolean>(false)
   const credentialConnectionLabel = getCredentialConnectionLabel(credential)
-  const bundleResolver = useContainer().resolve(TOKENS.UTIL_OCA_RESOLVER)
+  const bundleResolver = useContainer().resolve(TOKENS.UTIL_LEGACY_OCA_RESOLVER)
 
   const styles = StyleSheet.create({
     container: {

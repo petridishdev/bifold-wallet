@@ -44,7 +44,7 @@ const CredentialCard: React.FC<CredentialCardProps> = ({
   onPress = undefined,
 }) => {
   // add ability to reference credential by ID, allows us to get past react hook restrictions
-  const bundleResolver = useContainer().resolve(TOKENS.UTIL_OCA_RESOLVER)
+  const bundleResolver = useContainer().resolve(TOKENS.UTIL_LEGACY_OCA_RESOLVER)
   const { ColorPallet } = useTheme()
   const getCredOverlayType = (type: BrandingOverlayType) => {
     if (proof) {

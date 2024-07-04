@@ -35,7 +35,7 @@ interface ProofRequestAttributesCardProps {
 const ProofRequestAttributesCard: React.FC<ProofRequestAttributesCardProps> = ({ data, onChangeValue }) => {
   const { ColorPallet } = useTheme()
   const { i18n } = useTranslation()
-  const bundleResolver = useContainer().resolve(TOKENS.UTIL_OCA_RESOLVER)
+  const bundleResolver = useContainer().resolve(TOKENS.UTIL_LEGACY_OCA_RESOLVER)
   const [attributes, setAttributes] = useState<Field[] | undefined>(undefined)
   const [credDefId, setCredDefId] = useState<string | undefined>(undefined)
 
@@ -91,7 +91,7 @@ const ProofRequestDetails: React.FC<ProofRequestDetailsProps> = ({ route, naviga
   const [store] = useStore()
   const { t } = useTranslation()
   const { i18n } = useTranslation()
-  const bundleResolver = useContainer().resolve(TOKENS.UTIL_OCA_RESOLVER)
+  const bundleResolver = useContainer().resolve(TOKENS.UTIL_LEGACY_OCA_RESOLVER)
 
   const { agent } = useAgent()
   if (!agent) {

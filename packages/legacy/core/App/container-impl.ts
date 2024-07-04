@@ -27,6 +27,7 @@ import {
   Onboarding as StoreOnboardingState,
   Tours as ToursState,
 } from './types/state'
+import { OverlayBundleResolver } from '@hyperledger/aries-oca'
 
 export class MainContainer implements Container {
   public static readonly TOKENS = TOKENS
@@ -46,7 +47,8 @@ export class MainContainer implements Container {
     this.container.registerInstance(TOKENS.GROUP_BY_REFERENT, false)
     this.container.registerInstance(TOKENS.OBJECT_ONBOARDINGCONFIG, DefaultScreenOptionsDictionary)
     this.container.registerInstance(TOKENS.UTIL_LOGGER, new ConsoleLogger())
-    this.container.registerInstance(TOKENS.UTIL_OCA_RESOLVER, new DefaultOCABundleResolver(bundle))
+    this.container.registerInstance(TOKENS.UTIL_LEGACY_OCA_RESOLVER, new DefaultOCABundleResolver(bundle))
+    this.container.registerInstance(TOKENS.UTIL_OCA_RESOLVER, new OverlayBundleResolver(bundle))
     this.container.registerInstance(TOKENS.UTIL_LEDGERS, defaultIndyLedgers)
     this.container.registerInstance(
       TOKENS.FN_ONBOARDING_DONE,

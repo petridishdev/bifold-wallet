@@ -103,7 +103,7 @@ const CredentialCard11: React.FC<CredentialCard11Props> = ({
     credential?.revocationNotification !== undefined && !!proof
   )
   const { getCredentialHelpDictionary } = useConfiguration()
-  const bundleResolver = useContainer().resolve(TOKENS.UTIL_OCA_RESOLVER)
+  const bundleResolver = useContainer().resolve(TOKENS.UTIL_LEGACY_OCA_RESOLVER)
   const [helpAction, setHelpAction] = useState<GenericFn>()
   const [overlay, setOverlay] = useState<CredentialOverlay<BrandingOverlay>>({})
   // below navigation only to be used from proof request screen

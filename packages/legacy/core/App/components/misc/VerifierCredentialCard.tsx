@@ -56,7 +56,7 @@ const VerifierCredentialCard: React.FC<VerifierCredentialCardProps> = ({
   const [dimensions, setDimensions] = useState({ cardWidth: 0, cardHeight: 0 })
   const { i18n, t } = useTranslation()
   const { ColorPallet, TextTheme } = useTheme()
-  const bundleResolver = useContainer().resolve(TOKENS.UTIL_OCA_RESOLVER)
+  const bundleResolver = useContainer().resolve(TOKENS.UTIL_LEGACY_OCA_RESOLVER)
   const [overlay, setOverlay] = useState<CredentialOverlay<BrandingOverlay>>({})
 
   const attributeTypes = overlay.bundle?.captureBase.attributes

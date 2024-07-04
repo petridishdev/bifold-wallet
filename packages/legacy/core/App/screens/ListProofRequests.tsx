@@ -25,7 +25,7 @@ const ProofRequestsCard: React.FC<ProofRequestsCardProps> = ({ navigation, templ
   const { t } = useTranslation()
   const { i18n } = useTranslation()
   const { ListItems } = useTheme()
-  const bundleResolver = useContainer().resolve(TOKENS.UTIL_OCA_RESOLVER)
+  const bundleResolver = useContainer().resolve(TOKENS.UTIL_LEGACY_OCA_RESOLVER)
   const style = StyleSheet.create({
     card: {
       ...ListItems.requestTemplateBackground,
