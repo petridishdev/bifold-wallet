@@ -14,6 +14,7 @@ import { OverlayBundleResolverType } from '@hyperledger/aries-oca'
 
 export enum PROOF_TOKENS {
   GROUP_BY_REFERENT = 'proof.groupByReferant',
+  CRED_HELP_ACTION_OVERRIDES = 'proof.credHelpActionOverride',
 }
 
 export enum SCREEN_TOKENS {
@@ -74,6 +75,11 @@ export type FN_ONBOARDING_DONE = (
 type FN_LOADSTATE = (dispatch: React.Dispatch<ReducerAction<unknown>>) => Promise<void>
 
 export interface TokenMapping {
+  [TOKENS.CRED_HELP_ACTION_OVERRIDES]: {
+    credDefIds: string[]
+    schemaIds: string[]
+    action: (navigation: any) => void
+  }[]
   [TOKENS.GROUP_BY_REFERENT]: boolean
   [TOKENS.SCREEN_PREFACE]: React.FC
   [TOKENS.STACK_ONBOARDING]: React.FC
