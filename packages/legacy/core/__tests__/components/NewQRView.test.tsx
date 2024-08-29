@@ -3,24 +3,15 @@ import { act, render } from '@testing-library/react-native'
 import React from 'react'
 
 import NewQRView from '../../App/components/misc/NewQRView'
-import { ConfigurationContext } from '../../App/contexts/configuration'
 import { StoreProvider, defaultState } from '../../App/contexts/store'
 import { testIdWithKey } from '../../App/utils/testable'
-import { useNavigation } from '../../__mocks__/custom/@react-navigation/core'
-import configurationContext from '../contexts/configuration'
+import { useNavigation } from '@react-navigation/native'
+import { BasicAppContext } from '../helpers/app'
 
-jest.mock('@react-navigation/core', () => {
-  return require('../../__mocks__/custom/@react-navigation/core')
-})
-jest.mock('@react-navigation/native', () => {
-  return require('../../__mocks__/custom/@react-navigation/native')
-})
 jest.mock('react-native-orientation-locker', () => {
   return require('../../__mocks__/custom/react-native-orientation-locker')
 })
-jest.mock('react-native-vision-camera', () => {
-  return require('../../__mocks__/custom/react-native-camera')
-})
+
 
 describe('NewQRView Component', () => {
   beforeAll(() => {
@@ -41,14 +32,14 @@ describe('NewQRView Component', () => {
 
   test('Renders correctly on first tab', async () => {
     const tree = render(
-      <ConfigurationContext.Provider value={configurationContext}>
+      <BasicAppContext>
         <NewQRView
           defaultToConnect={false}
           handleCodeScan={() => Promise.resolve()}
           navigation={navigation as any}
           route={{} as any}
         />
-      </ConfigurationContext.Provider>
+      </BasicAppContext>
     )
 
     await act(() => {
@@ -77,14 +68,14 @@ describe('NewQRView Component', () => {
           },
         }}
       >
-        <ConfigurationContext.Provider value={configurationContext}>
+        <BasicAppContext>
           <NewQRView
             defaultToConnect={true}
             handleCodeScan={() => Promise.resolve()}
             navigation={navigation as any}
             route={{} as any}
           />
-        </ConfigurationContext.Provider>
+        </BasicAppContext>
       </StoreProvider>
     )
 
@@ -114,14 +105,14 @@ describe('NewQRView Component', () => {
           },
         }}
       >
-        <ConfigurationContext.Provider value={configurationContext}>
+        <BasicAppContext>
           <NewQRView
             defaultToConnect={true}
             handleCodeScan={() => Promise.resolve()}
             navigation={navigation as any}
             route={{} as any}
           />
-        </ConfigurationContext.Provider>
+        </BasicAppContext>
       </StoreProvider>
     )
 

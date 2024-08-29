@@ -2,21 +2,21 @@ import { createStackNavigator } from '@react-navigation/stack'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { useConfiguration } from '../contexts/configuration'
+import { TOKENS, useServices } from '../container-api'
 import { useTheme } from '../contexts/theme'
 import CredentialDetails from '../screens/CredentialDetails'
 import CredentialOffer from '../screens/CredentialOffer'
 import ProofRequest from '../screens/ProofRequest'
 import { NotificationStackParams, Screens } from '../types/navigators'
 
-import { createDefaultStackOptions } from './defaultStackOptions'
+import { useDefaultStackOptions } from './defaultStackOptions'
 
 const NotificationStack: React.FC = () => {
   const Stack = createStackNavigator<NotificationStackParams>()
   const theme = useTheme()
   const { t } = useTranslation()
-  const defaultStackOptions = createDefaultStackOptions(theme)
-  const { customNotification } = useConfiguration()
+  const defaultStackOptions = useDefaultStackOptions(theme)
+  const [{ customNotificationConfig: customNotification }] = useServices([TOKENS.NOTIFICATIONS])
 
   return (
     <Stack.Navigator screenOptions={{ ...defaultStackOptions }}>
@@ -35,11 +35,18 @@ const NotificationStack: React.FC = () => {
         component={ProofRequest}
         options={{ title: t('Screens.ProofRequest') }}
       />
-      <Stack.Screen
-        name={Screens.CustomNotification}
-        component={customNotification.component}
-        options={{ title: t(customNotification.pageTitle as any) }}
-      />
+      {customNotification && (
+        <Stack.Screen
+          name={Screens.CustomNotification}
+          component={customNotification.component}
+          options={{ title: t(customNotification.pageTitle as any) }}
+        />
+      )}
+      {customNotification &&
+        customNotification.additionalStackItems?.length &&
+        customNotification.additionalStackItems.map((item, i) => (
+          <Stack.Screen key={i+1} name={item.name as any} component={item.component} options={item.stackOptions}></Stack.Screen>
+        ))}
     </Stack.Navigator>
   )
 }

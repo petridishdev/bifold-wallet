@@ -23,6 +23,7 @@ import {
   V2ProofProtocol,
 } from '@credo-ts/core'
 import { IndyVdrAnonCredsRegistry, IndyVdrModule, IndyVdrPoolConfig } from '@credo-ts/indy-vdr'
+import { OpenId4VcHolderModule } from '@credo-ts/openid4vc'
 import { PushNotificationsApnsModule, PushNotificationsFcmModule } from '@credo-ts/push-notifications'
 import { useAgent } from '@credo-ts/react-hooks'
 import { anoncreds } from '@hyperledger/anoncreds-react-native'
@@ -37,6 +38,13 @@ interface GetAgentModulesOptions {
 
 export type BifoldAgent = Agent<ReturnType<typeof getAgentModules>>
 
+/**
+ * Constructs the modules to be used in the agent setup
+ * @param indyNetworks
+ * @param mediatorInvitationUrl determine which mediator to use
+ * @param txnCache optional local cache config for indyvdr
+ * @returns modules to be used in agent setup
+ */
 export function getAgentModules({ indyNetworks, mediatorInvitationUrl, txnCache }: GetAgentModulesOptions) {
   const indyCredentialFormat = new LegacyIndyCredentialFormatService()
   const indyProofFormat = new LegacyIndyProofFormatService()
@@ -96,6 +104,7 @@ export function getAgentModules({ indyNetworks, mediatorInvitationUrl, txnCache 
     }),
     pushNotificationsFcm: new PushNotificationsFcmModule(),
     pushNotificationsApns: new PushNotificationsApnsModule(),
+    openId4VcHolder: new OpenId4VcHolderModule(),
   }
 }
 

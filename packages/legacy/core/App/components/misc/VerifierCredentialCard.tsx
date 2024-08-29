@@ -1,23 +1,24 @@
 import { BrandingOverlay } from '@hyperledger/aries-oca'
-import { Attribute, CredentialOverlay, Predicate, Field } from '@hyperledger/aries-oca/build/legacy'
+import { Attribute, CredentialOverlay, Field, Predicate } from '@hyperledger/aries-oca/build/legacy'
 import startCase from 'lodash.startcase'
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import {
-  useWindowDimensions,
   FlatList,
   Image,
   ImageBackground,
   StyleSheet,
   Text,
-  View,
-  ViewStyle,
   TextInput,
   TouchableOpacity,
+  useWindowDimensions,
+  View,
+  ViewStyle,
 } from 'react-native'
+import Icon from 'react-native-vector-icons/MaterialIcons'
 
 import ImageModal from '../../components/modals/ImageModal'
-import { TOKENS, useContainer } from '../../container-api'
+import { TOKENS, useServices } from '../../container-api'
 import { useTheme } from '../../contexts/theme'
 import { toImageSource } from '../../utils/credential'
 import { formatIfDate, isDataUrl, pTypeToText } from '../../utils/helpers'
@@ -56,7 +57,7 @@ const VerifierCredentialCard: React.FC<VerifierCredentialCardProps> = ({
   const [dimensions, setDimensions] = useState({ cardWidth: 0, cardHeight: 0 })
   const { i18n, t } = useTranslation()
   const { ColorPallet, TextTheme } = useTheme()
-  const bundleResolver = useContainer().resolve(TOKENS.UTIL_LEGACY_OCA_RESOLVER)
+  const [bundleResolver] = useServices([TOKENS.UTIL_LEGACY_OCA_RESOLVER])
   const [overlay, setOverlay] = useState<CredentialOverlay<BrandingOverlay>>({})
 
   const attributeTypes = overlay.bundle?.captureBase.attributes
@@ -261,6 +262,9 @@ const VerifierCredentialCard: React.FC<VerifierCredentialCardProps> = ({
           {ylabel}
         </Text>
         <View style={{ flexDirection: 'row', flexWrap: 'wrap', alignItems: 'flex-end' }}>
+          {item.satisfied && !preview ? (
+            <Icon style={{ marginRight: 5 }} size={24} name={'check-circle'} color={ColorPallet.semantic.success} />
+          ) : null}
           <Text style={[TextTheme.bold, styles.textContainer, predicateStyles.predicateType]}>{item.pType}</Text>
           {/* Only allow editing parametrizable predicates in preview mode */}
           {item.parameterizable && preview && onChangeValue ? (
@@ -352,7 +356,7 @@ const VerifierCredentialCard: React.FC<VerifierCredentialCardProps> = ({
           data={displayItems}
           scrollEnabled={false}
           initialNumToRender={displayItems?.length}
-          keyExtractor={(item) => item.name!}
+          keyExtractor={({ name }) => name}
           renderItem={({ item }) => {
             return renderCardAttribute(item as Attribute & Predicate)
           }}

@@ -12,12 +12,13 @@ import {
 } from '@credo-ts/anoncreds'
 import {
   Agent,
-  BasicMessageRecord,
   BaseLogger,
+  BasicMessageRecord,
   ConnectionRecord,
   CredentialExchangeRecord,
   CredentialState,
   HandshakeProtocol,
+  OutOfBandRecord,
   ProofExchangeRecord,
   ProofState,
   parseDid,
@@ -27,10 +28,10 @@ import { useConnectionById } from '@credo-ts/react-hooks'
 import { CaptureBaseAttributeType } from '@hyperledger/aries-oca'
 import { Attribute, Predicate } from '@hyperledger/aries-oca/build/legacy'
 import { Buffer } from 'buffer'
+import { TFunction } from 'i18next'
 import moment from 'moment'
 import { parseUrl } from 'query-string'
 import { ReactNode } from 'react'
-import { TFunction } from 'i18next'
 import { DeviceEventEmitter } from 'react-native'
 
 import { EventTypes, domain } from '../constants'
@@ -48,6 +49,7 @@ import {
   getDescriptorMetadata,
 } from './anonCredsProofRequestMapper'
 import { parseCredDefFromId } from './cred-def'
+import { isOpenIdPresentationRequest } from './parsers'
 
 export { parsedCredDefNameFromCredential } from './cred-def'
 
@@ -138,7 +140,7 @@ export function formatTime(
     }
     if (lessThanAnHourAgo) {
       const minutesAgo = Math.floor(millisecondsAgo / 1000 / 60)
-      return minutesAgo === 1 ? `1 ${i18n.t('Date.MinuteAgo')}` : `${minutesAgo} ${i18n.t('Date.MinutesAgo')}`
+      return minutesAgo === 1 ? `${i18n.t('Date.MinuteAgo')}` : `${i18n.t('Date.MinutesAgo', { count: minutesAgo })}`
     }
     if (sameDay) {
       return momentTime.format(hoursFormat)
@@ -243,15 +245,6 @@ export function formatIfDate(format: string | undefined, value: string | number 
   return value
 }
 
-/**
- * @deprecated The function should not be used
- */
-export function connectionRecordFromId(connectionId?: string): ConnectionRecord | void {
-  if (connectionId) {
-    return useConnectionById(connectionId)
-  }
-}
-
 export function getConnectionName(
   connection: ConnectionRecord | undefined,
   alternateContactNames: Record<string, string>
@@ -265,20 +258,21 @@ export function getConnectionName(
   )
 }
 
-export function getCredentialConnectionLabel(credential?: CredentialExchangeRecord) {
+export function useCredentialConnectionLabel(credential?: CredentialExchangeRecord) {
+  const connection = useConnectionById(credential?.connectionId ?? '')
+
   if (!credential) {
     return ''
   }
 
   if (credential.connectionId) {
-    const connection = useConnectionById(credential.connectionId)
     return connection?.alias || connection?.theirLabel || credential.connectionId
   }
 
   return 'Unknown Contact'
 }
 
-export function getConnectionImageUrl(connectionId: string) {
+export function useConnectionImageUrl(connectionId: string) {
   const connection = useConnectionById(connectionId)
   if (!connection) {
     return undefined
@@ -307,22 +301,6 @@ export function firstValidCredential(
   }
 
   return first
-}
-
-/**
- *
- * @param url a redirection URL to retrieve a payload for an invite
- * @param agent an Agent instance
- * @returns payload from following the redirection
- */
-export const receiveMessageFromUrlRedirect = async (url: string, agent: Agent | undefined) => {
-  const res = await fetch(url, {
-    method: 'GET',
-    headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
-  })
-  const message = await res.json()
-  await agent?.receiveMessage(message)
-  return message
 }
 
 /**
@@ -720,7 +698,37 @@ export const retrieveCredentialsForProof = async (
     const hasPresentationExchange = format.request?.presentationExchange !== undefined
     const hasAnonCreds = format.request?.anoncreds !== undefined
     const hasIndy = format.request?.indy !== undefined
-    const credentials = await agent.proofs.getCredentialsForRequest({
+    const credentialsPromise = agent.proofs.getCredentialsForRequest({
+      proofRecordId: proof.id,
+      proofFormats: {
+        // FIXME: Credo will try to use the format, even if the value is undefined (but the key is present)
+        // We should ignore the key, if the value is undefined. For now this is a workaround.
+        ...(hasIndy
+          ? {
+              indy: {
+                // Setting `filterByNonRevocationRequirements` to `false` returns all
+                // credentials even if they are revokable (and revoked). We need this to
+                // be able to show why a proof cannot be satisfied. Otherwise we can only
+                // show failure.
+                filterByNonRevocationRequirements: true,
+              },
+            }
+          : {}),
+        ...(hasAnonCreds
+          ? {
+              anoncreds: {
+                // Setting `filterByNonRevocationRequirements` to `false` returns all
+                // credentials even if they are revokable (and revoked). We need this to
+                // be able to show why a proof cannot be satisfied. Otherwise we can only
+                // show failure.
+                filterByNonRevocationRequirements: true,
+              },
+            }
+          : {}),
+        ...(hasPresentationExchange ? { presentationExchange: {} } : {}),
+      },
+    })
+    const credentialsWithRevokedPromise = agent.proofs.getCredentialsForRequest({
       proofRecordId: proof.id,
       proofFormats: {
         // FIXME: Credo will try to use the format, even if the value is undefined (but the key is present)
@@ -750,6 +758,28 @@ export const retrieveCredentialsForProof = async (
         ...(hasPresentationExchange ? { presentationExchange: {} } : {}),
       },
     })
+    const [credentials, credentialsWithRevoked] = await Promise.all([credentialsPromise, credentialsWithRevokedPromise])
+
+    // in the case where there are only revoked credentials to satisfy a proof, include them for errors on the proof screen, otherwise leave them out
+    const addRevokedCredsIfNeeded = (proofFormat: 'indy' | 'anoncreds', proofItem: 'attributes' | 'predicates') => {
+      if (credentials.proofFormats[proofFormat] && credentialsWithRevoked.proofFormats[proofFormat]) {
+        Object.keys(credentials.proofFormats[proofFormat]?.[proofItem] ?? {}).forEach((key) => {
+          if (
+            credentials.proofFormats[proofFormat] &&
+            !credentials.proofFormats[proofFormat]?.[proofItem][key]?.length
+          ) {
+            credentials.proofFormats[proofFormat]?.[proofItem][key].push(
+              ...(credentialsWithRevoked.proofFormats[proofFormat]?.[proofItem][key] ?? ([] as any[]))
+            )
+          }
+        })
+      }
+    }
+    for (const proofFormat of ['indy', 'anoncreds']) {
+      for (const proofItem of ['attributes', 'predicates']) {
+        addRevokedCredsIfNeeded(proofFormat as 'indy' | 'anoncreds', proofItem as 'attributes' | 'predicates')
+      }
+    }
     if (!credentials) {
       throw new Error(t('ProofRequest.RequestedCredentialsCouldNotBeFound'))
     }
@@ -905,129 +935,48 @@ export const connectFromInvitation = async (
   agent: Agent | undefined,
   implicitInvitations: boolean = false,
   reuseConnection: boolean = false
-) => {
+): Promise<OutOfBandRecord> => {
   const invitation = await agent?.oob.parseInvitation(uri)
 
   if (!invitation) {
     throw new Error('Could not parse invitation from URL')
   }
 
-  let record
   if (implicitInvitations) {
     try {
       if (invitation.getDidServices().length > 0) {
         const did = parseDid(invitation.getDidServices()[0])
-        record = await agent?.oob.receiveImplicitInvitation({
+        const record = await agent?.oob.receiveImplicitInvitation({
           did: did.did,
           label: invitation.label,
           handshakeProtocols: invitation.handshakeProtocols as HandshakeProtocol[] | undefined,
         })
+
+        return record?.outOfBandRecord as OutOfBandRecord
       }
     } catch (e) {
       // don't throw an error, will try to connect again below
     }
   }
 
-  if (!record) {
-    record = await agent?.oob.receiveInvitation(invitation, { reuseConnection })
+  const record = await agent?.oob.receiveInvitation(invitation, { reuseConnection })
+  return record?.outOfBandRecord as OutOfBandRecord
+}
+
+const processBetaUrlIfRequired = (uri: string): string => {
+  let aUrl = uri
+
+  // _oob is a beta query param, not supported by Credo.
+  aUrl = uri.replace('_oob', 'oob')
+
+  // _url is a beta query param, not supported by Credo.
+  if (uri.includes('_url')) {
+    const queryParams = parseUrl(uri)?.query
+    const b64UrlRedirect = queryParams['_url']
+    aUrl = b64decode(b64UrlRedirect as string)
   }
 
-  return record
-}
-
-interface QueryParams {
-  ['d_m']?: string
-  ['c_i']?: string
-  ['oob']?: string
-  ['_oob']?: string
-  ['_url']?: string
-}
-
-/**
- * Returns an OOB message from a beta query param (a query param Credo does not yet support but we do)
- * @param queryParams query params object containing at least one beta query param (_oob, _url)
- * @param agent
- * @returns oob message
- */
-export const getOobFromBetaQueryParam = async (queryParams: QueryParams, agent: Agent): Promise<any> => {
-  const b64UrlRedirect = queryParams['_url']
-  const b64OobMessage = queryParams['_oob']
-
-  // for _url: decode url, fetch from url, parse JSON, then receive
-  if (b64UrlRedirect) {
-    const url = b64decode(b64UrlRedirect as string)
-    return await receiveMessageFromUrlRedirect(url, agent)
-  }
-
-  // for _oob: decode, parse JSON, and receive
-  const rawmessage = b64decode(b64OobMessage as string)
-  const message = JSON.parse(rawmessage)
-  await agent.receiveMessage(message)
-  return message
-}
-
-/**
- * Checks if a query param object has a param Credo does not yet support but we are attempting to
- * @param query a query object
- * @returns the acceptable beta query param or false
- */
-const queryHasBetaParam = (query: QueryParams) => {
-  return query['_oob'] ?? query['_url'] ?? false
-}
-
-/**
- * Using built-in Credo methods, receive a message from a scan or deeplink and navigate accordingly
- * @param uri a URI either containing a base64 encoded connection invite in its query parameters or a redirect URL itself
- * @param agent an Agent instance
- * @param navigation a navigation object from either the Scan screen, Home screen, or PasteUrl screen
- * @param implicitInvitations a boolean to determine if implicit invitation behavior should be used
- * @param reuseConnection a boolean to determine if connection reuse should be allowed
- * @throws different types of CredoError if unsuccessful, what type depends on the reason for failure
- */
-const primaryConnectStrategy = async (
-  uri: string,
-  agent: Agent | undefined,
-  navigation: any,
-  implicitInvitations: boolean = false,
-  reuseConnection: boolean = false
-) => {
-  const receivedInvitation = await connectFromInvitation(uri, agent, implicitInvitations, reuseConnection)
-  if (receivedInvitation?.connectionRecord?.id) {
-    // connection-based
-    navigation.navigate(Stacks.ConnectionStack as any, {
-      screen: Screens.Connection,
-      params: { connectionId: receivedInvitation.connectionRecord.id },
-    })
-  } else {
-    // connectionless
-    navigation.navigate(Stacks.ConnectionStack as any, {
-      screen: Screens.Connection,
-      params: { threadId: receivedInvitation?.outOfBandRecord.outOfBandInvitation.threadId },
-    })
-  }
-}
-
-/**
- * Custom handling of beta query params to receive a message from a scan or deeplink and navigate accordingly
- * @param uri a URI containing with base64 encoded query parameter
- * @param agent an Agent instance
- * @param navigation a navigation object from either the Scan screen, Home screen, or PasteUrl screen
- * @param isDeepLink a boolean to communicate where the uri is coming from
- */
-const betaConnectStrategy = async (uri: string, agent: Agent, navigation: any, isDeepLink: boolean) => {
-  const queryParams = parseUrl(uri)?.query
-
-  // only throw here if it's not a deeplink
-  if (!isDeepLink && !(queryParams && queryHasBetaParam(queryParams))) {
-    throw new Error('No valid beta query params found in URI')
-  }
-
-  // if there's a valid query param, try unpacking and receiving the message
-  const message = await getOobFromBetaQueryParam(queryParams, agent)
-  navigation.navigate(Stacks.ConnectionStack as any, {
-    screen: Screens.Connection,
-    params: { threadId: message['@id'] },
-  })
+  return aUrl
 }
 
 /**
@@ -1054,22 +1003,27 @@ export const connectFromScanOrDeepLink = async (
     return
   }
 
+  // TODO:(jl) Do we care if the connection is a deep link?
+  logger.info(`Attempting to connect from scan or ${isDeepLink ? 'deeplink' : 'qr scan'}`)
   try {
-    logger.info(`Attempting to connect from ${isDeepLink ? 'deep link' : 'scan'}, URI: ${uri}`)
-
-    await primaryConnectStrategy(uri, agent, navigation, implicitInvitations, reuseConnection)
-  } catch (primaryErr: unknown) {
-    logger.error('Error during primary connect strategy. Error:', primaryErr as Error)
-    const primaryErrMsg = (primaryErr as Error)?.message ?? 'unknown'
-
-    try {
-      await betaConnectStrategy(uri, agent, navigation, isDeepLink)
-    } catch (betaErr: unknown) {
-      logger.error('Error during beta connect strategy. Error:', betaErr as Error)
-      const betaErrMsg = (betaErr as Error)?.message ?? 'unknown'
-
-      throw new Error(`Primary error: ${primaryErrMsg}\nBeta error: ${betaErrMsg}`)
+    const isOpenIDInvitation = await isOpenIdPresentationRequest(uri)
+    if (isOpenIDInvitation) {
+      //TODO: Impliment Navigation to display credential
+      throw new Error(`OpenID4VCI is not supported yet`)
     }
+    const aUrl = processBetaUrlIfRequired(uri)
+    const receivedInvitation = await connectFromInvitation(aUrl, agent, implicitInvitations, reuseConnection)
+
+    if (receivedInvitation?.id) {
+      navigation.navigate(Stacks.ConnectionStack as any, {
+        screen: Screens.Connection,
+        params: { oobRecordId: receivedInvitation.id },
+      })
+    }
+  } catch (error: unknown) {
+    logger.error('Problem during connect strategy, error:', error as Error)
+
+    throw error
   }
 }
 

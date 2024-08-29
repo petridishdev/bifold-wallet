@@ -1,45 +1,28 @@
 import mockRNCNetInfo from '@react-native-community/netinfo/jest/netinfo-mock'
-import { useNavigation } from '@react-navigation/core'
-import { act, fireEvent, render } from '@testing-library/react-native'
-import React from 'react'
+import { act, fireEvent, render, renderHook } from '@testing-library/react-native'
+import React, { PropsWithChildren } from 'react'
 
-import { ConfigurationContext } from '../../App/contexts/configuration'
-import { NetworkProvider } from '../../App/contexts/network'
-import configurationContext from '../contexts/configuration'
+import { useNavigation as testUseNavigation } from '../../__mocks__/@react-navigation/native'
 import ProofRequestDetails from '../../App/screens/ProofRequestDetails'
-import { testIdWithKey } from '../../App'
+import { ContainerProvider, MainContainer, testIdWithKey } from '../../App'
 import { ProofRequestType } from '@hyperledger/aries-bifold-verifier'
 import { useTemplates, useTemplate } from '../../App/hooks/proof-request-templates'
 import axios from 'axios'
 import { applyTemplateMarkers, useRemoteProofBundleResolver } from '../../App/utils/proofBundle'
+import { BasicAppContext } from '../helpers/app'
+import { container } from 'tsyringe'
 
-jest.mock('../../App/container-api')
 jest.mock('react-native-permissions', () => require('react-native-permissions/mock'))
 jest.mock('@react-native-community/netinfo', () => mockRNCNetInfo)
-jest.mock('@react-navigation/core', () => {
-  return require('../../__mocks__/custom/@react-navigation/core')
-})
-jest.mock('@hyperledger/anoncreds-react-native', () => ({}))
-jest.mock('@hyperledger/aries-askar-react-native', () => ({}))
-jest.mock('@hyperledger/indy-vdr-react-native', () => ({}))
-jest.mock('react-native-fs', () => ({}))
-jest.mock('@react-navigation/native', () => {
-  return require('../../__mocks__/custom/@react-navigation/native')
-})
-jest.mock('react-native-vision-camera', () => {
-  return require('../../__mocks__/custom/react-native-camera')
-})
 jest.mock('react-native-device-info', () => () => jest.fn())
-
-jest.useFakeTimers({ legacyFakeTimers: true })
-jest.spyOn(global, 'setTimeout')
-
 jest.mock('../../App/hooks/proof-request-templates', () => ({
   useTemplates: jest.fn(),
   useTemplate: jest.fn(),
 }))
-
 jest.mock('axios', () => ({ create: jest.fn() }))
+
+jest.useFakeTimers({ legacyFakeTimers: true })
+jest.spyOn(global, 'setTimeout')
 
 const templates = [
   {
@@ -80,10 +63,10 @@ axios.create.mockImplementation(() => ({ get: () => Promise.resolve({ data: temp
 // @ts-ignore
 useTemplates.mockImplementation(() => templates)
 // @ts-ignore
-useTemplate.mockImplementation((id) => templates[0])
+useTemplate.mockImplementation(() => templates[0])
 const templateId = templates[0].id
 const connectionId = 'test'
-const navigation = useNavigation()
+const navigation = testUseNavigation()
 
 describe('ProofRequestDetails Component', () => {
   beforeEach(() => {
@@ -92,18 +75,18 @@ describe('ProofRequestDetails Component', () => {
 
   const renderView = (params: { templateId: string; connectionId?: string }) => {
     return render(
-      <ConfigurationContext.Provider value={configurationContext}>
-        <NetworkProvider>
-          <ProofRequestDetails navigation={navigation as any} route={{ params: params } as any} />
-        </NetworkProvider>
-      </ConfigurationContext.Provider>
+      <BasicAppContext>
+        <ProofRequestDetails navigation={navigation as any} route={{ params: params } as any} />
+      </BasicAppContext>
     )
   }
 
   test('Proof bundle resolver works correctly', async () => {
-    const resolver = useRemoteProofBundleResolver('http://localhost:3000')
-    const bundle = await resolver.resolve(true)
-    expect((bundle?.[0].payload.data[0] as any).requestedAttributes[0].restrictions.length).toBe(2)
+    const context = new MainContainer(container.createChildContainer()).init()
+    const wrapper = ({ children }: PropsWithChildren ) => <ContainerProvider value={context}>{children}</ContainerProvider>
+    const { result }  = renderHook(() => useRemoteProofBundleResolver('http://localhost:3000'), { wrapper })
+    const bundle = await result.current.resolve(true)
+    expect((bundle?.[0].payload.data[0] as any).requestedAttributes[0].restrictions).toHaveLength(2)
   })
 
   test('Template is parsed correctly', async () => {
@@ -115,7 +98,7 @@ describe('ProofRequestDetails Component', () => {
 
   test('Renders correctly', async () => {
     const tree = renderView({ templateId })
-    await act(async () => {})
+    await act(async () => { })
     expect(tree).toMatchSnapshot()
   })
 
@@ -128,7 +111,7 @@ describe('ProofRequestDetails Component', () => {
     const familyName = await tree.findByText('Last Name', { exact: false })
 
     expect(schema).not.toBe(null)
-    expect(credential.length).toBe(3)
+    expect(credential).toHaveLength(3)
     expect(givenNames).not.toBe(null)
     expect(familyName).not.toBe(null)
   })

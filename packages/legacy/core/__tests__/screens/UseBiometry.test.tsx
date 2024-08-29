@@ -6,20 +6,8 @@ import UseBiometry from '../../App/screens/UseBiometry'
 import { testIdWithKey } from '../../App/utils/testable'
 import authContext from '../contexts/auth'
 import timeTravel from '../helpers/timetravel'
+import { BasicAppContext } from '../helpers/app'
 
-jest.mock('@react-navigation/core', () => {
-  return require('../../__mocks__/custom/@react-navigation/core')
-})
-jest.mock('@react-navigation/native', () => {
-  return require('../../__mocks__/custom/@react-navigation/native')
-})
-jest.mock('react-native-fs', () => ({}))
-jest.mock('@hyperledger/anoncreds-react-native', () => ({}))
-jest.mock('@hyperledger/aries-askar-react-native', () => ({}))
-jest.mock('@hyperledger/indy-vdr-react-native', () => ({}))
-jest.mock('../../App/contexts/configuration', () => ({
-  useConfiguration: jest.fn().mockReturnValue({ enablePushNotifications: { setup: jest.fn(), toggle: jest.fn(), status: jest.fn() } }),
-}))
 
 describe('UseBiometry Screen', () => {
   beforeAll(() => {
@@ -30,9 +18,11 @@ describe('UseBiometry Screen', () => {
   test('Renders correctly when biometry available', async () => {
     authContext.isBiometricsActive = jest.fn().mockResolvedValueOnce(true)
     const tree = render(
-      <AuthContext.Provider value={authContext}>
-        <UseBiometry />
-      </AuthContext.Provider>
+      <BasicAppContext>
+        <AuthContext.Provider value={authContext}>
+          <UseBiometry />
+        </AuthContext.Provider>
+      </BasicAppContext>
     )
 
     await waitFor(() => {
@@ -45,9 +35,11 @@ describe('UseBiometry Screen', () => {
   test('Renders correctly when biometry not available', async () => {
     authContext.isBiometricsActive = jest.fn().mockResolvedValueOnce(false)
     const tree = render(
-      <AuthContext.Provider value={authContext}>
-        <UseBiometry />
-      </AuthContext.Provider>
+      <BasicAppContext>
+        <AuthContext.Provider value={authContext}>
+          <UseBiometry />
+        </AuthContext.Provider>
+      </BasicAppContext>
     )
 
     await waitFor(() => {
@@ -60,9 +52,11 @@ describe('UseBiometry Screen', () => {
   test('Toggles use biometrics ok', async () => {
     authContext.isBiometricsActive = jest.fn().mockResolvedValueOnce(true)
     const tree = render(
-      <AuthContext.Provider value={authContext}>
-        <UseBiometry />
-      </AuthContext.Provider>
+      <BasicAppContext>
+        <AuthContext.Provider value={authContext}>
+          <UseBiometry />
+        </AuthContext.Provider>
+      </BasicAppContext>
     )
 
     await waitFor(() => {

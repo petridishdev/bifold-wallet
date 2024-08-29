@@ -1,31 +1,30 @@
 import { AnonCredsCredentialMetadataKey } from '@credo-ts/anoncreds'
 import { CredentialExchangeRecord, CredentialState } from '@credo-ts/core'
 import { useCredentialByState } from '@credo-ts/react-hooks'
-import { useNavigation } from '@react-navigation/core'
-import { useIsFocused } from '@react-navigation/native'
+import { useIsFocused, useNavigation } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { FlatList, TouchableOpacity, View } from 'react-native'
 
-import { useConfiguration } from '../contexts/configuration'
+import { OverlayBundle } from '@hyperledger/aries-oca'
+import { LocalizedCredential } from '@hyperledger/aries-oca/build/formatters'
+import { LocalizedCredentialContext } from '@hyperledger/aries-oca/build/ui/contexts'
+import CredentialCard from '../components/misc/CredentialCard'
+import { EmptyListProps } from '../components/misc/EmptyList'
+import { TOKENS, useContainer, useServices } from '../container-api'
 import { DispatchAction } from '../contexts/reducers/store'
 import { useStore } from '../contexts/store'
 import { useTheme } from '../contexts/theme'
 import { useTour } from '../contexts/tour/tour-context'
 import { CredentialStackParams, Screens } from '../types/navigators'
 import { TourID } from '../types/tour'
-import { TOKENS, useContainer } from '../container-api'
-import { getCredentialConnectionLabel } from '../utils/helpers'
 import { getCredentialIdentifiers } from '../utils/credential'
+import { useCredentialConnectionLabel } from '../utils/helpers'
 import { testIdWithKey } from '../utils/testable'
-import { OverlayBundle } from '@hyperledger/aries-oca'
-import { LocalizedCredentialContext } from '@hyperledger/aries-oca/build/ui/contexts'
-import { CredentialCard } from '@hyperledger/aries-oca/build/ui/components'
-import { LocalizedCredential } from '@hyperledger/aries-oca/build/formatters'
 
 const ListCredential: React.FC<{ credential: CredentialExchangeRecord }> = ({ credential }) => {
-  const credentialConnectionLabel = getCredentialConnectionLabel(credential)
+  const credentialConnectionLabel = useCredentialConnectionLabel(credential)
   const { i18n, t } = useTranslation()
   const bundleResolver = useContainer().resolve(TOKENS.UTIL_OCA_RESOLVER)
   const [bundle, setBundle] = useState<OverlayBundle>()
@@ -64,17 +63,15 @@ const ListCredential: React.FC<{ credential: CredentialExchangeRecord }> = ({ cr
 const ListCredentials: React.FC = () => {
   const { t } = useTranslation()
   const [store, dispatch] = useStore()
-  const {
-    credentialListOptions: CredentialListOptions,
-    credentialEmptyList: CredentialEmptyList,
-    enableTours: enableToursConfig,
-    credentialHideList,
-  } = useConfiguration()
+  const [CredentialListOptions, credentialEmptyList, { enableTours: enableToursConfig, credentialHideList }] =
+    useServices([TOKENS.COMPONENT_CRED_LIST_OPTIONS, TOKENS.COMPONENT_CRED_EMPTY_LIST, TOKENS.CONFIG])
 
   let credentials = [
     ...useCredentialByState(CredentialState.CredentialReceived),
     ...useCredentialByState(CredentialState.Done),
   ]
+
+  const CredentialEmptyList = credentialEmptyList as React.FC<EmptyListProps>
 
   // Filter out hidden credentials when not in dev mode
   if (!store.preferences.developerModeEnabled) {

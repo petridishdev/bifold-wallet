@@ -6,26 +6,14 @@ import fs from 'fs'
 import path from 'path'
 import React from 'react'
 
-import CredentialCard11 from '../../App/components/misc/CredentialCard11'
-import { ConfigurationContext } from '../../App/contexts/configuration'
-import { testIdWithKey } from '../../App/utils/testable'
-import configurationContext from '../contexts/configuration'
 import { Linking } from 'react-native'
+import CredentialCard11 from '../../App/components/misc/CredentialCard11'
+import { testIdWithKey } from '../../App/utils/testable'
+import { BasicAppContext } from '../helpers/app'
 
-jest.mock('../../App/container-api')
 jest.mock('react-native/Libraries/EventEmitter/NativeEventEmitter')
 jest.mock('@react-native-community/netinfo', () => mockRNCNetInfo)
 jest.mock('react-native/Libraries/Animated/NativeAnimatedHelper')
-jest.mock('@react-navigation/core', () => {
-  return require('../../__mocks__/custom/@react-navigation/core')
-})
-jest.mock('@react-navigation/native', () => {
-  return require('../../__mocks__/custom/@react-navigation/native')
-})
-
-jest.mock('@hyperledger/anoncreds-react-native', () => ({}))
-jest.mock('@hyperledger/aries-askar-react-native', () => ({}))
-jest.mock('@hyperledger/indy-vdr-react-native', () => ({}))
 jest.useFakeTimers({ legacyFakeTimers: true })
 jest.spyOn(global, 'setTimeout')
 
@@ -49,7 +37,7 @@ describe('CredentialCard11 component', () => {
       const handleAltCredChange = jest.fn()
 
       const { findByTestId } = render(
-        <ConfigurationContext.Provider value={configurationContext}>
+        <BasicAppContext>
           <CredentialCard11
             credential={credentialRecord}
             credDefId={'cred_def_id'}
@@ -58,7 +46,7 @@ describe('CredentialCard11 component', () => {
             handleAltCredChange={handleAltCredChange}
             hasAltCredentials
           />
-        </ConfigurationContext.Provider>
+        </BasicAppContext>
       )
 
       const changeCredentialButton = await findByTestId(testIdWithKey('ChangeCredential'))
@@ -72,13 +60,9 @@ describe('CredentialCard11 component', () => {
     test('Missing credential with help action (cred def ID)', async () => {
       Linking.openURL = jest.fn()
       const { findByTestId } = render(
-        <ConfigurationContext.Provider
-          value={{
-            ...configurationContext,
-          }}
-        >
+        <BasicAppContext>
           <CredentialCard11 proof credDefId={'XUxBrVSALWHLeycAUhrNr9:3:CL:26293:Student Card'} error={true} />
-        </ConfigurationContext.Provider>
+        </BasicAppContext>
       )
 
       const getThisCredentialButton = await findByTestId(testIdWithKey('GetThisCredential'))
@@ -93,13 +77,9 @@ describe('CredentialCard11 component', () => {
       Linking.openURL = jest.fn()
 
       const { findByTestId } = render(
-        <ConfigurationContext.Provider
-          value={{
-            ...configurationContext,
-          }}
-        >
+        <BasicAppContext>
           <CredentialCard11 proof schemaId={'XUxBrVSALWHLeycAUhrNr9:2:student_card:1.0'} error={true} />
-        </ConfigurationContext.Provider>
+        </BasicAppContext>
       )
 
       const getThisCredentialButton = await findByTestId(testIdWithKey('GetThisCredential'))

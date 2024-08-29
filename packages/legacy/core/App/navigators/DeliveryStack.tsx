@@ -9,13 +9,13 @@ import CredentialOffer from '../screens/CredentialOffer'
 import ProofRequest from '../screens/ProofRequest'
 import { DeliveryStackParams, Screens } from '../types/navigators'
 
-import { createDefaultStackOptions } from './defaultStackOptions'
+import { useDefaultStackOptions } from './defaultStackOptions'
 
 const DeliveryStack: React.FC = () => {
   const Stack = createStackNavigator<DeliveryStackParams>()
   const { t } = useTranslation()
   const theme = useTheme()
-  const defaultStackOptions = createDefaultStackOptions(theme)
+  const defaultStackOptions = useDefaultStackOptions(theme)
 
   return (
     <Stack.Navigator
@@ -29,7 +29,11 @@ const DeliveryStack: React.FC = () => {
         headerRight: () => <HeaderRightHome />,
       }}
     >
-      <Stack.Screen name={Screens.Connection} component={Connection} options={{ ...defaultStackOptions }} />
+      <Stack.Screen
+        name={Screens.Connection}
+        component={Connection}
+        options={{ ...defaultStackOptions, headerShown: false }}
+      />
       <Stack.Screen
         name={Screens.ProofRequest}
         component={ProofRequest}

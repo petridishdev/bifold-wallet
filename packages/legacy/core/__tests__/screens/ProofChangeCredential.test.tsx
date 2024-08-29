@@ -10,32 +10,19 @@ import {
 import { Attachment, AttachmentData } from '@credo-ts/core/build/decorators/attachment/Attachment'
 import { useAgent, useProofById } from '@credo-ts/react-hooks'
 import mockRNCNetInfo from '@react-native-community/netinfo/jest/netinfo-mock'
-import { useNavigation } from '@react-navigation/core'
+import { useNavigation } from '@react-navigation/native'
 import '@testing-library/jest-native/extend-expect'
 import { cleanup, fireEvent, render, waitFor } from '@testing-library/react-native'
 import React from 'react'
 
-import { ConfigurationContext } from '../../App/contexts/configuration'
-import { NetworkProvider } from '../../App/contexts/network'
 import ProofChangeCredential from '../../App/screens/ProofChangeCredential'
 import { testIdWithKey } from '../../App/utils/testable'
-import configurationContext from '../contexts/configuration'
 import timeTravel from '../helpers/timetravel'
+import { BasicAppContext } from '../helpers/app'
 
-jest.mock('../../App/container-api')
 jest.mock('react-native/Libraries/EventEmitter/NativeEventEmitter')
 jest.mock('@react-native-community/netinfo', () => mockRNCNetInfo)
 jest.mock('react-native/Libraries/Animated/NativeAnimatedHelper')
-jest.mock('@react-navigation/core', () => {
-  return require('../../__mocks__/custom/@react-navigation/core')
-})
-jest.mock('@react-navigation/native', () => {
-  return require('../../__mocks__/custom/@react-navigation/native')
-})
-
-jest.mock('@hyperledger/anoncreds-react-native', () => ({}))
-jest.mock('@hyperledger/aries-askar-react-native', () => ({}))
-jest.mock('@hyperledger/indy-vdr-react-native', () => ({}))
 jest.useFakeTimers({ legacyFakeTimers: true })
 jest.spyOn(global, 'setTimeout')
 
@@ -273,8 +260,7 @@ describe('displays a credential selection screen', () => {
 
       const onCredChange = jest.fn()
       const tree = render(
-        <ConfigurationContext.Provider value={configurationContext}>
-          <NetworkProvider>
+        <BasicAppContext>
             <ProofChangeCredential
               navigation={navigation as any}
               route={
@@ -288,8 +274,7 @@ describe('displays a credential selection screen', () => {
                 } as any
               }
             />
-          </NetworkProvider>
-        </ConfigurationContext.Provider>
+        </BasicAppContext>
       )
 
       await waitFor(() => {

@@ -1,45 +1,37 @@
+import { getProofRequestTemplates } from '@hyperledger/aries-bifold-verifier'
 import mockRNCNetInfo from '@react-native-community/netinfo/jest/netinfo-mock'
-import { useNavigation } from '@react-navigation/core'
 import { act, fireEvent, render } from '@testing-library/react-native'
 import React from 'react'
 
-import { ConfigurationContext } from '../../App/contexts/configuration'
+import { useNavigation as testUseNavigation } from '../../__mocks__/@react-navigation/native'
 import { NetworkProvider } from '../../App/contexts/network'
-import configurationContext from '../contexts/configuration'
 import ListProofRequests from '../../App/screens/ListProofRequests'
-import { useProofRequestTemplates } from '@hyperledger/aries-bifold-verifier'
+import { BasicAppContext } from '../helpers/app'
 
 jest.mock('react-native/Libraries/EventEmitter/NativeEventEmitter')
 jest.mock('@react-native-community/netinfo', () => mockRNCNetInfo)
-jest.mock('@react-navigation/core', () => {
-  return require('../../__mocks__/custom/@react-navigation/core')
-})
-jest.mock('@react-navigation/native', () => {
-  return require('../__mocks__/custom/@react-navigation/native')
-})
-jest.mock('../../App/container-api')
 // eslint-disable-next-line @typescript-eslint/no-empty-function
-jest.mock('react-native-localize', () => {})
+jest.mock('react-native-localize', () => { })
 
 jest.useFakeTimers({ legacyFakeTimers: true })
 jest.spyOn(global, 'setTimeout')
 
-const navigation = useNavigation()
+const navigation = testUseNavigation()
 
 describe('ListProofRequests Component', () => {
-  const renderView = (params?: {}) => {
+  const renderView = (params?: any) => {
     return render(
-      <ConfigurationContext.Provider value={configurationContext}>
+      <BasicAppContext>
         <NetworkProvider>
           <ListProofRequests navigation={navigation as any} route={{ params: params || {} } as any} />
         </NetworkProvider>
-      </ConfigurationContext.Provider>
+      </BasicAppContext>
     )
   }
 
   test('Renders correctly', async () => {
     const tree = renderView()
-    await act(async () => {})
+    await act(async () => { })
     expect(tree).toMatchSnapshot()
   })
 
@@ -62,7 +54,7 @@ describe('ListProofRequests Component', () => {
       fireEvent(templateItemInstance, 'press')
 
       expect(navigation.navigate).toBeCalledWith('Proof Request Details', {
-        templateId: useProofRequestTemplates(false)[0].id,
+        templateId: getProofRequestTemplates(false)[0].id,
       })
     })
   })

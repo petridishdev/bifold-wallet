@@ -2,11 +2,13 @@ import { BaseLogger } from '@credo-ts/core'
 import {
   AnonCredsProofRequestTemplatePayload,
   ProofRequestTemplate,
-  useProofRequestTemplates,
+  getProofRequestTemplates,
 } from '@hyperledger/aries-bifold-verifier'
 import axios, { AxiosError } from 'axios'
 
-import { useConfiguration } from '../contexts/configuration'
+import { TOKENS, useServices } from '../container-api'
+
+type ProofRequestTemplateFn = (useDevTemplates: boolean) => Array<ProofRequestTemplate>
 
 const calculatePreviousYear = (yearOffset: number) => {
   const pastDate = new Date()
@@ -70,10 +72,11 @@ export const useRemoteProofBundleResolver = (
   indexFileBaseUrl: string | undefined,
   log?: BaseLogger
 ): ProofBundleResolverType => {
+  const [proofRequestTemplates] = useServices([TOKENS.UTIL_PROOF_TEMPLATE])
   if (indexFileBaseUrl) {
     return new RemoteProofBundleResolver(indexFileBaseUrl, log)
   } else {
-    return new DefaultProofBundleResolver()
+    return new DefaultProofBundleResolver(proofRequestTemplates)
   }
 }
 
@@ -149,9 +152,8 @@ export class RemoteProofBundleResolver implements ProofBundleResolverType {
 export class DefaultProofBundleResolver implements ProofBundleResolverType {
   private proofRequestTemplates
 
-  public constructor() {
-    const { proofRequestTemplates } = useConfiguration()
-    this.proofRequestTemplates = proofRequestTemplates ?? useProofRequestTemplates
+  public constructor(proofRequestTemplates: ProofRequestTemplateFn | undefined) {
+    this.proofRequestTemplates = proofRequestTemplates ?? getProofRequestTemplates
   }
 
   public async resolve(acceptDevRestrictions: boolean): Promise<ProofRequestTemplate[]> {

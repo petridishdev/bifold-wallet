@@ -1,21 +1,26 @@
 import { ProofState } from '@credo-ts/core'
 import { useAgent, useProofByState } from '@credo-ts/react-hooks'
 import { ProofCustomMetadata, ProofMetadata } from '@hyperledger/aries-bifold-verifier'
-import { useNavigation } from '@react-navigation/core'
-import { StackCardStyleInterpolator, StackNavigationProp, createStackNavigator } from '@react-navigation/stack'
+import { useNavigation } from '@react-navigation/native'
+import {
+  CardStyleInterpolators,
+  StackCardStyleInterpolator,
+  StackNavigationProp,
+  createStackNavigator,
+} from '@react-navigation/stack'
 import React, { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { AppState, DeviceEventEmitter } from 'react-native'
 
 import HeaderButton, { ButtonLocation } from '../components/buttons/HeaderButton'
 import { EventTypes, walletTimeout } from '../constants'
-import { TOKENS, useContainer } from '../container-api'
+import { TOKENS, useServices } from '../container-api'
 import { useAuth } from '../contexts/auth'
-import { useConfiguration } from '../contexts/configuration'
 import { DispatchAction } from '../contexts/reducers/store'
 import { useStore } from '../contexts/store'
 import { useTheme } from '../contexts/theme'
 import { useDeepLinks } from '../hooks/deep-links'
+import HistoryStack from '../modules/history/navigation/HistoryStack'
 import Chat from '../screens/Chat'
 import { BifoldError } from '../types/error'
 import { AuthenticateStackParams, Screens, Stacks, TabStacks } from '../types/navigators'
@@ -29,7 +34,7 @@ import NotificationStack from './NotificationStack'
 import ProofRequestStack from './ProofRequestStack'
 import SettingStack from './SettingStack'
 import TabStack from './TabStack'
-import { createDefaultStackOptions } from './defaultStackOptions'
+import { useDefaultStackOptions } from './defaultStackOptions'
 
 const RootStack: React.FC = () => {
   const [state, dispatch] = useStore()
@@ -43,12 +48,9 @@ const RootStack: React.FC = () => {
   const { t } = useTranslation()
   const navigation = useNavigation<StackNavigationProp<AuthenticateStackParams>>()
   const theme = useTheme()
-  const defaultStackOptions = createDefaultStackOptions(theme)
-  const { splash, enableImplicitInvitations, enableReuseConnections } = useConfiguration()
-  const container = useContainer()
-  const logger = container.resolve(TOKENS.UTIL_LOGGER)
-  const OnboardingStack = container.resolve(TOKENS.STACK_ONBOARDING)
-  const loadState = container.resolve(TOKENS.LOAD_STATE)
+  const defaultStackOptions = useDefaultStackOptions(theme)
+  const [splash, { enableImplicitInvitations, enableReuseConnections }, logger, OnboardingStack, loadState] = useServices([TOKENS.SCREEN_SPLASH, TOKENS.CONFIG, TOKENS.UTIL_LOGGER, TOKENS.STACK_ONBOARDING, TOKENS.LOAD_STATE])
+
   useDeepLinks()
 
   // remove connection on mobile verifier proofs if proof is rejected regardless of if it has been opened
@@ -58,7 +60,7 @@ const RootStack: React.FC = () => {
       const meta = proof?.metadata?.get(ProofMetadata.customMetadata) as ProofCustomMetadata
       if (meta?.delete_conn_after_seen) {
         // eslint-disable-next-line @typescript-eslint/no-empty-function
-        agent?.connections.deleteById(proof?.connectionId ?? '').catch(() => {})
+        agent?.connections.deleteById(proof?.connectionId ?? '').catch(() => { })
         proof?.metadata.set(ProofMetadata.customMetadata, { ...meta, delete_conn_after_seen: false })
       }
     })
@@ -96,9 +98,14 @@ const RootStack: React.FC = () => {
       })
   }, [])
 
+  useEffect(() => {
+    logger.info(`Deeplink state (from rootstack) ${state.deepLink}`)
+  }, [state.deepLink])
+
   // handle deeplink events
   useEffect(() => {
     async function handleDeepLink(deepLink: string) {
+      logger.info(`Handling deeplink: ${deepLink}`)
       // If it's just the general link with no params, set link inactive and do nothing
       if (deepLink.search(/oob=|c_i=|d_m=|url=/) < 0) {
         dispatch({
@@ -139,10 +146,22 @@ const RootStack: React.FC = () => {
       return
     }
 
-    if (agent && agent.isInitialized && state.deepLink.activeDeepLink && state.authentication.didAuthenticate) {
-      handleDeepLink(state.deepLink.activeDeepLink)
+    if (agent?.isInitialized && state.deepLink && state.authentication.didAuthenticate) {
+      handleDeepLink(state.deepLink)
     }
-  }, [agent, state.deepLink.activeDeepLink, state.authentication.didAuthenticate, inBackground])
+  }, [
+    dispatch,
+    agent,
+    logger,
+    navigation,
+    enableImplicitInvitations,
+    enableReuseConnections,
+    t,
+    inBackground,
+    agent?.isInitialized,
+    state.deepLink,
+    state.authentication.didAuthenticate,
+  ])
 
   useEffect(() => {
     AppState.addEventListener('change', (nextAppState) => {
@@ -236,8 +255,23 @@ const RootStack: React.FC = () => {
         />
         <Stack.Screen name={Stacks.ContactStack} component={ContactStack} />
         <Stack.Screen name={Stacks.NotificationStack} component={NotificationStack} />
-        <Stack.Screen name={Stacks.ConnectionStack} component={DeliveryStack} options={{ gestureEnabled: false }} />
+        <Stack.Screen
+          name={Stacks.ConnectionStack}
+          component={DeliveryStack}
+          options={{
+            gestureEnabled: false,
+            cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS,
+            presentation: 'modal',
+          }}
+        />
         <Stack.Screen name={Stacks.ProofRequestsStack} component={ProofRequestStack} />
+        <Stack.Screen
+          name={Stacks.HistoryStack}
+          component={HistoryStack}
+          options={{
+            cardStyleInterpolator: forFade,
+          }}
+        />
       </Stack.Navigator>
     )
   }

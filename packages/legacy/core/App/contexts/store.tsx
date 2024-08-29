@@ -47,6 +47,7 @@ export const defaultState: State = {
     usePushNotifications: false,
     useVerifierCapability: false,
     useConnectionInviterCapability: false,
+    useHistoryCapability: false,
     useDevVerifierTemplates: false,
     acceptDevCredentials: false,
     useDataRetention: true,
@@ -63,9 +64,6 @@ export const defaultState: State = {
     seenCredentialsTour: false,
     seenCredentialOfferTour: false,
     seenProofRequestTour: false,
-  },
-  deepLink: {
-    activeDeepLink: '',
   },
   loading: false,
   stateLoaded: false,

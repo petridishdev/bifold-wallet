@@ -1,5 +1,4 @@
-import { ParamListBase, useNavigation } from '@react-navigation/core'
-import { CommonActions } from '@react-navigation/native'
+import { CommonActions, ParamListBase, useNavigation } from '@react-navigation/native'
 import { StackNavigationProp, StackScreenProps } from '@react-navigation/stack'
 import React, { useState, useRef, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -22,10 +21,9 @@ import PINInput from '../components/inputs/PINInput'
 import AlertModal from '../components/modals/AlertModal'
 import KeyboardView from '../components/views/KeyboardView'
 import { EventTypes, minPINLength } from '../constants'
-import { TOKENS, useContainer } from '../container-api'
+import { TOKENS, useServices } from '../container-api'
 import { useAnimatedComponents } from '../contexts/animated-components'
 import { useAuth } from '../contexts/auth'
-import { useConfiguration } from '../contexts/configuration'
 import { DispatchAction } from '../contexts/reducers/store'
 import { useStore } from '../contexts/store'
 import { useTheme } from '../contexts/theme'
@@ -62,11 +60,7 @@ const PINCreate: React.FC<PINCreateProps> = ({ setAuthenticated, route }) => {
   const navigation = useNavigation<StackNavigationProp<AuthenticateStackParams>>()
   const [store, dispatch] = useStore()
   const { t } = useTranslation()
-  const { PINSecurity } = useConfiguration()
 
-  const [PINOneValidations, setPINOneValidations] = useState<PINValidationsType[]>(
-    PINCreationValidations(PIN, PINSecurity.rules)
-  )
 
   const { ColorPallet, TextTheme } = useTheme()
   const { ButtonLoading } = useAnimatedComponents()
@@ -74,8 +68,11 @@ const PINCreate: React.FC<PINCreateProps> = ({ setAuthenticated, route }) => {
   const createPINButtonRef = useRef<TouchableOpacity>(null)
   const actionButtonLabel = updatePin ? t('PINCreate.ChangePIN') : t('PINCreate.CreatePIN')
   const actionButtonTestId = updatePin ? testIdWithKey('ChangePIN') : testIdWithKey('CreatePIN')
-  const container = useContainer()
-  const Button = container.resolve(TOKENS.COMP_BUTTON)
+  const [{ PINSecurity }, Button] = useServices([TOKENS.CONFIG, TOKENS.COMP_BUTTON])
+
+  const [PINOneValidations, setPINOneValidations] = useState<PINValidationsType[]>(
+    PINCreationValidations(PIN, PINSecurity.rules)
+  )
 
   const style = StyleSheet.create({
     screenContainer: {

@@ -79,7 +79,7 @@ describe('RemoteOCABundleResolver', () => {
     resolver = new RemoteOCABundleResolver('http://example.com')
 
     jest.clearAllMocks()
-    // @ts-ignore
+    // @ts-expect-error some weird type
     axios.create().get.mockImplementation(getMock)
   })
 
@@ -133,7 +133,7 @@ describe('RemoteOCABundleResolver', () => {
       }
     }
 
-    // @ts-ignore
+    // @ts-expect-error some weird type
     axios.create().get.mockImplementation((url) => {
       const fileName = url.split('/').pop()
       switch (fileName) {

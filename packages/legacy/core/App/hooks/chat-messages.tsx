@@ -8,20 +8,20 @@ import {
 } from '@credo-ts/core'
 import { useBasicMessagesByConnectionId } from '@credo-ts/react-hooks'
 import { isPresentationReceived } from '@hyperledger/aries-bifold-verifier'
-import { useNavigation } from '@react-navigation/core'
+import { useNavigation } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
 import React, { Fragment, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Linking, Text } from 'react-native'
 
 import { ChatEvent } from '../components/chat/ChatEvent'
-import { ExtendedChatMessage, CallbackType } from '../components/chat/ChatMessage'
+import { CallbackType, ExtendedChatMessage } from '../components/chat/ChatMessage'
 import { useStore } from '../contexts/store'
 import { useTheme } from '../contexts/theme'
 import { useCredentialsByConnectionId } from '../hooks/credentials'
 import { useProofsByConnectionId } from '../hooks/proofs'
 import { Role } from '../types/chat'
-import { RootStackParams, ContactStackParams, Screens, Stacks } from '../types/navigators'
+import { ContactStackParams, RootStackParams, Screens, Stacks } from '../types/navigators'
 import {
   getConnectionName,
   getCredentialEventLabel,
@@ -76,9 +76,9 @@ export const useChatMessagesByConnection = (connection: ConnectionRecord): Exten
   const { t } = useTranslation()
   const { ChatTheme: theme, ColorPallet } = useTheme()
   const navigation = useNavigation<StackNavigationProp<RootStackParams | ContactStackParams>>()
-  const basicMessages = useBasicMessagesByConnectionId(connection.id)
-  const credentials = useCredentialsByConnectionId(connection.id)
-  const proofs = useProofsByConnectionId(connection.id)
+  const basicMessages = useBasicMessagesByConnectionId(connection?.id)
+  const credentials = useCredentialsByConnectionId(connection?.id)
+  const proofs = useProofsByConnectionId(connection?.id)
   const [theirLabel, setTheirLabel] = useState(getConnectionName(connection, store.preferences.alternateContactNames))
 
   // This useEffect is for properly rendering changes to the alt contact name, useMemo did not pick them up
@@ -90,9 +90,9 @@ export const useChatMessagesByConnection = (connection: ConnectionRecord): Exten
     const transformedMessages: Array<ExtendedChatMessage> = basicMessages.map((record: BasicMessageRecord) => {
       const role = getMessageEventRole(record)
       // eslint-disable-next-line
-      const linkRegex = /(?:https?\:\/\/\w+(?:\.\w+)+\S*)|(?:[\w\d\.\_\-]+@\w+(?:\.\w+)+)/gmi
+      const linkRegex = /(?:https?\:\/\/\w+(?:\.\w+)+\S*)|(?:[\w\d\.\_\-]+@\w+(?:\.\w+)+)/gim
       // eslint-disable-next-line
-      const mailRegex = /^[\w\d\.\_\-]+@\w+(?:\.\w+)+$/gmi
+      const mailRegex = /^[\w\d\.\_\-]+@\w+(?:\.\w+)+$/gim
       const links = record.content.match(linkRegex) ?? []
       const handleLinkPress = (link: string) => {
         if (link.match(mailRegex)) {

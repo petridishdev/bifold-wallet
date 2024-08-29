@@ -2,23 +2,21 @@ import { render, fireEvent } from '@testing-library/react-native'
 import React from 'react'
 
 import InfoBox, { InfoBoxType } from '../../App/components/misc/InfoBox'
-import { useConfiguration } from '../../App/contexts/configuration'
+import { BasicAppContext } from '../helpers/app'
 
 const callToAction = jest.fn()
 
-jest.mock('../../App/contexts/configuration', () => ({
-  useConfiguration: jest.fn(),
-}))
-
-describe('ErrorModal Component', () => {
+describe('InfoBox Component', () => {
   test('Renders correctly as Info', async () => {
     const tree = render(
-      <InfoBox
-        notificationType={InfoBoxType.Info}
-        title={'Hello Title'}
-        message={'The quick brown fox jumped over the lazy dog.'}
-        onCallToActionPressed={callToAction}
-      />
+      <BasicAppContext>
+        <InfoBox
+          notificationType={InfoBoxType.Info}
+          title={'Hello Title'}
+          message={'The quick brown fox jumped over the lazy dog.'}
+          onCallToActionPressed={callToAction}
+        />
+      </BasicAppContext>
     )
 
     expect(tree).toMatchSnapshot()
@@ -27,12 +25,14 @@ describe('ErrorModal Component', () => {
 
   test('Renders correctly as Success', async () => {
     const tree = render(
-      <InfoBox
-        notificationType={InfoBoxType.Success}
-        title={'Hello Title'}
-        message={'The quick brown fox jumped over the lazy dog.'}
-        onCallToActionPressed={callToAction}
-      />
+      <BasicAppContext>
+        <InfoBox
+          notificationType={InfoBoxType.Success}
+          title={'Hello Title'}
+          message={'The quick brown fox jumped over the lazy dog.'}
+          onCallToActionPressed={callToAction}
+        />
+      </BasicAppContext>
     )
 
     expect(tree).toMatchSnapshot()
@@ -41,12 +41,14 @@ describe('ErrorModal Component', () => {
 
   test('Renders correctly as Warning', async () => {
     const tree = render(
-      <InfoBox
-        notificationType={InfoBoxType.Warn}
-        title={'Hello Title'}
-        message={'The quick brown fox jumped over the lazy dog.'}
-        onCallToActionPressed={callToAction}
-      />
+      <BasicAppContext>
+        <InfoBox
+          notificationType={InfoBoxType.Warn}
+          title={'Hello Title'}
+          message={'The quick brown fox jumped over the lazy dog.'}
+          onCallToActionPressed={callToAction}
+        />
+      </BasicAppContext>
     )
 
     expect(tree).toMatchSnapshot()
@@ -55,12 +57,14 @@ describe('ErrorModal Component', () => {
 
   test('Renders correctly as Error', async () => {
     const tree = render(
-      <InfoBox
-        notificationType={InfoBoxType.Error}
-        title={'Hello Title'}
-        message={'The quick brown fox jumped over the lazy dog.'}
-        onCallToActionPressed={callToAction}
-      />
+      <BasicAppContext>
+        <InfoBox
+          notificationType={InfoBoxType.Error}
+          title={'Hello Title'}
+          message={'The quick brown fox jumped over the lazy dog.'}
+          onCallToActionPressed={callToAction}
+        />
+      </BasicAppContext>
     )
 
     expect(tree).toMatchSnapshot()
@@ -69,11 +73,13 @@ describe('ErrorModal Component', () => {
 
   test('Hides optional components when empty', async () => {
     const tree = render(
-      <InfoBox
-        notificationType={InfoBoxType.Error}
-        title={'Hello Title'}
-        message={'The quick brown fox jumped over the lazy dog.'}
-      />
+      <BasicAppContext>
+        <InfoBox
+          notificationType={InfoBoxType.Error}
+          title={'Hello Title'}
+          message={'The quick brown fox jumped over the lazy dog.'}
+        />
+      </BasicAppContext>
     )
 
     expect(tree.queryByText('Global.ErrorCode')).toBeNull()
@@ -82,12 +88,14 @@ describe('ErrorModal Component', () => {
 
   test('Callback triggered', async () => {
     const tree = render(
-      <InfoBox
-        notificationType={InfoBoxType.Info}
-        title={'Hello Title'}
-        message={'The quick brown fox jumped over the lazy dog.'}
-        onCallToActionPressed={callToAction}
-      />
+      <BasicAppContext>
+        <InfoBox
+          notificationType={InfoBoxType.Info}
+          title={'Hello Title'}
+          message={'The quick brown fox jumped over the lazy dog.'}
+          onCallToActionPressed={callToAction}
+        />
+      </BasicAppContext>
     )
 
     const dismissBtn = await tree.findByText('Global.Okay')
@@ -95,9 +103,5 @@ describe('ErrorModal Component', () => {
 
     expect(callToAction).toBeCalledTimes(1)
   })
-  beforeEach(() => {
-    // @ts-ignore-next-line
-    useConfiguration.mockReturnValue({ showDetailsInfo: true })
-    jest.clearAllMocks()
-  })
+
 })

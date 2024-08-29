@@ -34,7 +34,9 @@ exports[`displays a home screen renders correctly 1`] = `
     <View
       collapsable={false}
       onLayout={[Function]}
-    />
+    >
+      <View />
+    </View>
     <View
       style={
         Object {
@@ -60,13 +62,15 @@ exports[`displays a home screen renders correctly 1`] = `
             Object {
               "alignItems": "center",
               "flexDirection": "row",
+              "justifyContent": "space-between",
             }
           }
         >
           <View
             style={
               Object {
-                "alignSelf": "center",
+                "alignSelf": "flex-start",
+                "marginLeft": 0,
                 "marginRight": 10,
               }
             }
@@ -95,16 +99,14 @@ exports[`displays a home screen renders correctly 1`] = `
           </View>
           <Text
             style={
-              Array [
-                Object {
-                  "color": "#FFFFFF",
-                  "fontSize": 18,
-                  "fontWeight": "normal",
-                },
-                Object {
-                  "flexShrink": 1,
-                },
-              ]
+              Object {
+                "alignSelf": "center",
+                "color": "#FFFFFF",
+                "flex": 1,
+                "flexWrap": "wrap",
+                "fontSize": 18,
+                "fontWeight": "normal",
+              }
             }
             testID="com.ariesbifold:id/NoNewUpdates"
           >
@@ -115,7 +117,80 @@ exports[`displays a home screen renders correctly 1`] = `
     </View>
     <View
       onLayout={[Function]}
-    />
+    >
+      <View>
+        <View
+          style={
+            Object {
+              "paddingBottom": 75,
+              "paddingHorizontal": 25,
+            }
+          }
+        >
+          <View
+            style={
+              Array [
+                Object {
+                  "alignItems": "center",
+                  "justifyContent": "center",
+                  "marginHorizontal": 25,
+                  "marginTop": 35,
+                },
+              ]
+            }
+          >
+            <Text
+              adjustsFontSizeToFit={true}
+              style={
+                Array [
+                  Object {
+                    "color": "#FFFFFF",
+                    "fontSize": 38,
+                    "fontWeight": "bold",
+                  },
+                  Object {
+                    "marginBottom": 20,
+                    "marginTop": 25,
+                  },
+                ]
+              }
+            >
+              Home.Welcome
+            </Text>
+          </View>
+          <View
+            style={
+              Array [
+                Object {
+                  "alignItems": "center",
+                  "justifyContent": "center",
+                  "marginHorizontal": 25,
+                  "marginTop": 35,
+                },
+              ]
+            }
+          >
+            <Text
+              style={
+                Array [
+                  Object {
+                    "color": "#FFFFFF",
+                    "fontSize": 18,
+                    "fontWeight": "normal",
+                  },
+                  Object {
+                    "marginTop": 25,
+                    "textAlign": "center",
+                  },
+                ]
+              }
+            >
+              Home.NoCredentials
+            </Text>
+          </View>
+        </View>
+      </View>
+    </View>
   </View>
 </RCTScrollView>
 `;

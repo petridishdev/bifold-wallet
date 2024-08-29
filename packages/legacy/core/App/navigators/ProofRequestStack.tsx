@@ -6,6 +6,7 @@ import HeaderButton, { ButtonLocation } from '../components/buttons/HeaderButton
 import HeaderRightHome from '../components/buttons/HeaderHome'
 import { useTheme } from '../contexts/theme'
 import ListProofRequests from '../screens/ListProofRequests'
+import MobileVerifierLoading from '../screens/MobileVerifierLoading'
 import ProofChangeCredential from '../screens/ProofChangeCredential'
 import ProofDetails from '../screens/ProofDetails'
 import ProofRequestDetails from '../screens/ProofRequestDetails'
@@ -14,13 +15,13 @@ import ProofRequesting from '../screens/ProofRequesting'
 import { ProofRequestsStackParams, Screens } from '../types/navigators'
 import { testIdWithKey } from '../utils/testable'
 
-import { createDefaultStackOptions } from './defaultStackOptions'
+import { useDefaultStackOptions } from './defaultStackOptions'
 
 const ProofRequestStack: React.FC = () => {
   const Stack = createStackNavigator<ProofRequestsStackParams>()
   const theme = useTheme()
   const { t } = useTranslation()
-  const defaultStackOptions = createDefaultStackOptions(theme)
+  const defaultStackOptions = useDefaultStackOptions(theme)
 
   return (
     <Stack.Navigator screenOptions={{ ...defaultStackOptions }}>
@@ -35,6 +36,11 @@ const ProofRequestStack: React.FC = () => {
         options={() => ({
           title: '',
         })}
+      />
+      <Stack.Screen
+        name={Screens.MobileVerifierLoading}
+        component={MobileVerifierLoading}
+        options={{ ...defaultStackOptions }}
       />
       <Stack.Screen
         name={Screens.ProofChangeCredential}

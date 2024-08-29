@@ -22,6 +22,7 @@ export interface Preferences {
   developerModeEnabled: boolean
   useVerifierCapability?: boolean
   useConnectionInviterCapability?: boolean
+  useHistoryCapability?: boolean
   useDevVerifierTemplates?: boolean
   enableWalletNaming: boolean
   walletName: string
@@ -55,10 +56,6 @@ export interface Authentication {
   didAuthenticate: boolean
 }
 
-export interface DeepLink {
-  activeDeepLink?: string
-}
-
 export interface State {
   stateLoaded: boolean
   onboarding: Onboarding
@@ -67,7 +64,7 @@ export interface State {
   loginAttempt: LoginAttempt
   preferences: Preferences
   tours: Tours
-  deepLink: DeepLink
+  deepLink?: string
   migration: Migration
   loading: boolean
 }

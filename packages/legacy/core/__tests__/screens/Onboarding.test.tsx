@@ -11,13 +11,6 @@ import { testIdWithKey } from '../../App/utils/testable'
 
 export const carousel: OnboardingStyleSheet = createCarouselStyle(OnboardingTheme)
 
-jest.mock('@react-navigation/core', () => {
-  return require('../../__mocks__/custom/@react-navigation/core')
-})
-jest.mock('@react-navigation/native', () => {
-  return require('../../__mocks__/custom/@react-navigation/native')
-})
-
 const pages = [
   <>
     <Text testID={'bodyText'}>Hello</Text>
@@ -42,7 +35,7 @@ describe('Onboarding', () => {
     )
     const foundPages = await findAllByTestId('bodyText')
 
-    expect(foundPages.length).toBe(2)
+    expect(foundPages).toHaveLength(2)
   })
 
   test('Onboarding Developer mode', async () => {

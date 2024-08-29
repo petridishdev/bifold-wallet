@@ -4,8 +4,8 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { StyleSheet, Text, View } from 'react-native'
 
+import { TOKENS, useServices } from '../../container-api'
 import { useTheme } from '../../contexts/theme'
-import { useNotifications } from '../../hooks/notifications'
 
 const offset = 25
 
@@ -18,6 +18,7 @@ const HomeFooterView: React.FC<HomeFooterViewProps> = ({ children }) => {
     ...useCredentialByState(CredentialState.CredentialReceived),
     ...useCredentialByState(CredentialState.Done),
   ]
+  const [{useNotifications}] = useServices([TOKENS.NOTIFICATIONS])
   const notifications = useNotifications()
   const { HomeTheme, TextTheme } = useTheme()
   const { t } = useTranslation()
@@ -62,7 +63,7 @@ const HomeFooterView: React.FC<HomeFooterViewProps> = ({ children }) => {
 
     return (
       <>
-        {notifications.total === 0 && (
+        {notifications.length === 0 && (
           <View style={[styles.messageContainer]}>
             <Text adjustsFontSizeToFit style={[HomeTheme.welcomeHeader, { marginTop: offset, marginBottom: 20 }]}>
               {t('Home.Welcome')}

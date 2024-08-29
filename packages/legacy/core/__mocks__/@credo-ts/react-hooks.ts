@@ -2,12 +2,12 @@
 import { LegacyIndyCredentialFormat } from '@credo-ts/anoncreds'
 import {
   BasicMessageRecord,
+  ConnectionRecord,
   CredentialExchangeRecord,
   CredentialProtocolOptions,
-  ProofExchangeRecord,
-  ConnectionRecord,
   DidExchangeRole,
   DidExchangeState,
+  ProofExchangeRecord,
 } from '@credo-ts/core'
 
 const useCredentials = jest.fn().mockReturnValue({ records: [] } as any)
@@ -31,7 +31,7 @@ const mockProofModule = {
   acceptRequest: jest.fn(),
   declineRequest: jest.fn(),
   getFormatData: jest.fn(),
-  findRequestMessage: jest.fn(),
+  findRequestMessage: jest.fn().mockReturnValue(Promise.resolve(null)),
   requestProof: jest.fn(),
   update: jest.fn(),
   findAllByQuery: jest.fn().mockReturnValue(Promise.resolve([])),
@@ -73,6 +73,8 @@ const mockOobModule = {
   findById: jest.fn().mockReturnValue(Promise.resolve(null)),
   createInvitation: jest.fn(),
   toUrl: jest.fn(),
+  findByReceivedInvitationId: jest.fn().mockReturnValue(Promise.resolve(null)),
+  parseInvitation: jest.fn().mockReturnValue(Promise.resolve(null)),
 }
 const mockBasicMessageRepository = {
   update: jest.fn(),
@@ -82,7 +84,7 @@ const mockAgentContext = {
     resolve: jest.fn().mockReturnValue(mockBasicMessageRepository),
   },
 }
-const useAgent = () => ({
+const agent = {
   agent: {
     credentials: mockCredentialModule,
     proofs: mockProofModule,
@@ -92,8 +94,12 @@ const useAgent = () => ({
     oob: mockOobModule,
     context: mockAgentContext,
     receiveMessage: jest.fn(),
+    config: { logger: { error: jest.fn() } },
   },
-})
+}
+
+//mocked react hooks should return singleton objects to avoid unecessary re-renderings
+const useAgent = jest.fn().mockReturnValue(agent)
 const useCredentialById = jest.fn()
 const useProofById = jest.fn()
 const useConnectionById = jest.fn()

@@ -12,18 +12,19 @@ import InfoBox, { InfoBoxType } from '../components/misc/InfoBox'
 import CommonRemoveModal from '../components/modals/CommonRemoveModal'
 import { ToastType } from '../components/toast/BaseToast'
 import { EventTypes } from '../constants'
+import { TOKENS, useServices } from '../container-api'
+import { useTheme } from '../contexts/theme'
 import { BifoldError } from '../types/error'
 import { CredentialMetadata, credentialCustomMetadata } from '../types/metadata'
 import { CredentialStackParams, Screens } from '../types/navigators'
 import { ModalUsage } from '../types/remove'
 import { getCredentialIdentifiers, isValidAnonCredsCredential } from '../utils/credential'
-import { formatTime, getCredentialConnectionLabel } from '../utils/helpers'
+import { formatTime, useCredentialConnectionLabel } from '../utils/helpers'
 
-import { TOKENS, useContainer } from '../container-api'
 import { OverlayBundle } from '@hyperledger/aries-oca'
-import { LocalizedCredentialContext } from '@hyperledger/aries-oca/build/ui/contexts'
-import { CredentialDetail } from '@hyperledger/aries-oca/build/ui/components'
 import { LocalizedCredential } from '@hyperledger/aries-oca/build/formatters'
+import { CredentialDetail } from '@hyperledger/aries-oca/build/ui/components'
+import { LocalizedCredentialContext } from '@hyperledger/aries-oca/build/ui/contexts'
 
 import { i18n as localization } from '../localization'
 
@@ -37,7 +38,8 @@ const CredentialDetails: React.FC<CredentialDetailsProps> = ({ navigation, route
   const { credential } = route?.params
   const { agent } = useAgent()
   const { t, i18n } = useTranslation()
-  const bundleResolver = useContainer().resolve(TOKENS.UTIL_OCA_RESOLVER)
+  const { TextTheme, ColorPallet } = useTheme()
+  const [bundleResolver] = useServices([TOKENS.UTIL_OCA_RESOLVER])
   const [isRevoked, setIsRevoked] = useState<boolean>(false)
   const [revocationDate, setRevocationDate] = useState<string>('')
   const [preciseRevocationDate, setPreciseRevocationDate] = useState<string>('')
@@ -48,7 +50,7 @@ const CredentialDetails: React.FC<CredentialDetailsProps> = ({ navigation, route
   )
 
   const [bundle, setBundle] = useState<OverlayBundle>()
-  const credentialConnectionLabel = getCredentialConnectionLabel(credential)
+  const credentialConnectionLabel = useCredentialConnectionLabel(credential)
 
   useEffect(() => {
     if (!agent || !credential) {

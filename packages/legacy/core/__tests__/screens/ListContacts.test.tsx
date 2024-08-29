@@ -1,22 +1,18 @@
-import { useNavigation } from '@react-navigation/core'
 import { fireEvent, render, waitFor } from '@testing-library/react-native'
 import React from 'react'
+import { container } from 'tsyringe'
 
-import { ConfigurationContext } from '../../App/contexts/configuration'
+import { useNavigation as testUseNavigation } from '../../__mocks__/@react-navigation/native'
 import { StoreProvider, defaultState } from '../../App/contexts/store'
 import ListContacts from '../../App/screens/ListContacts'
-import configurationContext from '../contexts/configuration'
+import { BasicAppContext, CustomBasicAppContext } from '../helpers/app'
+import { TOKENS } from '../../App/container-api'
+import { MainContainer } from '../../App/container-impl'
 
-jest.mock('@react-navigation/core', () => {
-  return require('../../__mocks__/custom/@react-navigation/core')
-})
-jest.mock('@react-navigation/native', () => {
-  return require('../../__mocks__/custom/@react-navigation/native')
-})
 // eslint-disable-next-line @typescript-eslint/no-empty-function
-jest.mock('react-native-localize', () => {})
+jest.mock('react-native-localize', () => { })
 
-const navigation = useNavigation()
+const navigation = testUseNavigation()
 
 describe('ListContacts Component', () => {
   beforeEach(() => {
@@ -25,20 +21,20 @@ describe('ListContacts Component', () => {
 
   test('Renders correctly', async () => {
     const tree = render(
-      <ConfigurationContext.Provider value={configurationContext}>
+      <BasicAppContext>
         <ListContacts navigation={navigation as any} />
-      </ConfigurationContext.Provider>
+      </BasicAppContext>
     )
-    await waitFor(() => {})
+    await waitFor(() => { })
     await new Promise((r) => setTimeout(r, 2000))
     expect(tree).toMatchSnapshot()
   })
 
   test('pressing on a contact in the list takes the user to a contact history screen', async () => {
     const { findByText } = render(
-      <ConfigurationContext.Provider value={configurationContext}>
+      <BasicAppContext>
         <ListContacts navigation={navigation as any} />
-      </ConfigurationContext.Provider>
+      </BasicAppContext>
     )
 
     await waitFor(async () => {
@@ -54,6 +50,9 @@ describe('ListContacts Component', () => {
   })
 
   test('Hide list filters out specific contacts', async () => {
+    const context = new MainContainer(container.createChildContainer()).init()
+    const config = context.resolve(TOKENS.CONFIG)
+    context.container.registerInstance(TOKENS.CONFIG, { ...config, contactHideList: ['Faber'] })
     const tree = render(
       <StoreProvider
         initialState={{
@@ -64,9 +63,9 @@ describe('ListContacts Component', () => {
           },
         }}
       >
-        <ConfigurationContext.Provider value={{ ...configurationContext, contactHideList: ['Faber'] }}>
+        <CustomBasicAppContext container={context}>
           <ListContacts navigation={navigation as any} />
-        </ConfigurationContext.Provider>
+        </CustomBasicAppContext>
       </StoreProvider>
     )
     await waitFor(async () => {
@@ -78,7 +77,9 @@ describe('ListContacts Component', () => {
   })
 
   test('Hide list does not filter out specific contacts when developer mode is enabled', async () => {
-    const navigation = useNavigation()
+    const context = new MainContainer(container.createChildContainer()).init()
+    const config = context.resolve(TOKENS.CONFIG)
+    context.container.registerInstance(TOKENS.CONFIG, { ...config, contactHideList: ['Faber'] })
     const tree = render(
       <StoreProvider
         initialState={{
@@ -89,9 +90,9 @@ describe('ListContacts Component', () => {
           },
         }}
       >
-        <ConfigurationContext.Provider value={{ ...configurationContext, contactHideList: ['Faber'] }}>
+        <CustomBasicAppContext container={context}>
           <ListContacts navigation={navigation as any} />
-        </ConfigurationContext.Provider>
+        </CustomBasicAppContext>
       </StoreProvider>
     )
     await waitFor(async () => {
