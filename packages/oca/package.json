@@ -71,8 +71,8 @@
   },
   "dependencies": {
     "@credo-ts/anoncreds": "0.5.9",
-    "@storybook/react": "^8.1.1",
     "@credo-ts/core": "0.5.9",
+    "@storybook/react": "^8.1.1",
     "axios": "^1.4.0",
     "i18next": "^23.11.5",
     "lodash.startcase": "^4.4.0",
