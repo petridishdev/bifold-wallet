@@ -4,7 +4,8 @@
       "attributes": {
         "expiry_date": "DateTime",
         "student_first_name": "Text",
-        "student_last_name": "Text"
+        "student_last_name": "Text",
+        "student_photo": "Binary"
       },
       "classification": "",
       "digest": "E75sopl65qnoZRwjQQ0FjWGemLlOXcXtanhScZ2CloJY",
