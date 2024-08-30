@@ -1,5 +1,5 @@
 import startCase from 'lodash.startcase'
-import { Text, StyleSheet, StyleProp, TextStyle } from 'react-native'
+import { StyleProp, StyleSheet, Text, TextStyle } from 'react-native'
 
 import { useCredentialTheme } from '@ui/contexts/credentialTheme'
 

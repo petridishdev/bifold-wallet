@@ -94,10 +94,6 @@ const CredentialDetails: React.FC<CredentialDetailsProps> = ({ navigation, route
     }
   }, [isRevoked])
 
-  const handleOnRemove = () => {
-    setIsRemoveModalDisplayed(true)
-  }
-
   const handleSubmitRemove = async () => {
     try {
       if (!(agent && credential)) {

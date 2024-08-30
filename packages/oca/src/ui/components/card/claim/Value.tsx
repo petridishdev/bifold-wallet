@@ -1,4 +1,4 @@
-import { View, Image, Text, StyleSheet, StyleProp, TextStyle } from 'react-native'
+import { Image, StyleProp, StyleSheet, Text, TextStyle, View } from 'react-native'
 
 import { isDataUrl } from '@oca/utils'
 import { useCredentialTheme } from '@ui/contexts/credentialTheme'

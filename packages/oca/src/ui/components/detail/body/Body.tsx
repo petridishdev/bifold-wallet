@@ -1,10 +1,11 @@
 import { LocalizedAttribute } from '@oca/formatters'
-import { FlatList, Pressable, StyleSheet, Text, View } from 'react-native'
 import ShowAll from '@oca/ui/components/detail/body/ToggleAll'
 import { useCredentialTheme } from '@oca/ui/contexts'
-import { useTranslation } from 'react-i18next'
+import { isBinaryType } from '@oca/utils'
 import { HIDDEN_ATTRIBUTE_VALUE, PADDING_HORIZONTAL } from '@ui/components/detail/constants'
 import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
+import { FlatList, Image, Pressable, StyleSheet, Text, View } from 'react-native'
 
 interface BodyProps extends React.PropsWithChildren {
   attributes?: LocalizedAttribute[]
@@ -43,6 +44,12 @@ const Body: React.FC<BodyProps> = ({ attributes }) => {
     },
     linkText: {
       color: color.brand.link,
+    },
+    image: {
+      height: 150,
+      aspectRatio: 1,
+      resizeMode: 'contain',
+      borderRadius: 10,
     },
   })
 
@@ -93,7 +100,15 @@ const Body: React.FC<BodyProps> = ({ attributes }) => {
             </View>
             <View>
               <Text style={[text.normal, styles.valueText]}>
-                {toggled.has(index) ? attribute.formattedValue : HIDDEN_ATTRIBUTE_VALUE}
+                {toggled.has(index) ? (
+                  isBinaryType(attribute.type) ? (
+                    <Image style={styles.image} source={{ uri: attribute.value }} />
+                  ) : (
+                    attribute.formattedValue
+                  )
+                ) : (
+                  HIDDEN_ATTRIBUTE_VALUE
+                )}
               </Text>
             </View>
           </View>

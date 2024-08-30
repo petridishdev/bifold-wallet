@@ -1,15 +1,15 @@
 import { View, useWindowDimensions } from 'react-native'
 
 import { LocalizedCredential } from '@oca/formatters'
-import { contrastColor, toImageSource } from '@oca/utils'
 import Issuer from '@oca/ui/components/common/Issuer'
 import Logo from '@oca/ui/components/common/Logo'
 import Name from '@oca/ui/components/common/Name'
-import Status, { StatusLevelEnum } from '@ui/components/card/Status'
 import Watermark from '@oca/ui/components/common/Watermark'
+import { contrastColor, toImageSource } from '@oca/utils'
 import Primary from '@ui/components/card/body/Primary'
 import Secondary from '@ui/components/card/body/Secondary'
 import Claim from '@ui/components/card/claim/Claim'
+import Status, { StatusLevelEnum } from '@ui/components/card/Status'
 import { createStyleSheet } from '@ui/components/card/utils'
 import { useCredentialTheme } from '@ui/contexts/credentialTheme'
 

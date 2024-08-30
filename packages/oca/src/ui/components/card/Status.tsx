@@ -1,4 +1,4 @@
-import { View, StyleSheet, StyleProp, ViewStyle } from 'react-native'
+import { StyleProp, StyleSheet, View, ViewStyle } from 'react-native'
 import Icon from 'react-native-vector-icons/MaterialIcons'
 
 import { useCredentialTheme } from '@ui/contexts/credentialTheme'
@@ -79,13 +79,7 @@ const Status: React.FC<StatusProps> = ({ level = undefined, style }) => {
     }
   }
 
-  return (
-    <View
-    // testID={testIdWithKey('CredentialCardStatus')}
-    >
-      {renderStatus(level)}
-    </View>
-  )
+  return <View>{renderStatus(level)}</View>
 }
 
 export default Status
