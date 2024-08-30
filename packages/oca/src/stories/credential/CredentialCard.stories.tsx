@@ -33,7 +33,7 @@ const meta = {
       },
       {
         name: 'attribute_1_no_overlay',
-        value: '12345OK WHAT ABOUT THIS',
+        value: '12345',
       },
       {
         name: 'attribute_2_no_overlay',
